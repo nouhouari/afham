@@ -1,0 +1,20 @@
+targets:
+  $default:
+    builders:
+      # ── Drift codegen ──────────────────────────────────────────────────────
+      drift_dev:
+        options:
+          # Enable SQLite extensions used at runtime.
+          sqlite:
+            modules:
+              - fts5
+          # Generate `fromJson`/`toJson` on data classes.
+          generate_values_in_copy_with: true
+          # Compact scalar fields into named parameters for convenience.
+          data_class_to_companions: true
+
+      # ── Riverpod codegen ───────────────────────────────────────────────────
+      riverpod_generator:
+        options:
+          # No extra options needed currently.
+          {}

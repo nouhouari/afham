@@ -1,0 +1,103 @@
+-- ============================================================
+-- Bayan — Drift schema (Phase 2)
+-- Lemme-centred Quranic vocabulary database.
+-- ============================================================
+
+-- Audio sprites. A lemma can reference a clip (nullable FK).
+CREATE TABLE audio_clips (
+  id         INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  pack_file  TEXT    NOT NULL,
+  start_ms   INTEGER NOT NULL,
+  duration_ms INTEGER NOT NULL
+);
+
+-- Trilateral (or quadrilateral) Arabic roots.
+CREATE TABLE roots (
+  id              INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  root_ar         TEXT    NOT NULL,
+  root_normalized TEXT    NOT NULL,  -- normalizeArabic(root_ar)
+  latin           TEXT    NOT NULL
+);
+
+-- Lexical entry (the "word" shown on the detail sheet).
+CREATE TABLE lemmas (
+  id        INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  root_id   INTEGER REFERENCES roots(id),
+  lemma_ar  TEXT    NOT NULL,
+  search_key TEXT   NOT NULL,  -- normalizeArabic(lemma_ar)
+  latin     TEXT    NOT NULL,
+  pos       TEXT    NOT NULL DEFAULT 'noun', -- noun/verb/particle/…
+  frequency INTEGER NOT NULL DEFAULT 0,
+  audio_id  INTEGER REFERENCES audio_clips(id)
+);
+
+-- Multilingual content, one row per (lemma, lang). Adding a language = inserting rows.
+CREATE TABLE word_content (
+  id          INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  lemma_id    INTEGER NOT NULL REFERENCES lemmas(id),
+  lang_code   TEXT    NOT NULL, -- 'fr' | 'en'
+  translation TEXT    NOT NULL,
+  tafsir      TEXT    NOT NULL DEFAULT '',
+  gem         TEXT    NOT NULL DEFAULT '',  -- Pépite linguistique/spirituelle
+  mnemonic    TEXT    NOT NULL DEFAULT '',  -- Astuce mémo
+  UNIQUE(lemma_id, lang_code)
+);
+
+-- Exact Quranic surface forms (with harakat), resolving to a lemma.
+CREATE TABLE surface_forms (
+  id         INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  lemma_id   INTEGER NOT NULL REFERENCES lemmas(id),
+  text_ar    TEXT    NOT NULL,  -- full harakat form, e.g. رَحْمَةً
+  search_key TEXT    NOT NULL,  -- normalizeArabic(text_ar)
+  latin      TEXT    NOT NULL
+);
+
+-- Quranic verses.
+CREATE TABLE verses (
+  id           INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  surah        INTEGER NOT NULL,
+  ayah         INTEGER NOT NULL,
+  text_uthmani TEXT    NOT NULL,
+  text_simple  TEXT    NOT NULL DEFAULT '',
+  UNIQUE(surah, ayah)
+);
+
+-- Each occurrence of a surface form in a verse.
+CREATE TABLE occurrences (
+  id              INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  surface_form_id INTEGER NOT NULL REFERENCES surface_forms(id),
+  verse_id        INTEGER NOT NULL REFERENCES verses(id),
+  position        INTEGER NOT NULL  -- token position within the verse (0-based)
+);
+
+-- ============================================================
+-- FTS5 virtual table for tolerant search.
+-- Columns: rowid implicitly = surface_forms.id
+-- search_key: bare-consonant Arabic (no harakat, unified alef/ya/ta)
+-- latin:      ASCII transliteration for Latin-script queries
+-- content='' means we own no row storage; triggers keep it in sync.
+-- ============================================================
+CREATE VIRTUAL TABLE forms_fts USING fts5(
+  search_key,
+  latin,
+  content='surface_forms',
+  content_rowid='id'
+);
+
+-- Triggers to keep forms_fts in sync with surface_forms.
+CREATE TRIGGER surface_forms_ai AFTER INSERT ON surface_forms BEGIN
+  INSERT INTO forms_fts(rowid, search_key, latin)
+    VALUES (new.id, new.search_key, new.latin);
+END;
+
+CREATE TRIGGER surface_forms_ad AFTER DELETE ON surface_forms BEGIN
+  INSERT INTO forms_fts(forms_fts, rowid, search_key, latin)
+    VALUES ('delete', old.id, old.search_key, old.latin);
+END;
+
+CREATE TRIGGER surface_forms_au AFTER UPDATE ON surface_forms BEGIN
+  INSERT INTO forms_fts(forms_fts, rowid, search_key, latin)
+    VALUES ('delete', old.id, old.search_key, old.latin);
+  INSERT INTO forms_fts(rowid, search_key, latin)
+    VALUES (new.id, new.search_key, new.latin);
+END;
