@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:bayan/data/database/app_database.dart';
 import 'package:bayan/data/database/models/search_result.dart';
+import 'package:bayan/data/seed/json_seed_importer.dart';
 import 'package:bayan/data/seed/seed_data.dart';
 
 part 'database_provider.g.dart';
@@ -23,7 +24,15 @@ AppDatabase appDatabase(Ref ref) {
   // synchronous.
   Future.microtask(() async {
     final seeded = await db.searchDao.isSeeded();
-    if (!seeded) await seedDatabase(db);
+    if (seeded) return;
+    // Primary path: import the generated JSON content bundled as an asset.
+    // Fallback: the hand-written Dart seed, so the app is never empty even if
+    // the asset is missing or malformed during development.
+    try {
+      await importLemmasFromAsset(db);
+    } catch (_) {
+      await seedDatabase(db);
+    }
   });
   return db;
 }

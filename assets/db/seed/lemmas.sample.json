@@ -1,0 +1,196 @@
+{
+  "lemmas": [
+    {
+      "root": { "ar": "ر-ح-م", "latin": "r-h-m" },
+      "lemma_ar": "رَحْمَة",
+      "latin": "rahma",
+      "pos": "noun",
+      "frequency": 79,
+      "surface_forms": [
+        {
+          "text_ar": "رَحْمَتَ",
+          "latin": "rahmata",
+          "verses": [
+            {
+              "surah": 7,
+              "ayah": 56,
+              "text_uthmani": "إِنَّ رَحْمَتَ ٱللَّهِ قَرِيبٌ مِّنَ ٱلْمُحْسِنِينَ",
+              "text_simple": "إن رحمت الله قريب من المحسنين",
+              "position": 1
+            }
+          ]
+        },
+        {
+          "text_ar": "رَحْمَةً",
+          "latin": "rahmatan",
+          "verses": [
+            {
+              "surah": 2,
+              "ayah": 64,
+              "text_uthmani": "فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ",
+              "text_simple": "فلولا فضل الله عليكم ورحمته"
+            }
+          ]
+        }
+      ],
+      "content": {
+        "fr": {
+          "translation": "Miséricorde, bienveillance",
+          "tafsir": "Ar-Rahma désigne la bienveillance active de Dieu envers Sa création ; la Basmala l'invoque sous deux formes, ar-Rahmān (étendue) et ar-Rahīm (constante).",
+          "gem": "رَحْمَة partage sa racine ر-ح-م avec رَحِم (l'utérus) : la miséricorde divine évoque la tendresse maternelle.",
+          "mnemonic": "Pense à « rhem » / « rahma » en Darija (pitié, tendresse) : la rahma enveloppe comme un sein maternel."
+        },
+        "en": {
+          "translation": "Mercy, compassion",
+          "tafsir": "Ar-Rahma is God's active compassion toward creation; the Basmala invokes it as ar-Rahmān (vast) and ar-Rahīm (enduring).",
+          "gem": "رَحْمَة shares the root ر-ح-م with raḥim (womb): divine mercy echoes a mother's tenderness.",
+          "mnemonic": "Rahma echoes the Hebrew cognate raḥamim (mercy) — the same Semitic root meaning womb-deep compassion."
+        }
+      }
+    },
+    {
+      "root": { "ar": "ص-ب-ر", "latin": "s-b-r" },
+      "lemma_ar": "صَبْر",
+      "latin": "sabr",
+      "pos": "noun",
+      "frequency": 90,
+      "surface_forms": [
+        {
+          "text_ar": "ٱلصَّبْرِ",
+          "latin": "as-sabri",
+          "verses": [
+            {
+              "surah": 2,
+              "ayah": 153,
+              "text_uthmani": "يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوا۟ ٱسْتَعِينُوا۟ بِٱلصَّبْرِ وَٱلصَّلَوٰةِ",
+              "text_simple": "يا أيها الذين آمنوا استعينوا بالصبر والصلاة",
+              "position": 4
+            }
+          ]
+        }
+      ],
+      "content": {
+        "fr": {
+          "translation": "Patience, endurance",
+          "tafsir": "As-Sabr est l'endurance consentie face à l'épreuve, l'obéissance et la tentation. Le verset associe la patience à la prière comme deux sources de force.",
+          "gem": "La racine ص-ب-ر évoque l'idée de retenir, de lier : la patience est l'acte actif de retenir l'âme de la plainte, non une résignation passive.",
+          "mnemonic": "« Sber ! » en Darija (patience !) — tu l'entends dans chaque conseil de ta grand-mère."
+        },
+        "en": {
+          "translation": "Patience, steadfastness",
+          "tafsir": "As-Sabr is willing endurance amid hardship, obedience, and temptation. The verse pairs patience with prayer as twin sources of strength.",
+          "gem": "The root ص-ب-ر carries the sense of restraining or binding: patience is the active holding-back of the self from complaint, not passive resignation.",
+          "mnemonic": "Sabr = 'sober': a patient soul stays sober and steady under pressure."
+        }
+      }
+    },
+    {
+      "root": { "ar": "ن-و-ر", "latin": "n-w-r" },
+      "lemma_ar": "نُور",
+      "latin": "nur",
+      "pos": "noun",
+      "frequency": 49,
+      "surface_forms": [
+        {
+          "text_ar": "نُورُ",
+          "latin": "nuru",
+          "verses": [
+            {
+              "surah": 24,
+              "ayah": 35,
+              "text_uthmani": "ٱللَّهُ نُورُ ٱلسَّمَٰوَٰتِ وَٱلْأَرْضِ",
+              "text_simple": "الله نور السماوات والأرض",
+              "position": 1
+            }
+          ]
+        }
+      ],
+      "content": {
+        "fr": {
+          "translation": "Lumière",
+          "tafsir": "Dans l'ayat an-Nūr (24:35), Dieu est décrit comme la lumière des cieux et de la terre : lumière physique et guidance spirituelle qui irradie vers la création.",
+          "gem": "Nūr est à la fois la lumière sensible et la lumière du cœur ; le Coran lui-même est appelé nūr (lumière) qui dissipe les ténèbres de l'ignorance.",
+          "mnemonic": "« Nour » est un prénom courant au Maghreb — chacun porte une lumière à révéler."
+        },
+        "en": {
+          "translation": "Light",
+          "tafsir": "In the Light Verse (24:35), God is described as the light of the heavens and the earth: both physical light and spiritual guidance radiating to creation.",
+          "gem": "Nūr is both visible light and the light of the heart; the Qur'an itself is called nūr, dispelling the darkness of ignorance.",
+          "mnemonic": "Nūr → 'noor' → think of a luminous 'aurora' lighting the sky."
+        }
+      }
+    },
+    {
+      "root": { "ar": "ق-ل-ب", "latin": "q-l-b" },
+      "lemma_ar": "قَلْب",
+      "latin": "qalb",
+      "pos": "noun",
+      "frequency": 168,
+      "surface_forms": [
+        {
+          "text_ar": "ٱلْقُلُوبُ",
+          "latin": "al-qulub",
+          "verses": [
+            {
+              "surah": 13,
+              "ayah": 28,
+              "text_uthmani": "أَلَا بِذِكْرِ ٱللَّهِ تَطْمَئِنُّ ٱلْقُلُوبُ",
+              "text_simple": "ألا بذكر الله تطمئن القلوب",
+              "position": 4
+            }
+          ]
+        }
+      ],
+      "content": {
+        "fr": {
+          "translation": "Cœur (siège de l'âme et de l'intellect)",
+          "tafsir": "Dans le Coran, le qalb est le lieu de la foi, de la compréhension et de la déviation. Le verset rappelle que seul le souvenir de Dieu apaise les cœurs.",
+          "gem": "Qalb vient de la racine ق-ل-ب (se retourner) : le cœur humain est fluctuant, d'où l'invocation « Yā muqallib al-qulūb, thabbit qalbī ».",
+          "mnemonic": "« Qalb » comme « galb » en Darija (cœur) — garde ton galb tourné vers Dieu."
+        },
+        "en": {
+          "translation": "Heart (seat of understanding and will)",
+          "tafsir": "In the Qur'an the qalb is the locus of faith, understanding, and turning away. The verse affirms that hearts find rest only in the remembrance of God.",
+          "gem": "Qalb derives from the root ق-ل-ب (to turn over): the human heart is ever-shifting, hence the prayer 'O Turner of hearts, make my heart firm.'",
+          "mnemonic": "Qalb → think 'club' beating: your heart can flip — keep it turned toward God."
+        }
+      }
+    },
+    {
+      "root": { "ar": "س-ل-م", "latin": "s-l-m" },
+      "lemma_ar": "سَلَام",
+      "latin": "salam",
+      "pos": "noun",
+      "frequency": 42,
+      "surface_forms": [
+        {
+          "text_ar": "سَلَٰمٌ",
+          "latin": "salamun",
+          "verses": [
+            {
+              "surah": 36,
+              "ayah": 58,
+              "text_uthmani": "سَلَٰمٌ قَوْلًا مِّن رَّبٍّ رَّحِيمٍ",
+              "text_simple": "سلام قولا من رب رحيم",
+              "position": 0
+            }
+          ]
+        }
+      ],
+      "content": {
+        "fr": {
+          "translation": "Paix, salut, sécurité",
+          "tafsir": "As-Salām est l'un des noms divins ; ici, c'est la parole de paix adressée aux bienheureux. Le salut islamique « as-salāmu alaykum » est une prière pour la paix d'autrui.",
+          "gem": "Islām, muslim, salīm et salām partagent la racine س-ل-م (intégrité, paix) : être musulman, c'est aspirer à cette plénitude apaisée.",
+          "mnemonic": "« Slama » / « bessalama » en Darija (paix, au revoir) — la paix comme salutation quotidienne."
+        },
+        "en": {
+          "translation": "Peace, safety, greeting",
+          "tafsir": "As-Salām is one of God's names; here it is the word of peace spoken to the blessed. The greeting 'as-salāmu alaykum' is a prayer for another's peace.",
+          "gem": "Islām, muslim, salīm and salām share the root س-ل-م (wholeness, peace) — to be muslim is to seek that settled wholeness.",
+          "mnemonic": "Salām is the cognate of Hebrew shalom — the same Semitic word for peace."
+        }
+      }
+    }
+  ]
+}

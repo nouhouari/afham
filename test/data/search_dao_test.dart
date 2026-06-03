@@ -193,8 +193,7 @@ void main() {
         langCode: 'fr',
       );
       final r = results.firstWhere((r) => r.lemmaAr == 'رَحْمَة');
-      // Seed uses simplified ASCII (no accented chars) for portability.
-      expect(r.translation.toLowerCase(), contains('misericorde'));
+      expect(r.translation.toLowerCase(), contains('miséricorde'));
     });
 
     test('EN results contain English translation', () async {

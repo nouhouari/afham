@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bayan.app/schemas/content_schema.json",
+  "title": "Bayan lemma content file",
+  "description": "A seed file of Quranic lemmas, aligned with the Drift tables roots/lemmas/word_content/surface_forms/verses/occurrences.",
+  "type": "object",
+  "required": ["lemmas"],
+  "additionalProperties": false,
+  "properties": {
+    "lemmas": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/lemma" }
+    }
+  },
+  "$defs": {
+    "arabic": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Arabic text (may contain harakat)."
+    },
+    "pos": {
+      "type": "string",
+      "enum": [
+        "noun",
+        "verb",
+        "adjective",
+        "adverb",
+        "particle",
+        "pronoun",
+        "proper_noun",
+        "preposition",
+        "conjunction",
+        "interjection"
+      ]
+    },
+    "root": {
+      "type": "object",
+      "required": ["ar", "latin"],
+      "additionalProperties": false,
+      "properties": {
+        "ar": {
+          "$ref": "#/$defs/arabic",
+          "description": "Root letters, e.g. ر-ح-م"
+        },
+        "latin": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 20,
+          "description": "Hyphen-separated transliteration, e.g. r-h-m"
+        }
+      }
+    },
+    "verse": {
+      "type": "object",
+      "required": ["surah", "ayah", "text_uthmani"],
+      "additionalProperties": false,
+      "properties": {
+        "surah": { "type": "integer", "minimum": 1, "maximum": 114 },
+        "ayah": { "type": "integer", "minimum": 1, "maximum": 286 },
+        "text_uthmani": { "$ref": "#/$defs/arabic" },
+        "text_simple": {
+          "type": "string",
+          "description": "Optional simplified (no-harakat) text. Defaults to normalizeArabic(text_uthmani) at import."
+        },
+        "position": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Optional 0-based token position of the surface form in the verse. Defaults to 0."
+        }
+      }
+    },
+    "surfaceForm": {
+      "type": "object",
+      "required": ["text_ar", "latin", "verses"],
+      "additionalProperties": false,
+      "properties": {
+        "text_ar": {
+          "$ref": "#/$defs/arabic",
+          "description": "Exact vocalised Quranic form, e.g. رَحْمَةً"
+        },
+        "latin": { "type": "string", "minLength": 1, "maxLength": 40 },
+        "verses": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/verse" }
+        }
+      }
+    },
+    "localizedContent": {
+      "type": "object",
+      "required": ["translation", "tafsir", "gem", "mnemonic"],
+      "additionalProperties": false,
+      "properties": {
+        "translation": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "tafsir": { "type": "string", "maxLength": 400 },
+        "gem": { "type": "string", "maxLength": 360 },
+        "mnemonic": { "type": "string", "maxLength": 300 }
+      }
+    },
+    "content": {
+      "type": "object",
+      "required": ["fr", "en"],
+      "additionalProperties": false,
+      "properties": {
+        "fr": { "$ref": "#/$defs/localizedContent" },
+        "en": { "$ref": "#/$defs/localizedContent" }
+      }
+    },
+    "lemma": {
+      "type": "object",
+      "required": ["root", "lemma_ar", "latin", "surface_forms", "content"],
+      "additionalProperties": false,
+      "properties": {
+        "root": { "$ref": "#/$defs/root" },
+        "lemma_ar": {
+          "$ref": "#/$defs/arabic",
+          "description": "Vocalised lemma, e.g. رَحْمَة"
+        },
+        "latin": { "type": "string", "minLength": 1, "maxLength": 40 },
+        "pos": { "$ref": "#/$defs/pos", "default": "noun" },
+        "frequency": { "type": "integer", "minimum": 0, "default": 0 },
+        "surface_forms": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": { "$ref": "#/$defs/surfaceForm" }
+        },
+        "content": { "$ref": "#/$defs/content" }
+      }
+    }
+  }
+}

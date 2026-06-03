@@ -376,7 +376,7 @@ Future<void> seedDatabase(AppDatabase db) async {
             "Allah = Al-Ilah contracte : le seul ilah (dieu) digne de ce nom.",
       ),
       lRahma: (
-        trans: "Misericorde, bienveillance",
+        trans: "Miséricorde, bienveillance",
         tafsir:
             "Ar-Rahma designe la bienveillance active de Dieu. Ibn Kathir souligne que la Basmala ouvre chaque sourate par deux attributs de cette misericorde : ar-Rahman (etendue) et ar-Rahim (profonde).",
         gem:
