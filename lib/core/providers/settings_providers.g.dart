@@ -8,21 +8,73 @@ part of 'settings_providers.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Holds the user's preferred [ThemeMode] (in memory only for now).
+/// The [SharedPreferences] instance. Overridden with the real, async-loaded
+/// instance in `main()` via `ProviderScope(overrides: …)`.
+
+@ProviderFor(sharedPreferences)
+final sharedPreferencesProvider = SharedPreferencesProvider._();
+
+/// The [SharedPreferences] instance. Overridden with the real, async-loaded
+/// instance in `main()` via `ProviderScope(overrides: …)`.
+
+final class SharedPreferencesProvider
+    extends
+        $FunctionalProvider<
+          SharedPreferences,
+          SharedPreferences,
+          SharedPreferences
+        >
+    with $Provider<SharedPreferences> {
+  /// The [SharedPreferences] instance. Overridden with the real, async-loaded
+  /// instance in `main()` via `ProviderScope(overrides: …)`.
+  SharedPreferencesProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'sharedPreferencesProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$sharedPreferencesHash();
+
+  @$internal
+  @override
+  $ProviderElement<SharedPreferences> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  SharedPreferences create(Ref ref) {
+    return sharedPreferences(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SharedPreferences value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SharedPreferences>(value),
+    );
+  }
+}
+
+String _$sharedPreferencesHash() => r'bdf49748bece142c907bc28d050b90b97094eaa9';
+
+/// The user's preferred [ThemeMode], persisted across launches.
 /// Defaults to [ThemeMode.system].
-/// TODO(phase5): persist via shared_preferences and restore on startup.
 
 @ProviderFor(ThemeModeNotifier)
 final themeModeProvider = ThemeModeNotifierProvider._();
 
-/// Holds the user's preferred [ThemeMode] (in memory only for now).
+/// The user's preferred [ThemeMode], persisted across launches.
 /// Defaults to [ThemeMode.system].
-/// TODO(phase5): persist via shared_preferences and restore on startup.
 final class ThemeModeNotifierProvider
     extends $NotifierProvider<ThemeModeNotifier, ThemeMode> {
-  /// Holds the user's preferred [ThemeMode] (in memory only for now).
+  /// The user's preferred [ThemeMode], persisted across launches.
   /// Defaults to [ThemeMode.system].
-  /// TODO(phase5): persist via shared_preferences and restore on startup.
   ThemeModeNotifierProvider._()
     : super(
         from: null,
@@ -50,11 +102,10 @@ final class ThemeModeNotifierProvider
   }
 }
 
-String _$themeModeNotifierHash() => r'21098a6ac98ee372e04ca080813cee7a17a665e6';
+String _$themeModeNotifierHash() => r'21214dda34d785f16b32a28a2199191b94358fc7';
 
-/// Holds the user's preferred [ThemeMode] (in memory only for now).
+/// The user's preferred [ThemeMode], persisted across launches.
 /// Defaults to [ThemeMode.system].
-/// TODO(phase5): persist via shared_preferences and restore on startup.
 
 abstract class _$ThemeModeNotifier extends $Notifier<ThemeMode> {
   ThemeMode build();
@@ -74,33 +125,27 @@ abstract class _$ThemeModeNotifier extends $Notifier<ThemeMode> {
   }
 }
 
-/// Holds the user's preferred [Locale] (fr or en), in memory only for now.
+/// The user's preferred [Locale] (fr or en), persisted across launches.
 /// Defaults to French.
 ///
-/// NOTE: when this changes, slang's LocaleSettings must be updated too
-/// (LocaleSettings.setLocaleRaw) so Material widgets and app strings stay in
-/// sync — wired in the settings screen.
-/// TODO(phase5): persist + perform the slang sync on change.
+/// Setting it also updates slang's [LocaleSettings] so Material widgets and
+/// app strings switch together.
 
 @ProviderFor(LocaleNotifier)
 final localeProvider = LocaleNotifierProvider._();
 
-/// Holds the user's preferred [Locale] (fr or en), in memory only for now.
+/// The user's preferred [Locale] (fr or en), persisted across launches.
 /// Defaults to French.
 ///
-/// NOTE: when this changes, slang's LocaleSettings must be updated too
-/// (LocaleSettings.setLocaleRaw) so Material widgets and app strings stay in
-/// sync — wired in the settings screen.
-/// TODO(phase5): persist + perform the slang sync on change.
+/// Setting it also updates slang's [LocaleSettings] so Material widgets and
+/// app strings switch together.
 final class LocaleNotifierProvider
     extends $NotifierProvider<LocaleNotifier, Locale> {
-  /// Holds the user's preferred [Locale] (fr or en), in memory only for now.
+  /// The user's preferred [Locale] (fr or en), persisted across launches.
   /// Defaults to French.
   ///
-  /// NOTE: when this changes, slang's LocaleSettings must be updated too
-  /// (LocaleSettings.setLocaleRaw) so Material widgets and app strings stay in
-  /// sync — wired in the settings screen.
-  /// TODO(phase5): persist + perform the slang sync on change.
+  /// Setting it also updates slang's [LocaleSettings] so Material widgets and
+  /// app strings switch together.
   LocaleNotifierProvider._()
     : super(
         from: null,
@@ -128,15 +173,13 @@ final class LocaleNotifierProvider
   }
 }
 
-String _$localeNotifierHash() => r'd9c977286893cd86887d512980e687bed689e3fa';
+String _$localeNotifierHash() => r'58d2df53451f04b2674824222612b9d648c897aa';
 
-/// Holds the user's preferred [Locale] (fr or en), in memory only for now.
+/// The user's preferred [Locale] (fr or en), persisted across launches.
 /// Defaults to French.
 ///
-/// NOTE: when this changes, slang's LocaleSettings must be updated too
-/// (LocaleSettings.setLocaleRaw) so Material widgets and app strings stay in
-/// sync — wired in the settings screen.
-/// TODO(phase5): persist + perform the slang sync on change.
+/// Setting it also updates slang's [LocaleSettings] so Material widgets and
+/// app strings switch together.
 
 abstract class _$LocaleNotifier extends $Notifier<Locale> {
   Locale build();

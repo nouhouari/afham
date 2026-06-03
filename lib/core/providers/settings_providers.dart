@@ -1,30 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:bayan/core/i18n/strings.g.dart';
 
 part 'settings_providers.g.dart';
 
-/// Holds the user's preferred [ThemeMode] (in memory only for now).
+const _kThemeModeKey = 'settings.themeMode';
+
+/// Storage key for the persisted locale language code. Also read in `main()`.
+const localePrefKey = 'settings.locale';
+
+/// The [SharedPreferences] instance. Overridden with the real, async-loaded
+/// instance in `main()` via `ProviderScope(overrides: …)`.
+@Riverpod(keepAlive: true)
+SharedPreferences sharedPreferences(Ref ref) => throw UnimplementedError(
+  'sharedPreferencesProvider must be overridden in main()',
+);
+
+/// The user's preferred [ThemeMode], persisted across launches.
 /// Defaults to [ThemeMode.system].
-/// TODO(phase5): persist via shared_preferences and restore on startup.
 @riverpod
 class ThemeModeNotifier extends _$ThemeModeNotifier {
   @override
-  ThemeMode build() => ThemeMode.system;
+  ThemeMode build() {
+    final raw = ref.watch(sharedPreferencesProvider).getString(_kThemeModeKey);
+    return ThemeMode.values.asNameMap()[raw] ?? ThemeMode.system;
+  }
 
-  void setThemeMode(ThemeMode mode) => state = mode;
+  Future<void> setThemeMode(ThemeMode mode) async {
+    state = mode;
+    await ref
+        .read(sharedPreferencesProvider)
+        .setString(_kThemeModeKey, mode.name);
+  }
 }
 
-/// Holds the user's preferred [Locale] (fr or en), in memory only for now.
+/// The user's preferred [Locale] (fr or en), persisted across launches.
 /// Defaults to French.
 ///
-/// NOTE: when this changes, slang's LocaleSettings must be updated too
-/// (LocaleSettings.setLocaleRaw) so Material widgets and app strings stay in
-/// sync — wired in the settings screen.
-/// TODO(phase5): persist + perform the slang sync on change.
+/// Setting it also updates slang's [LocaleSettings] so Material widgets and
+/// app strings switch together.
 @riverpod
 class LocaleNotifier extends _$LocaleNotifier {
   @override
-  Locale build() => const Locale('fr');
+  Locale build() {
+    final raw = ref.watch(sharedPreferencesProvider).getString(localePrefKey);
+    return Locale(raw ?? 'fr');
+  }
 
-  void setLocale(Locale locale) => state = locale;
+  Future<void> setLocale(Locale locale) async {
+    state = locale;
+    await LocaleSettings.setLocaleRaw(locale.languageCode);
+    await ref
+        .read(sharedPreferencesProvider)
+        .setString(localePrefKey, locale.languageCode);
+  }
 }

@@ -11,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsFr with BaseTranslations<AppLocale, Translations> implements Translations {
+class TranslationsFr extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsFr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -21,7 +21,9 @@ class TranslationsFr with BaseTranslations<AppLocale, Translations> implements T
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ) {
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
@@ -29,7 +31,7 @@ class TranslationsFr with BaseTranslations<AppLocale, Translations> implements T
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
 
 	late final TranslationsFr _root = this; // ignore: unused_field
 
@@ -48,8 +50,8 @@ class TranslationsFr with BaseTranslations<AppLocale, Translations> implements T
 }
 
 // Path: settings
-class _Translations$settings$fr implements Translations$settings$en {
-	_Translations$settings$fr._(this._root);
+class _Translations$settings$fr extends Translations$settings$en {
+	_Translations$settings$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -66,8 +68,8 @@ class _Translations$settings$fr implements Translations$settings$en {
 }
 
 // Path: word
-class _Translations$word$fr implements Translations$word$en {
-	_Translations$word$fr._(this._root);
+class _Translations$word$fr extends Translations$word$en {
+	_Translations$word$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -82,8 +84,8 @@ class _Translations$word$fr implements Translations$word$en {
 }
 
 // Path: rootFamily
-class _Translations$rootFamily$fr implements Translations$rootFamily$en {
-	_Translations$rootFamily$fr._(this._root);
+class _Translations$rootFamily$fr extends Translations$rootFamily$en {
+	_Translations$rootFamily$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 

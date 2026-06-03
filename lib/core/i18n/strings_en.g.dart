@@ -56,14 +56,14 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'No results found'
 	String get noResults => 'No results found';
 
-	late final Translations$settings$en settings = Translations$settings$en._(_root);
-	late final Translations$word$en word = Translations$word$en._(_root);
-	late final Translations$rootFamily$en rootFamily = Translations$rootFamily$en._(_root);
+	late final Translations$settings$en settings = Translations$settings$en.internal(_root);
+	late final Translations$word$en word = Translations$word$en.internal(_root);
+	late final Translations$rootFamily$en rootFamily = Translations$rootFamily$en.internal(_root);
 }
 
 // Path: settings
 class Translations$settings$en {
-	Translations$settings$en._(this._root);
+	Translations$settings$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -99,7 +99,7 @@ class Translations$settings$en {
 
 // Path: word
 class Translations$word$en {
-	Translations$word$en._(this._root);
+	Translations$word$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -129,7 +129,7 @@ class Translations$word$en {
 
 // Path: rootFamily
 class Translations$rootFamily$en {
-	Translations$rootFamily$en._(this._root);
+	Translations$rootFamily$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 

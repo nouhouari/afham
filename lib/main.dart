@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:bayan/core/i18n/strings.g.dart';
 import 'package:bayan/core/providers/settings_providers.dart';
@@ -9,11 +10,17 @@ import 'package:bayan/core/theme/theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Load + set the initial locale (French). Async (not *Sync) because slang
-  // lazily loads per-locale translations as deferred libraries — calling the
-  // sync variant throws "Deferred library l_fr was not loaded" before runApp.
-  await LocaleSettings.setLocaleRaw('fr');
-  runApp(const ProviderScope(child: BayanApp()));
+  final prefs = await SharedPreferences.getInstance();
+  // Restore the saved locale (default French) and load it into slang before
+  // the first frame. Async (not *Sync) because slang lazily loads per-locale
+  // translations as deferred libraries.
+  await LocaleSettings.setLocaleRaw(prefs.getString(localePrefKey) ?? 'fr');
+  runApp(
+    ProviderScope(
+      overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
+      child: const BayanApp(),
+    ),
+  );
 }
 
 /// Root widget — reads theme / locale providers and wires them into
