@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:bayan/core/i18n/strings.g.dart';
 import 'package:bayan/core/theme/app_tokens.dart';
+import 'package:bayan/data/audio/audio_clip.dart';
+import 'package:bayan/data/audio/audio_repository.dart';
 import 'package:bayan/data/database/database_provider.dart';
 import 'package:bayan/data/database/models/search_result.dart';
 
@@ -173,15 +175,28 @@ class _EmptyPrompt extends StatelessWidget {
 
 // ── Result tile ───────────────────────────────────────────────────────────────
 
-class _ResultTile extends StatelessWidget {
+/// A single search result row. Extends [ConsumerWidget] so it can watch
+/// [audioRepositoryProvider] and react to playback-state changes.
+class _ResultTile extends ConsumerWidget {
   const _ResultTile({required this.result, required this.tokens});
 
   final SearchResult result;
   final BayanTokens tokens;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+
+    // Build the audio clip from result fields (null when no audio configured).
+    final clip = result.hasAudio
+        ? AudioClip(
+            id: result.audioId!,
+            packFile: result.audioPackFile!,
+            startMs: result.audioStartMs!,
+            durationMs: result.audioDurationMs!,
+          )
+        : null;
+
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       leading: Container(
@@ -229,12 +244,93 @@ class _ResultTile extends StatelessWidget {
           ),
         ],
       ),
-      trailing: Text(
-        result.pos,
-        style: theme.textTheme.labelSmall?.copyWith(
-          color: theme.colorScheme.onSurface.withAlpha(100),
-        ),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            result.pos,
+            style: theme.textTheme.labelSmall?.copyWith(
+              color: theme.colorScheme.onSurface.withAlpha(100),
+            ),
+          ),
+          const SizedBox(width: 4),
+          _AudioButton(clip: clip, tokens: tokens),
+        ],
       ),
+    );
+  }
+}
+
+// ── Audio play button ─────────────────────────────────────────────────────────
+
+/// A small icon button that plays/stops the given [clip].
+///
+/// - Disabled (greyed out) when [clip] is null (no audio configured yet).
+/// - Shows a spinner while the audio is loading.
+/// - Toggles between play and stop icons while the clip is playing.
+/// - Reacts to [audioRepositoryProvider]'s playback stream to stay in sync
+///   across all tiles (stopping one tile stops the indicator on another).
+class _AudioButton extends ConsumerWidget {
+  const _AudioButton({required this.clip, required this.tokens});
+
+  final AudioClip? clip;
+  final BayanTokens tokens;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    // If no audio is available, show a disabled icon immediately.
+    if (clip == null) {
+      return IconButton(
+        iconSize: 20,
+        icon: Icon(
+          Icons.volume_off_outlined,
+          color: Theme.of(context).colorScheme.onSurface.withAlpha(60),
+        ),
+        onPressed: null, // disabled
+        tooltip: 'Pas encore d\'audio',
+      );
+    }
+
+    final repo = ref.watch(audioRepositoryProvider);
+
+    return StreamBuilder<AudioPlaybackState>(
+      stream: repo.playbackState,
+      initialData: AudioPlaybackState.idle,
+      builder: (context, snapshot) {
+        final state = snapshot.data ?? AudioPlaybackState.idle;
+        final isThisClipActive = repo.currentClipId == clip!.id;
+
+        if (isThisClipActive && state == AudioPlaybackState.loading) {
+          // Show a compact spinner while seeking/buffering inside the pack.
+          return const SizedBox(
+            width: 36,
+            height: 36,
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: CircularProgressIndicator(strokeWidth: 2),
+            ),
+          );
+        }
+
+        final isPlaying =
+            isThisClipActive && state == AudioPlaybackState.playing;
+
+        return IconButton(
+          iconSize: 20,
+          icon: Icon(
+            isPlaying ? Icons.stop_circle_outlined : Icons.play_circle_outline,
+            color: tokens.accent,
+          ),
+          onPressed: () async {
+            try {
+              await repo.playClip(clip);
+            } catch (_) {
+              // Asset not yet available — swallow silently in dev.
+            }
+          },
+          tooltip: isPlaying ? 'Arrêter' : 'Écouter la prononciation',
+        );
+      },
     );
   }
 }

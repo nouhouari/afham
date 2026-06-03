@@ -17,6 +17,10 @@ class SearchResult {
     required this.tafsir,
     required this.gem,
     required this.mnemonic,
+    this.audioId,
+    this.audioPackFile,
+    this.audioStartMs,
+    this.audioDurationMs,
   });
 
   final int lemmaId;
@@ -50,6 +54,27 @@ class SearchResult {
   /// Astuce Mémo (Darija / mnémotechnique)
   final String mnemonic;
 
+  // ── Audio clip fields (null when no audio is configured for this lemma) ──
+
+  /// Row id in `audio_clips`. Null → no audio available yet.
+  final int? audioId;
+
+  /// Asset path of the sprite pack, e.g. `assets/audio/pack_001.m4a`.
+  final String? audioPackFile;
+
+  /// Start offset inside the pack (milliseconds). Non-null iff [audioId] != null.
+  final int? audioStartMs;
+
+  /// Duration of the clip (milliseconds). Non-null iff [audioId] != null.
+  final int? audioDurationMs;
+
+  /// Whether this result has a usable audio clip attached.
+  bool get hasAudio =>
+      audioId != null &&
+      audioPackFile != null &&
+      audioStartMs != null &&
+      audioDurationMs != null;
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -61,5 +86,6 @@ class SearchResult {
   int get hashCode => lemmaId.hashCode;
 
   @override
-  String toString() => 'SearchResult($lemmaAr / $latin, freq=$frequency)';
+  String toString() =>
+      'SearchResult($lemmaAr / $latin, freq=$frequency, audio=${audioId ?? 'none'})';
 }

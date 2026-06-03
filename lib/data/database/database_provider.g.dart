@@ -64,7 +64,7 @@ final class AppDatabaseProvider
   }
 }
 
-String _$appDatabaseHash() => r'7320124220b0b16882c02716d4457993e6c58079';
+String _$appDatabaseHash() => r'0ce56580e204a54fba13ef0efea3dd8a3bd5cd38';
 
 /// State holder for the live search query string.
 

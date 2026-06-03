@@ -1,0 +1,20 @@
+[
+  {
+    "key": "rahma",
+    "pack_file": "assets/audio/sample_pack.m4a",
+    "start_ms": 0,
+    "duration_ms": 500
+  },
+  {
+    "key": "sabr",
+    "pack_file": "assets/audio/sample_pack.m4a",
+    "start_ms": 500,
+    "duration_ms": 500
+  },
+  {
+    "key": "nur",
+    "pack_file": "assets/audio/sample_pack.m4a",
+    "start_ms": 1000,
+    "duration_ms": 500
+  }
+]

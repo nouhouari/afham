@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:bayan/data/database/app_database.dart';
 import 'package:bayan/data/database/models/search_result.dart';
+import 'package:bayan/data/seed/audio_seed_importer.dart';
 import 'package:bayan/data/seed/json_seed_importer.dart';
 import 'package:bayan/data/seed/seed_data.dart';
 
@@ -24,15 +25,20 @@ AppDatabase appDatabase(Ref ref) {
   // synchronous.
   Future.microtask(() async {
     final seeded = await db.searchDao.isSeeded();
-    if (seeded) return;
-    // Primary path: import the generated JSON content bundled as an asset.
-    // Fallback: the hand-written Dart seed, so the app is never empty even if
-    // the asset is missing or malformed during development.
-    try {
-      await importLemmasFromAsset(db);
-    } catch (_) {
-      await seedDatabase(db);
+    if (!seeded) {
+      // Primary path: import the generated JSON content bundled as an asset.
+      // Fallback: the hand-written Dart seed, so the app is never empty even
+      // if the asset is missing or malformed during development.
+      try {
+        await importLemmasFromAsset(db);
+      } catch (_) {
+        await seedDatabase(db);
+      }
     }
+    // Audio manifest is imported (or re-imported) every launch so that adding
+    // new packs during development is reflected without clearing app data.
+    // importAudioManifestFromAsset is a no-op if the asset is absent.
+    await importAudioManifestFromAsset(db);
   });
   return db;
 }

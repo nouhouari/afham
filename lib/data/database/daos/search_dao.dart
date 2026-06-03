@@ -127,11 +127,16 @@ class SearchDao extends DatabaseAccessor<AppDatabase> with _$SearchDaoMixin {
         COALESCE(wc.translation, '') AS translation,
         COALESCE(wc.tafsir,      '') AS tafsir,
         COALESCE(wc.gem,         '') AS gem,
-        COALESCE(wc.mnemonic,    '') AS mnemonic
+        COALESCE(wc.mnemonic,    '') AS mnemonic,
+        ac.id          AS audio_id,
+        ac.pack_file   AS audio_pack_file,
+        ac.start_ms    AS audio_start_ms,
+        ac.duration_ms AS audio_duration_ms
       FROM lemmas l
-      LEFT JOIN roots r        ON r.id        = l.root_id
-      LEFT JOIN word_content wc ON wc.lemma_id = l.id
-                                AND wc.lang_code = ?
+      LEFT JOIN roots r         ON r.id        = l.root_id
+      LEFT JOIN word_content wc  ON wc.lemma_id = l.id
+                                 AND wc.lang_code = ?
+      LEFT JOIN audio_clips ac   ON ac.id        = l.audio_id
       WHERE l.id IN ($placeholders)
       ORDER BY l.frequency DESC
       LIMIT ?
@@ -141,7 +146,7 @@ class SearchDao extends DatabaseAccessor<AppDatabase> with _$SearchDaoMixin {
         ...idList.map(Variable.withInt),
         Variable.withInt(limit),
       ],
-      readsFrom: {lemmas, roots, wordContent},
+      readsFrom: {lemmas, roots, wordContent, audioClips},
     ).get();
 
     return rows
@@ -158,6 +163,10 @@ class SearchDao extends DatabaseAccessor<AppDatabase> with _$SearchDaoMixin {
             tafsir: r.read<String>('tafsir'),
             gem: r.read<String>('gem'),
             mnemonic: r.read<String>('mnemonic'),
+            audioId: r.readNullable<int>('audio_id'),
+            audioPackFile: r.readNullable<String>('audio_pack_file'),
+            audioStartMs: r.readNullable<int>('audio_start_ms'),
+            audioDurationMs: r.readNullable<int>('audio_duration_ms'),
           ),
         )
         .toList();
