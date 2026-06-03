@@ -1,0 +1,30 @@
+{
+  "appTitle": "Bayan",
+  "searchHint": "Search a Quranic word…",
+  "wordOfTheDay": "Word of the Day",
+  "noResults": "No results found",
+  "settings": {
+    "title": "Settings",
+    "theme": "Theme",
+    "themeLight": "Light (Daftar)",
+    "themeDark": "Dark (Sakīna)",
+    "themeSystem": "System",
+    "language": "Language",
+    "languageFr": "Français",
+    "languageEn": "English",
+    "arabicScale": "Arabic font size"
+  },
+  "word": {
+    "translation": "Translation",
+    "root": "Root",
+    "tafsir": "Tafsir",
+    "gem": "Gem",
+    "mnemonic": "Memory tip",
+    "playAudio": "Play pronunciation",
+    "occurrences": "{count} occurrence(s) in the Quran"
+  },
+  "rootFamily": {
+    "title": "Root family",
+    "subtitle": "Words sharing the root {root}"
+  }
+}

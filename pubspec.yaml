@@ -1,0 +1,73 @@
+name: bayan
+description: "Bayan (بيان) — offline Quranic vocabulary app for Tadabbur."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # State management
+  flutter_riverpod: ^3.3.1
+  riverpod_annotation: ^4.0.2
+
+  # Navigation
+  go_router: ^17.3.0
+
+  # i18n
+  slang: ^4.15.0
+  slang_flutter: ^4.15.0
+
+  # Database (Phase 2 — declared now, implemented later)
+  drift: ^2.33.0
+  drift_flutter: ^0.3.0
+
+  # Audio (Phase 2)
+  just_audio: ^0.10.5
+
+  # Utilities
+  path_provider: ^2.1.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+
+  # Codegen
+  build_runner: ^2.4.13
+  riverpod_generator: ^4.0.3
+  drift_dev: ^2.33.0
+  slang_build_runner: ^4.15.0
+
+  # Lint — custom_lint 0.8.1 requires analyzer ^8 which conflicts with
+  # drift_dev ^2.33 (needs analyzer >=10). Re-enable once custom_lint
+  # publishes a version compatible with analyzer 10+.
+  # custom_lint: ^0.8.1
+  # riverpod_lint: ^3.1.3
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/audio/
+    - assets/db/
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Variable.ttf
+
+    - family: Amiri
+      fonts:
+        - asset: assets/fonts/Amiri-Regular.ttf
+        - asset: assets/fonts/Amiri-Bold.ttf
+          weight: 700
