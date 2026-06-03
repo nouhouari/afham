@@ -37,7 +37,8 @@ class TranslationsFr with BaseTranslations<AppLocale, Translations> implements T
 	TranslationsFr $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsFr(meta: meta ?? this.$meta);
 
 	// Translations
-	@override String get appTitle => 'Bayan';
+	@override String get appTitle => 'Af\'ham';
+	@override String get appTagline => 'Comprendre les mots du Coran';
 	@override String get searchHint => 'Chercher un mot coranique…';
 	@override String get wordOfTheDay => 'Mot du jour';
 	@override String get noResults => 'Aucun résultat';
@@ -99,7 +100,8 @@ class _Translations$rootFamily$fr implements Translations$rootFamily$en {
 extension on TranslationsFr {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'appTitle' => 'Bayan',
+			'appTitle' => 'Af\'ham',
+			'appTagline' => 'Comprendre les mots du Coran',
 			'searchHint' => 'Chercher un mot coranique…',
 			'wordOfTheDay' => 'Mot du jour',
 			'noResults' => 'Aucun résultat',

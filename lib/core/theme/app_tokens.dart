@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 /// Bayan design-system tokens exposed as a [ThemeExtension].
 ///
+/// Only values that differ between the two themes live here. Theme-invariant
+/// layout tokens (spacing, radii) live in `dimens.dart`.
+///
 /// Daftar (light):
 ///   - surface background : #F5F0E8  (ivoire/papier)
 ///   - primary (encre)    : #7A5C3E  (brun-chaud)
@@ -27,6 +30,8 @@ class BayanTokens extends ThemeExtension<BayanTokens> {
     required this.arabicHero,
     required this.arabicBody,
     required this.arabicCaption,
+    required this.cardShadow,
+    required this.sheetShadow,
   });
 
   /// Gold accent — used for borders/backgrounds in Pépite block; text-safe only on dark.
@@ -53,6 +58,12 @@ class BayanTokens extends ThemeExtension<BayanTokens> {
   /// 14 px Amiri style for secondary Arabic text (roots, labels).
   final TextStyle arabicCaption;
 
+  /// Soft elevation for result / Mot-du-jour cards (per-theme).
+  final List<BoxShadow> cardShadow;
+
+  /// Stronger upward elevation for the detail bottom sheet (per-theme).
+  final List<BoxShadow> sheetShadow;
+
   // ---------------------------------------------------------------------------
   // Predefined instances
   // ---------------------------------------------------------------------------
@@ -68,7 +79,7 @@ class BayanTokens extends ThemeExtension<BayanTokens> {
       fontSize: 44,
       fontWeight: FontWeight.w700,
       color: Color(0xFF3B2E1E),
-      height: 1.4,
+      height: 1.5,
     ),
     arabicBody: TextStyle(
       fontFamily: 'Amiri',
@@ -84,6 +95,20 @@ class BayanTokens extends ThemeExtension<BayanTokens> {
       color: Color(0xFF7A5C3E),
       height: 1.4,
     ),
+    cardShadow: [
+      BoxShadow(
+        color: Color(0x14000000), // ~8% black, warm soft lift
+        blurRadius: 8,
+        offset: Offset(0, 2),
+      ),
+    ],
+    sheetShadow: [
+      BoxShadow(
+        color: Color(0x1F000000), // ~12% black
+        blurRadius: 24,
+        offset: Offset(0, -4),
+      ),
+    ],
   );
 
   static const BayanTokens sakina = BayanTokens(
@@ -97,7 +122,7 @@ class BayanTokens extends ThemeExtension<BayanTokens> {
       fontSize: 44,
       fontWeight: FontWeight.w700,
       color: Color(0xFFECE6D6),
-      height: 1.4,
+      height: 1.5,
     ),
     arabicBody: TextStyle(
       fontFamily: 'Amiri',
@@ -113,6 +138,20 @@ class BayanTokens extends ThemeExtension<BayanTokens> {
       color: Color(0xFFC9A24B),
       height: 1.4,
     ),
+    cardShadow: [
+      BoxShadow(
+        color: Color(0x40000000), // ~25% black, deeper on dark surface
+        blurRadius: 8,
+        offset: Offset(0, 2),
+      ),
+    ],
+    sheetShadow: [
+      BoxShadow(
+        color: Color(0x66000000), // ~40% black
+        blurRadius: 24,
+        offset: Offset(0, -4),
+      ),
+    ],
   );
 
   // ---------------------------------------------------------------------------
@@ -129,6 +168,8 @@ class BayanTokens extends ThemeExtension<BayanTokens> {
     TextStyle? arabicHero,
     TextStyle? arabicBody,
     TextStyle? arabicCaption,
+    List<BoxShadow>? cardShadow,
+    List<BoxShadow>? sheetShadow,
   }) {
     return BayanTokens(
       accent: accent ?? this.accent,
@@ -139,6 +180,8 @@ class BayanTokens extends ThemeExtension<BayanTokens> {
       arabicHero: arabicHero ?? this.arabicHero,
       arabicBody: arabicBody ?? this.arabicBody,
       arabicCaption: arabicCaption ?? this.arabicCaption,
+      cardShadow: cardShadow ?? this.cardShadow,
+      sheetShadow: sheetShadow ?? this.sheetShadow,
     );
   }
 
@@ -158,6 +201,8 @@ class BayanTokens extends ThemeExtension<BayanTokens> {
       arabicHero: TextStyle.lerp(arabicHero, other.arabicHero, t)!,
       arabicBody: TextStyle.lerp(arabicBody, other.arabicBody, t)!,
       arabicCaption: TextStyle.lerp(arabicCaption, other.arabicCaption, t)!,
+      cardShadow: BoxShadow.lerpList(cardShadow, other.cardShadow, t)!,
+      sheetShadow: BoxShadow.lerpList(sheetShadow, other.sheetShadow, t)!,
     );
   }
 }

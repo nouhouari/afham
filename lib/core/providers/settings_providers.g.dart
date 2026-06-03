@@ -8,18 +8,21 @@ part of 'settings_providers.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Persists the user's preferred [ThemeMode].
+/// Holds the user's preferred [ThemeMode] (in memory only for now).
 /// Defaults to [ThemeMode.system].
+/// TODO(phase5): persist via shared_preferences and restore on startup.
 
 @ProviderFor(ThemeModeNotifier)
 final themeModeProvider = ThemeModeNotifierProvider._();
 
-/// Persists the user's preferred [ThemeMode].
+/// Holds the user's preferred [ThemeMode] (in memory only for now).
 /// Defaults to [ThemeMode.system].
+/// TODO(phase5): persist via shared_preferences and restore on startup.
 final class ThemeModeNotifierProvider
     extends $NotifierProvider<ThemeModeNotifier, ThemeMode> {
-  /// Persists the user's preferred [ThemeMode].
+  /// Holds the user's preferred [ThemeMode] (in memory only for now).
   /// Defaults to [ThemeMode.system].
+  /// TODO(phase5): persist via shared_preferences and restore on startup.
   ThemeModeNotifierProvider._()
     : super(
         from: null,
@@ -49,8 +52,9 @@ final class ThemeModeNotifierProvider
 
 String _$themeModeNotifierHash() => r'21098a6ac98ee372e04ca080813cee7a17a665e6';
 
-/// Persists the user's preferred [ThemeMode].
+/// Holds the user's preferred [ThemeMode] (in memory only for now).
 /// Defaults to [ThemeMode.system].
+/// TODO(phase5): persist via shared_preferences and restore on startup.
 
 abstract class _$ThemeModeNotifier extends $Notifier<ThemeMode> {
   ThemeMode build();
@@ -70,21 +74,33 @@ abstract class _$ThemeModeNotifier extends $Notifier<ThemeMode> {
   }
 }
 
-/// Persists the user's preferred [Locale] (fr or en).
-/// Defaults to the system locale resolved against supported locales;
-/// falls back to English.
+/// Holds the user's preferred [Locale] (fr or en), in memory only for now.
+/// Defaults to French.
+///
+/// NOTE: when this changes, slang's LocaleSettings must be updated too
+/// (LocaleSettings.setLocaleRaw) so Material widgets and app strings stay in
+/// sync — wired in the settings screen.
+/// TODO(phase5): persist + perform the slang sync on change.
 
 @ProviderFor(LocaleNotifier)
 final localeProvider = LocaleNotifierProvider._();
 
-/// Persists the user's preferred [Locale] (fr or en).
-/// Defaults to the system locale resolved against supported locales;
-/// falls back to English.
+/// Holds the user's preferred [Locale] (fr or en), in memory only for now.
+/// Defaults to French.
+///
+/// NOTE: when this changes, slang's LocaleSettings must be updated too
+/// (LocaleSettings.setLocaleRaw) so Material widgets and app strings stay in
+/// sync — wired in the settings screen.
+/// TODO(phase5): persist + perform the slang sync on change.
 final class LocaleNotifierProvider
     extends $NotifierProvider<LocaleNotifier, Locale> {
-  /// Persists the user's preferred [Locale] (fr or en).
-  /// Defaults to the system locale resolved against supported locales;
-  /// falls back to English.
+  /// Holds the user's preferred [Locale] (fr or en), in memory only for now.
+  /// Defaults to French.
+  ///
+  /// NOTE: when this changes, slang's LocaleSettings must be updated too
+  /// (LocaleSettings.setLocaleRaw) so Material widgets and app strings stay in
+  /// sync — wired in the settings screen.
+  /// TODO(phase5): persist + perform the slang sync on change.
   LocaleNotifierProvider._()
     : super(
         from: null,
@@ -114,9 +130,13 @@ final class LocaleNotifierProvider
 
 String _$localeNotifierHash() => r'd9c977286893cd86887d512980e687bed689e3fa';
 
-/// Persists the user's preferred [Locale] (fr or en).
-/// Defaults to the system locale resolved against supported locales;
-/// falls back to English.
+/// Holds the user's preferred [Locale] (fr or en), in memory only for now.
+/// Defaults to French.
+///
+/// NOTE: when this changes, slang's LocaleSettings must be updated too
+/// (LocaleSettings.setLocaleRaw) so Material widgets and app strings stay in
+/// sync — wired in the settings screen.
+/// TODO(phase5): persist + perform the slang sync on change.
 
 abstract class _$LocaleNotifier extends $Notifier<Locale> {
   Locale build();

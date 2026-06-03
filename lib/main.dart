@@ -25,7 +25,7 @@ class BayanApp extends ConsumerWidget {
     final locale = ref.watch(localeProvider);
 
     return MaterialApp.router(
-      title: 'Bayan',
+      title: "Af'ham",
       debugShowCheckedModeBanner: false,
 
       // Theme

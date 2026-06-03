@@ -58,7 +58,7 @@ const ColorScheme _sakinaScheme = ColorScheme(
   secondaryContainer: Color(0xFF1A3028),
   onSecondaryContainer: Color(0xFFAFDBC3),
   // Tertiary: gold accent (same family as primary in dark)
-  tertiary: Color(0xFFD4B896),
+  tertiary: Color(0xFFC9A24B),
   onTertiary: Color(0xFF3A2D0E),
   tertiaryContainer: Color(0xFF2A3D30),
   onTertiaryContainer: Color(0xFFEDE3CE),

@@ -3,8 +3,9 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'settings_providers.g.dart';
 
-/// Persists the user's preferred [ThemeMode].
+/// Holds the user's preferred [ThemeMode] (in memory only for now).
 /// Defaults to [ThemeMode.system].
+/// TODO(phase5): persist via shared_preferences and restore on startup.
 @riverpod
 class ThemeModeNotifier extends _$ThemeModeNotifier {
   @override
@@ -13,9 +14,13 @@ class ThemeModeNotifier extends _$ThemeModeNotifier {
   void setThemeMode(ThemeMode mode) => state = mode;
 }
 
-/// Persists the user's preferred [Locale] (fr or en).
-/// Defaults to the system locale resolved against supported locales;
-/// falls back to English.
+/// Holds the user's preferred [Locale] (fr or en), in memory only for now.
+/// Defaults to French.
+///
+/// NOTE: when this changes, slang's LocaleSettings must be updated too
+/// (LocaleSettings.setLocaleRaw) so Material widgets and app strings stay in
+/// sync — wired in the settings screen.
+/// TODO(phase5): persist + perform the slang sync on change.
 @riverpod
 class LocaleNotifier extends _$LocaleNotifier {
   @override

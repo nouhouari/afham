@@ -41,8 +41,11 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	// Translations
 
-	/// en: 'Bayan'
-	String get appTitle => 'Bayan';
+	/// en: 'Af'ham'
+	String get appTitle => 'Af\'ham';
+
+	/// en: 'Understand the words of the Quran'
+	String get appTagline => 'Understand the words of the Quran';
 
 	/// en: 'Search a Quranic word…'
 	String get searchHint => 'Search a Quranic word…';
@@ -147,7 +150,8 @@ class Translations$rootFamily$en {
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'appTitle' => 'Bayan',
+			'appTitle' => 'Af\'ham',
+			'appTagline' => 'Understand the words of the Quran',
 			'searchHint' => 'Search a Quranic word…',
 			'wordOfTheDay' => 'Word of the Day',
 			'noResults' => 'No results found',

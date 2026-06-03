@@ -46,6 +46,35 @@ void main() {
       expect(normalizeArabic('آيَة'), equals('ايه'));
     });
 
+    test('strips superscript (dagger) alef U+0670', () {
+      // هَٰذَا (ha, fatha, dagger-alef, dhal, fatha, alef) → هذا
+      final input = String.fromCharCodes([
+        0x0647,
+        0x064E,
+        0x0670,
+        0x0630,
+        0x064E,
+        0x0627,
+      ]);
+      expect(normalizeArabic(input), equals('هذا'));
+    });
+
+    test('strips small high Quranic annotation signs (U+06D6+)', () {
+      // ب followed by a small-high sign → ب
+      final input = String.fromCharCodes([0x0628, 0x06D6]);
+      expect(normalizeArabic(input), equals('ب'));
+    });
+
+    test('unifies ؤ → و (waw with hamza)', () {
+      // مُؤْمِن → مومن
+      expect(normalizeArabic('مُؤْمِن'), equals('مومن'));
+    });
+
+    test('unifies ئ → ي (ya with hamza)', () {
+      // مسئول → مسيول
+      expect(normalizeArabic('مسئول'), equals('مسيول'));
+    });
+
     test('non-Arabic text passes through unchanged', () {
       const latin = 'rahma';
       expect(normalizeArabic(latin), equals(latin));
