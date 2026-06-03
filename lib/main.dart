@@ -7,10 +7,12 @@ import 'package:bayan/core/providers/settings_providers.dart';
 import 'package:bayan/core/router/app_router.dart';
 import 'package:bayan/core/theme/theme.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Slang: set initial locale synchronously before first frame.
-  LocaleSettings.setLocaleRawSync('fr');
+  // Load + set the initial locale (French). Async (not *Sync) because slang
+  // lazily loads per-locale translations as deferred libraries — calling the
+  // sync variant throws "Deferred library l_fr was not loaded" before runApp.
+  await LocaleSettings.setLocaleRaw('fr');
   runApp(const ProviderScope(child: BayanApp()));
 }
 

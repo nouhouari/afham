@@ -7,7 +7,9 @@ plugins {
 android {
     namespace = "com.houari.bayan"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    // Pinned: NDK 28 + bundled CMake 3.22.1 fails to build sqlite3_flutter_libs
+    // natively ("unable to open output file"). NDK 26 is compatible with CMake 3.22.1.
+    ndkVersion = "26.3.11579264"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
