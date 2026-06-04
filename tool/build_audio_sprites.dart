@@ -76,7 +76,7 @@ void main(List<String> rawArgs) async {
   // ── 3. Collect input clips (sorted for determinism) ─────────────────────────
   final clips = inputDir.listSync().whereType<File>().where((f) {
     final ext = f.path.toLowerCase();
-    return ext.endsWith('.wav') || ext.endsWith('.m4a');
+    return ext.endsWith('.wav') || ext.endsWith('.m4a') || ext.endsWith('.mp3');
   }).toList()..sort((a, b) => a.path.compareTo(b.path));
 
   if (clips.isEmpty) {

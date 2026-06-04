@@ -49,3 +49,6 @@ android/app/upload-keystore.jks
 android/play-service-account.json
 **/key.properties
 ios/fastlane/report.xml
+
+# Downloaded recitation source clips (regenerate via tool/fetch_quran_word_audio.py)
+recordings/

@@ -1,20 +1,122 @@
 [
   {
-    "key": "rahma",
-    "pack_file": "assets/audio/sample_pack.m4a",
+    "key": "allah",
+    "pack_file": "assets/audio/pack_001.m4a",
     "start_ms": 0,
-    "duration_ms": 500
+    "duration_ms": 1254
   },
   {
-    "key": "sabr",
-    "pack_file": "assets/audio/sample_pack.m4a",
-    "start_ms": 500,
-    "duration_ms": 500
+    "key": "dhikr",
+    "pack_file": "assets/audio/pack_001.m4a",
+    "start_ms": 1254,
+    "duration_ms": 1200
+  },
+  {
+    "key": "fath",
+    "pack_file": "assets/audio/pack_001.m4a",
+    "start_ms": 2454,
+    "duration_ms": 1504
+  },
+  {
+    "key": "hamd",
+    "pack_file": "assets/audio/pack_001.m4a",
+    "start_ms": 3958,
+    "duration_ms": 1331
+  },
+  {
+    "key": "huda",
+    "pack_file": "assets/audio/pack_001.m4a",
+    "start_ms": 5289,
+    "duration_ms": 758
+  },
+  {
+    "key": "ilm",
+    "pack_file": "assets/audio/pack_001.m4a",
+    "start_ms": 6047,
+    "duration_ms": 1409
+  },
+  {
+    "key": "iman",
+    "pack_file": "assets/audio/pack_001.m4a",
+    "start_ms": 7456,
+    "duration_ms": 1628
+  },
+  {
+    "key": "janna",
+    "pack_file": "assets/audio/pack_001.m4a",
+    "start_ms": 9084,
+    "duration_ms": 1853
+  },
+  {
+    "key": "karim",
+    "pack_file": "assets/audio/pack_001.m4a",
+    "start_ms": 10937,
+    "duration_ms": 1187
+  },
+  {
+    "key": "kitab",
+    "pack_file": "assets/audio/pack_001.m4a",
+    "start_ms": 12124,
+    "duration_ms": 1775
+  },
+  {
+    "key": "nafs",
+    "pack_file": "assets/audio/pack_001.m4a",
+    "start_ms": 13899,
+    "duration_ms": 1437
   },
   {
     "key": "nur",
-    "pack_file": "assets/audio/sample_pack.m4a",
-    "start_ms": 1000,
-    "duration_ms": 500
+    "pack_file": "assets/audio/pack_001.m4a",
+    "start_ms": 15336,
+    "duration_ms": 1724
+  },
+  {
+    "key": "qalb",
+    "pack_file": "assets/audio/pack_001.m4a",
+    "start_ms": 17060,
+    "duration_ms": 1071
+  },
+  {
+    "key": "rabb",
+    "pack_file": "assets/audio/pack_001.m4a",
+    "start_ms": 18131,
+    "duration_ms": 1227
+  },
+  {
+    "key": "rahma",
+    "pack_file": "assets/audio/pack_001.m4a",
+    "start_ms": 19358,
+    "duration_ms": 1176
+  },
+  {
+    "key": "sabr",
+    "pack_file": "assets/audio/pack_001.m4a",
+    "start_ms": 20534,
+    "duration_ms": 1228
+  },
+  {
+    "key": "salam",
+    "pack_file": "assets/audio/pack_001.m4a",
+    "start_ms": 21762,
+    "duration_ms": 1149
+  },
+  {
+    "key": "salat",
+    "pack_file": "assets/audio/pack_001.m4a",
+    "start_ms": 22911,
+    "duration_ms": 1279
+  },
+  {
+    "key": "shukr",
+    "pack_file": "assets/audio/pack_001.m4a",
+    "start_ms": 24190,
+    "duration_ms": 1351
+  },
+  {
+    "key": "taqwa",
+    "pack_file": "assets/audio/pack_001.m4a",
+    "start_ms": 25541,
+    "duration_ms": 2062
   }
 ]

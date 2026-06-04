@@ -166,9 +166,13 @@ credentials provided.
 - [x] **Content coverage**: JSON corpus expanded **5 → 20 lemmas** (the full curated set),
       schema-valid, every surface form verse-checked, **scholar-verified "ready to ship"
       (0 errors)**. The shipped app now serves all 20.
-- [ ] Scale content past the 20 curated lemmas toward the full Qur'anic corpus; real audio
-      sprite packs (currently 3-clip sample); surface audio-playback failures instead of
-      swallowing them. (Nit: clarify `position` field semantics — clip-relative vs full-ayah.)
+- [x] **Real audio**: 20 authentic word-by-word recitation clips (quran.com WBW) fetched via
+      `tool/fetch_quran_word_audio.py` and packed into `assets/audio/pack_001.m4a` (one per
+      lemma). ⚠️ **Licensing**: verify quran.com WBW reciter redistribution rights before a
+      store release.
+- [ ] Scale content + audio past the 20 curated lemmas toward the full Qur'anic corpus;
+      surface audio-playback failures instead of swallowing them. (Nit: clarify `position`
+      field semantics — clip-relative vs full-ayah.)
 - [ ] **Content accuracy** (quran-arabic-scholar review, 2026-06-04): fixed تَقْوَى root
       (→ و-ق-ي) and `اللَّه` mojibake in the Dart seed. Open warnings to review: نُور Ibn ʿArabī
       citation, صَلَاة "connexion", رَبّ/إِيمَان/حَمْد mnemonics, رَحْمَة 2:64 verse mismatch,
