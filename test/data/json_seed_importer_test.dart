@@ -6,6 +6,7 @@ import 'package:drift/drift.dart' show driftRuntimeOptions;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:bayan/core/text/arabic_normalizer.dart';
 import 'package:bayan/data/database/app_database.dart';
 import 'package:bayan/data/seed/json_seed_importer.dart';
 
@@ -114,6 +115,30 @@ void main() {
       final results = await db.searchDao.searchLemmas('sabr');
       expect(results.any((r) => r.lemmaAr == 'صَبْر'), isTrue);
     });
+
+    test(
+      'EVERY lemma is findable by its bare Arabic dictionary form',
+      () async {
+        // Regression guard: Quranic surface forms often carry the article
+        // (صَبْر → ٱلصَّبْرِ), so the search must also match each lemma's own
+        // normalized form — otherwise typing «صبر» finds nothing.
+        final rows = await db
+            .customSelect('SELECT id, lemma_ar FROM lemmas')
+            .get();
+        expect(rows, isNotEmpty);
+        for (final row in rows) {
+          final id = row.read<int>('id');
+          final lemmaAr = row.read<String>('lemma_ar');
+          final bare = normalizeArabic(lemmaAr);
+          final results = await db.searchDao.searchLemmas(bare);
+          expect(
+            results.any((r) => r.lemmaId == id),
+            isTrue,
+            reason: 'bare form «$bare» ($lemmaAr) must find its own lemma',
+          );
+        }
+      },
+    );
 
     test('FR content (with accents) is imported', () async {
       final results = await db.searchDao.searchLemmas(

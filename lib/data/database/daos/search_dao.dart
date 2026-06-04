@@ -52,13 +52,13 @@ class SearchDao extends DatabaseAccessor<AppDatabase> with _$SearchDaoMixin {
 
   // ── FTS helpers ────────────────────────────────────────────────────────────
 
-  /// Prefix FTS5 search on the Arabic search_key column.
+  /// Prefix search on the Arabic side: the surface-form FTS index **and** each
+  /// lemma's own dictionary form.
   Future<Set<int>> _ftsArabic(String query, {required int limit}) async {
     final key = normalizeArabic(query);
     if (key.isEmpty) return const {};
 
-    // FTS5 prefix query: match all entries where search_key starts with [key].
-    // We use customSelect so we can write raw SQL referencing the virtual table.
+    // (a) FTS5 prefix query over the surface forms (as they appear in verses).
     final rows = await customSelect(
       'SELECT sf.lemma_id AS lemma_id '
       'FROM forms_fts ff '
@@ -69,7 +69,21 @@ class SearchDao extends DatabaseAccessor<AppDatabase> with _$SearchDaoMixin {
       readsFrom: {surfaceForms, formsFts},
     ).get();
 
-    return {for (final r in rows) r.read<int>('lemma_id')};
+    // (b) Also match each lemma's own normalized dictionary form
+    // (lemmas.search_key). Quranic surface forms often carry the article or a
+    // case ending (صَبْر → ٱلصَّبْرِ), so without this a user typing the bare
+    // word «صبر» would find nothing. The lemma key is the bare form, so a prefix
+    // LIKE makes every lemma findable by what a learner would naturally type.
+    final lemmaRows = await customSelect(
+      "SELECT id AS lemma_id FROM lemmas WHERE search_key LIKE ? || '%' LIMIT ?",
+      variables: [Variable.withString(key), Variable.withInt(limit)],
+      readsFrom: {lemmas},
+    ).get();
+
+    return {
+      for (final r in rows) r.read<int>('lemma_id'),
+      for (final r in lemmaRows) r.read<int>('lemma_id'),
+    };
   }
 
   /// Prefix FTS5 search on the Latin column.
