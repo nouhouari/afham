@@ -16,9 +16,13 @@ Future<void> main() async {
   // translations as deferred libraries.
   await LocaleSettings.setLocaleRaw(prefs.getString(localePrefKey) ?? 'fr');
   runApp(
-    ProviderScope(
-      overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
-      child: const BayanApp(),
+    // TranslationProvider must wrap the tree so `Translations.of(context)`
+    // (used by every screen) can resolve the active locale.
+    TranslationProvider(
+      child: ProviderScope(
+        overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
+        child: const BayanApp(),
+      ),
     ),
   );
 }
