@@ -5,31 +5,27 @@
 # ///
 """Fetch authentic word-by-word Qur'anic recitation audio for each lemma.
 
-For every lemma, this finds its Qur'anic *surface form* in the cited verse and
-clips that exact word out of a real full-ayah recitation, using quran.com's
-word-segment timings — keyed by `lemma.latin` so it feeds straight into
-`tool/build_audio_sprites.dart`.
+Primary: download quran.com's clean *isolated-word* clip (`wbw/SSS_AAA_WWW.mp3`)
+for each lemma's surface form — the same files quran.com plays when you click a
+word. Fallback: if that file is missing, clip the word out of the full-ayah
+recitation using the word segment timings.
 
-Why segment-clipping (not the per-word WBW files): quran.com's `audio_url`
-word-file numbering is inconsistent on verses with waqf/pause marks (the file
-number drifts off-by-one), so it can return a neighbouring word. The word
-*segments* `[idx, word_number, start_ms, end_ms]` are derived from the actual
-audio and are reliable on every verse.
+The catch the obvious approach misses: the API's per-word `audio_url` *file
+number* drifts off-by-one after a **waqf/pause mark** (the API counts a phantom
+file slot the CDN doesn't have), so it can point at the *next* word. We correct
+it: real_file = audio_url − (gaps between consecutive words before this one).
+Verified: iman 49:7 → 018−1 = 017 ✓ ; nur 24:35 → 003−0 = 003 ✓.
 
-Why real recitation (not TTS): Kokoro/most TTS engines don't speak Arabic, and a
-Qur'an app needs correct tajwīd.
+Why real recitation (not TTS): Kokoro/most TTS engines don't speak Arabic.
 
 Usage:
-    uv run tool/fetch_quran_word_audio.py                 # all lemmas, reciter 7
-    uv run tool/fetch_quran_word_audio.py --reciter 6     # Husary
-    uv run tool/fetch_quran_word_audio.py --pad-ms 60
+    uv run tool/fetch_quran_word_audio.py
+    uv run tool/fetch_quran_word_audio.py --reciter 7
 
-Then pack into sprites:
-    dart tool/build_audio_sprites.dart --input recordings/ --output assets/audio/
+Then: dart tool/build_audio_sprites.dart --input recordings/ --output assets/audio/
 
-Reciters (quran.com ids): 7=Alafasy (default, clear murattal), 6=Husary,
-2=AbdulBaset Murattal, 4=Shaatree. Verify the reciter's licence/attribution for
-your distribution before shipping.
+WBW reciter is quran.com's word-by-word reciter; --reciter sets the ayah-segment
+fallback reciter (7=Alafasy). Verify licence/attribution before shipping.
 """
 
 from __future__ import annotations
@@ -47,17 +43,17 @@ from pathlib import Path
 
 VERSES = (
     "https://api.quran.com/api/v4/verses/by_key/{key}"
-    "?words=true&word_fields=text_uthmani&audio={reciter}"
+    "?words=true&word_fields=text_uthmani,audio_url&audio={reciter}"
 )
+WBW_BASE = "https://audio.qurancdn.com/"
 AUDIO_BASE = "https://verses.quran.com/"
 
 ROOT = Path(__file__).resolve().parent.parent
 CORPUS = ROOT / "assets" / "db" / "seed" / "lemmas.sample.json"
 
 # Prefer a clearer verse for words the corpus verse recites too briefly.
-# (latin -> (surah, ayah, expected_form)) tried before the corpus verses.
 AUDIO_VERSE_OVERRIDE: dict[str, tuple[int, int, str]] = {
-    "huda": (2, 185, "هُدًى"),  # 2:2 clips to ~0.2s; 2:185 "هُدًى للناس" is fuller
+    "huda": (2, 185, "هُدًى"),
 }
 
 _STRIP = set(
@@ -66,15 +62,11 @@ _STRIP = set(
     + [0x0640, 0x0670]
     + list(range(0x06D6, 0x06EE))
 )
-_UNIFY = {
-    "أ": "ا", "إ": "ا", "آ": "ا", "ٱ": "ا",
-    "ى": "ي", "ة": "ه", "ؤ": "و", "ئ": "ي",
-}
+_UNIFY = {"أ": "ا", "إ": "ا", "آ": "ا", "ٱ": "ا", "ى": "ي", "ة": "ه", "ؤ": "و", "ئ": "ي"}
 
 
 def normalize(s: str) -> str:
-    s = unicodedata.normalize("NFC", s)
-    out = [_UNIFY.get(c, c) for c in s if ord(c) not in _STRIP]
+    out = [_UNIFY.get(c, c) for c in unicodedata.normalize("NFC", s) if ord(c) not in _STRIP]
     return "".join(c for c in out if "ء" <= c <= "ي")
 
 
@@ -91,16 +83,36 @@ def http_get(url: str, dest: Path) -> int:
     return dest.stat().st_size
 
 
-def find_word_position(words: list[dict], target_norm: str) -> int | None:
-    """Return the 1-based position of the word matching the surface form."""
+def _au_num(url: str) -> int:
+    return int(url.rsplit("_", 1)[-1].split(".")[0])
+
+
+def find_word(words: list[dict], target_norm: str) -> dict | None:
     cands = [w for w in words if w.get("char_type_name") == "word"]
-    for w in cands:  # exact
+    for w in cands:
         if normalize(w.get("text_uthmani", "")) == target_norm:
-            return w["position"]
-    for w in cands:  # tolerate a short proclitic (وَ / بِ / لِ …)
+            return w
+    for w in cands:
         wn = normalize(w.get("text_uthmani", ""))
         if (wn.endswith(target_norm) or target_norm.endswith(wn)) and abs(len(wn) - len(target_norm)) <= 3:
-            return w["position"]
+            return w
+    return None
+
+
+def wbw_file_number(words: list[dict], position: int) -> int | None:
+    """Corrected WBW file number: audio_url minus phantom waqf gaps before it."""
+    ws = sorted(
+        [w for w in words if w.get("char_type_name") == "word" and w.get("audio_url")],
+        key=lambda w: w["position"],
+    )
+    phantom, prev = 0, None
+    for w in ws:
+        au = _au_num(w["audio_url"])
+        if prev is not None:
+            phantom += au - prev - 1  # gaps between consecutive words = phantom slots
+        if w["position"] == position:
+            return au - phantom
+        prev = au
     return None
 
 
@@ -108,24 +120,16 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--corpus", default=str(CORPUS))
     ap.add_argument("--out", default=str(ROOT / "recordings"))
-    ap.add_argument("--reciter", type=int, default=7, help="quran.com reciter id")
-    ap.add_argument("--pad-ms", type=int, default=60, help="padding added to each clip end")
+    ap.add_argument("--reciter", type=int, default=7, help="segment-fallback reciter id")
+    ap.add_argument("--pad-ms", type=int, default=60)
     ap.add_argument("--sleep", type=float, default=0.2)
     args = ap.parse_args()
 
     ffmpeg = shutil.which("ffmpeg")
-    if not ffmpeg:
-        print("✗ ffmpeg not found on PATH (brew install ffmpeg).", file=sys.stderr)
-        return 2
-
     corpus = json.loads(Path(args.corpus).read_text(encoding="utf-8"))
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     cache = Path(tempfile.mkdtemp(prefix="afham-ayah-"))
-
-    lemmas = corpus["lemmas"]
-    print(f"Fetching word audio for {len(lemmas)} lemmas (reciter {args.reciter}) → {out}\n")
-
     verse_cache: dict[str, dict] = {}
     ayah_cache: dict[str, Path] = {}
     ok, missing = [], []
@@ -140,63 +144,69 @@ def main() -> int:
                 verse_cache[key] = {}
         return verse_cache[key]
 
-    for lemma in lemmas:
+    def segment_clip(audio: dict, position: int, dest: Path) -> bool:
+        segs = {s[1]: s for s in audio.get("segments", [])}
+        if position not in segs or not audio.get("url") or not ffmpeg:
+            return False
+        _, _, start, end = segs[position]
+        url = audio["url"]
+        if url not in ayah_cache:
+            p = cache / url.replace("/", "_")
+            try:
+                http_get(AUDIO_BASE + url, p)
+            except Exception:  # noqa: BLE001
+                return False
+            ayah_cache[url] = p
+        r = subprocess.run(
+            [ffmpeg, "-v", "error", "-y", "-ss", f"{start/1000}", "-t", f"{(end-start+args.pad_ms)/1000}",
+             "-i", str(ayah_cache[url]), "-c:a", "libmp3lame", "-q:a", "4", str(dest)],
+            capture_output=True, text=True,
+        )
+        return r.returncode == 0
+
+    print(f"Fetching word audio for {len(corpus['lemmas'])} lemmas → {out}\n")
+    for lemma in corpus["lemmas"]:
         latin = lemma["latin"]
-        done = False
-        # Candidate (form, surah, ayah): override first, then corpus verses.
         candidates: list[tuple[str, int, int]] = []
         if latin in AUDIO_VERSE_OVERRIDE:
             s, a, f = AUDIO_VERSE_OVERRIDE[latin]
             candidates.append((f, s, a))
-        candidates += [
-            (sf["text_ar"], v["surah"], v["ayah"])
-            for sf in lemma["surface_forms"]
-            for v in sf["verses"]
-        ]
+        candidates += [(sf["text_ar"], v["surah"], v["ayah"])
+                       for sf in lemma["surface_forms"] for v in sf["verses"]]
+
+        dest = out / f"{latin}.mp3"
+        done = ""
         for form_ar, surah, ayah in candidates:
-            target = normalize(form_ar)
-            key = f"{surah}:{ayah}"
-            vd = verse(key)
+            vd = verse(f"{surah}:{ayah}")
             if not vd:
                 continue
-            pos = find_word_position(vd.get("words", []), target)
-            audio = vd.get("audio") or {}
-            segs = {s[1]: s for s in audio.get("segments", [])}
-            if pos is None or pos not in segs or not audio.get("url"):
+            w = find_word(vd.get("words", []), normalize(form_ar))
+            if not w:
                 continue
-            _, _, start, end = segs[pos]
-
-            # Download the ayah recitation once, then clip the word.
-            ayah_url = audio["url"]
-            if ayah_url not in ayah_cache:
-                p = cache / ayah_url.replace("/", "_")
+            pos = w["position"]
+            # Primary: corrected isolated WBW file.
+            fn = wbw_file_number(vd["words"], pos)
+            if fn is not None:
+                url = f"{WBW_BASE}wbw/{surah:03d}_{ayah:03d}_{fn:03d}.mp3"
                 try:
-                    http_get(AUDIO_BASE + ayah_url, p)
-                except Exception as e:  # noqa: BLE001
-                    print(f"  ! ayah download failed {ayah_url}: {e}")
-                    continue
-                ayah_cache[ayah_url] = p
-            ss = start / 1000.0
-            dur = (end - start + args.pad_ms) / 1000.0
-            dest = out / f"{latin}.mp3"
-            r = subprocess.run(
-                [ffmpeg, "-v", "error", "-y", "-ss", f"{ss}", "-t", f"{dur}",
-                 "-i", str(ayah_cache[ayah_url]), "-c:a", "libmp3lame", "-q:a", "4", str(dest)],
-                capture_output=True, text=True,
-            )
-            if r.returncode != 0:
-                print(f"  ! ffmpeg clip failed {latin}: {r.stderr.strip()[:120]}")
-                continue
-            ok.append(latin)
-            print(f"  ✓ {latin:8} {form_ar:12} {key:>8} word#{pos:<3} {start}-{end}ms ({dur:.2f}s)")
-            done = True
-            break
+                    http_get(url, dest)
+                    done = f"wbw _{fn:03d}"
+                except Exception:  # noqa: BLE001 — CDN gap → fall back to segment
+                    pass
+            # Fallback: clip from full-ayah recitation.
+            if not done and segment_clip(vd.get("audio") or {}, pos, dest):
+                done = "segment-clip"
+            if done:
+                ok.append(latin)
+                print(f"  ✓ {latin:8} {form_ar:12} {surah}:{ayah} word#{pos:<3} [{done}]")
+                time.sleep(args.sleep)
+                break
         if not done:
             missing.append(latin)
-            print(f"  ✗ {latin:8} — no segment match found")
+            print(f"  ✗ {latin:8} — no audio found")
 
     shutil.rmtree(cache, ignore_errors=True)
-    print(f"\nDone: {len(ok)}/{len(lemmas)} clipped.")
+    print(f"\nDone: {len(ok)}/{len(corpus['lemmas'])}.")
     if missing:
         print("Missing:", ", ".join(missing))
         return 1
