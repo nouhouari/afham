@@ -45,8 +45,14 @@ The bundled clips come from **quran.com** (`audio.qurancdn.com`). Per quran.com'
 
 (The MIT licence on `quran/audio.quran.com` covers the *website software*, not the recordings.)
 
-**So the current audio is fine for development/personal use but must NOT ship in a public or
-commercial release as-is.** Before release, do ONE of:
+**A free app does NOT automatically clear this.** §2.3 restricts *redistribution itself* (not
+only commercial use), and §1.4's allowance is for *individual* use — shipping the clips to every
+user who installs the app is distribution to "multiple users" regardless of price. (The
+recitation may also carry the reciter's own copyright, separate from quran.com.)
+
+**So the current audio is fine for development/personal use but must NOT ship — free or paid —
+as-is.** The realistic path for a free educational/da'wah app is to **request written permission
+from Quran Foundation** (commonly granted for such apps). Before release, do ONE of:
 1. Obtain **written permission** from Quran Foundation / quran.com (worth asking — common for
    da'wah apps).
 2. Switch to a **properly-licensed recitation** — a reciter who has explicitly released word/verse
