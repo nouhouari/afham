@@ -177,6 +177,11 @@ credentials provided.
 - [ ] Scale content + audio past the 20 curated lemmas toward the full Qur'anic corpus;
       surface audio-playback failures instead of swallowing them. (Nit: clarify `position`
       field semantics — clip-relative vs full-ayah.)
+- [ ] **Search-quality gap**: bare-Arabic search matches only the exact surface forms in FTS5,
+      so lemmas whose seed forms carry the article (`الصبر`, `الإيمان`, `القلوب`…) aren't found
+      by their dictionary form (`صبر`, `ايمان`, `قلب`) — only Latin (`sabr`) and the exact form
+      work. Fix options: also index the lemma's own `search_key`, strip a leading `ال` for
+      matching, or add a bare-form surface entry per lemma. (رَحْمَة handled.)
 - [ ] **Content accuracy** (quran-arabic-scholar review, 2026-06-04): fixed تَقْوَى root
       (→ و-ق-ي) and `اللَّه` mojibake in the Dart seed. Open warnings to review: نُور Ibn ʿArabī
       citation, صَلَاة "connexion", رَبّ/إِيمَان/حَمْد mnemonics, رَحْمَة 2:64 verse mismatch,
