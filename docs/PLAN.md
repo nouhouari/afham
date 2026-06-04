@@ -163,8 +163,15 @@ credentials provided.
       await secrets (see docs/ci-cd.md).
 - [ ] Provide CD secrets (Play service account, Android keystore, App Store Connect key, match repo).
 - [ ] iOS build pass (run on a real device / TestFlight once signing is set up).
-- [ ] Scale content past the 20-lemma seed; real audio sprite packs (currently 3-clip sample);
+- [ ] **Content coverage**: the shipped app currently imports only **5 lemmas** from
+      `assets/db/seed/lemmas.sample.json` (رَحْمَة, صَبْر, نُور, قَلْب, سَلَام); the 20-lemma
+      Dart seed is fallback-only. Generate the full JSON corpus via the Phase-3 pipeline.
+- [ ] Scale content past the seed; real audio sprite packs (currently 3-clip sample);
       surface audio-playback failures instead of swallowing them.
+- [ ] **Content accuracy** (quran-arabic-scholar review, 2026-06-04): fixed تَقْوَى root
+      (→ و-ق-ي) and `اللَّه` mojibake in the Dart seed. Open warnings to review: نُور Ibn ʿArabī
+      citation, صَلَاة "connexion", رَبّ/إِيمَان/حَمْد mnemonics, رَحْمَة 2:64 verse mismatch,
+      empty EN fields in the Dart seed.
 - [ ] (Separate decision) Dart package / app-id rename `bayan` → `afham` (before first store submit).
 
 ## Verification (current)

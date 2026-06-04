@@ -103,9 +103,11 @@ Future<void> seedDatabase(AppDatabase db) async {
     );
     final rootTqw = await dao.insertRoot(
       RootsCompanion.insert(
-        rootAr: 'ت-ق-و',
-        rootNormalized: normalizeArabic('تقو'),
-        latin: 't-q-w',
+        // تَقْوَى derives from و-ق-ي ("to guard against"); the leading ت is a
+        // form augment, not a root letter.
+        rootAr: 'و-ق-ي',
+        rootNormalized: normalizeArabic('وقي'),
+        latin: 'w-q-y',
       ),
     );
     final rootFth = await dao.insertRoot(
@@ -369,9 +371,9 @@ Future<void> seedDatabase(AppDatabase db) async {
       lAllah: (
         trans: "Allah — Le Nom par excellence de Dieu",
         tafsir:
-            "Le mot aللَّه est le Nom propre de Dieu en arabe ; aucune autre divinite ne peut partager ce nom. Pour les exegetes, il englobe tous les attributs divins.",
+            "Le mot اللَّه est le Nom propre de Dieu en arabe ; aucune autre divinite ne peut partager ce nom. Pour les exegetes, il englobe tous les attributs divins.",
         gem:
-            "Le mot aللَّه est le seul nom invariable : il ne se met pas au pluriel et ne porte pas d'article indefini.",
+            "Le mot اللَّه est le seul nom invariable : il ne se met pas au pluriel et ne porte pas d'article indefini.",
         mnemonic:
             "Allah = Al-Ilah contracte : le seul ilah (dieu) digne de ce nom.",
       ),
