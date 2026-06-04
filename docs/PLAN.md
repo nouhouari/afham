@@ -168,8 +168,12 @@ credentials provided.
       (0 errors)**. The shipped app now serves all 20.
 - [x] **Real audio**: 20 authentic word-by-word recitation clips (quran.com WBW) fetched via
       `tool/fetch_quran_word_audio.py` and packed into `assets/audio/pack_001.m4a` (one per
-      lemma). ⚠️ **Licensing**: verify quran.com WBW reciter redistribution rights before a
-      store release.
+      lemma). Pipeline + gotchas: `docs/audio-pipeline.md`.
+- [ ] ⚠️ **RELEASE BLOCKER — audio licensing**: quran.com Terms (§1.4/§2.3) permit the audio
+      for *individual, noncommercial* use only and **forbid redistribution without written
+      consent**. The bundled clips are fine for dev/personal use but **must not ship**. Before
+      release: get Quran Foundation permission, OR swap to a freely-licensed recitation, OR ship
+      V1 without bundled audio. See `docs/audio-pipeline.md`.
 - [ ] Scale content + audio past the 20 curated lemmas toward the full Qur'anic corpus;
       surface audio-playback failures instead of swallowing them. (Nit: clarify `position`
       field semantics — clip-relative vs full-ayah.)
