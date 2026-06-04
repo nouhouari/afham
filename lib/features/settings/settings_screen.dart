@@ -30,7 +30,11 @@ class SettingsScreen extends ConsumerWidget {
         title: Text(strings.settings.title),
       ),
       body: ListView(
-        padding: const EdgeInsets.only(bottom: Spacing.xxl),
+        // Add the system nav-bar inset so the last item (About) can scroll
+        // fully clear of the bottom navigation bar.
+        padding: EdgeInsets.only(
+          bottom: Spacing.xxl + MediaQuery.viewPaddingOf(context).bottom,
+        ),
         children: [
           // ── Theme section ────────────────────────────────────────────────────
           _SectionHeader(label: strings.settings.theme),
