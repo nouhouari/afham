@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:bayan/core/i18n/strings.g.dart';
-import 'package:bayan/core/router/app_router.dart';
 import 'package:bayan/core/theme/app_tokens.dart';
 import 'package:bayan/core/theme/dimens.dart';
 import 'package:bayan/data/audio/audio_clip.dart';
@@ -280,7 +279,7 @@ class _EmptyHome extends ConsumerWidget {
                   ? _SearchPrompt()
                   : _WordOfDayCard(detail: detail, tokens: tokens),
               loading: () => _WordOfDayCardSkeleton(tokens: tokens),
-              error: (_, __) => _SearchPrompt(),
+              error: (_, _) => _SearchPrompt(),
             ),
           ),
         ),
@@ -577,7 +576,7 @@ class _ResultsList extends StatelessWidget {
         vertical: Spacing.sm,
       ),
       itemCount: results.length,
-      separatorBuilder: (_, __) => const SizedBox(height: Spacing.sm),
+      separatorBuilder: (_, _) => const SizedBox(height: Spacing.sm),
       itemBuilder: (context, i) =>
           _ResultCard(result: results[i], tokens: tokens),
     );

@@ -115,6 +115,7 @@ class RootFamilyItem {
     required this.pos,
     required this.frequency,
     required this.translation,
+    required this.rootAr,
     this.audioId,
     this.audioPackFile,
     this.audioStartMs,
@@ -127,6 +128,10 @@ class RootFamilyItem {
   final String pos;
   final int frequency;
   final String translation;
+
+  /// Root in Arabic letters shared by every item in the family, e.g. ر-ح-م.
+  /// Empty if the lemmas have no linked root.
+  final String rootAr;
 
   final int? audioId;
   final String? audioPackFile;

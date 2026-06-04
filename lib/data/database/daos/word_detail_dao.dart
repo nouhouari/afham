@@ -124,11 +124,13 @@ class WordDetailDao extends DatabaseAccessor<AppDatabase>
         l.pos       AS pos,
         l.frequency AS frequency,
         COALESCE(wc.translation, '') AS translation,
+        COALESCE(r.root_ar, '')      AS root_ar,
         ac.id          AS audio_id,
         ac.pack_file   AS audio_pack_file,
         ac.start_ms    AS audio_start_ms,
         ac.duration_ms AS audio_duration_ms
       FROM lemmas l
+      LEFT JOIN roots r         ON r.id        = l.root_id
       LEFT JOIN word_content wc ON wc.lemma_id = l.id
                                 AND wc.lang_code = ?
       LEFT JOIN audio_clips ac  ON ac.id = l.audio_id
@@ -136,7 +138,7 @@ class WordDetailDao extends DatabaseAccessor<AppDatabase>
       ORDER BY l.frequency DESC
       ''',
       variables: [Variable.withString(langCode), Variable.withInt(rootId)],
-      readsFrom: {lemmas, wordContent, audioClips},
+      readsFrom: {lemmas, roots, wordContent, audioClips},
     ).get();
 
     return rows
@@ -148,6 +150,7 @@ class WordDetailDao extends DatabaseAccessor<AppDatabase>
             pos: r.read<String>('pos'),
             frequency: r.read<int>('frequency'),
             translation: r.read<String>('translation'),
+            rootAr: r.read<String>('root_ar'),
             audioId: r.readNullable<int>('audio_id'),
             audioPackFile: r.readNullable<String>('audio_pack_file'),
             audioStartMs: r.readNullable<int>('audio_start_ms'),

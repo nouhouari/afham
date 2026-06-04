@@ -132,7 +132,7 @@ class _RootFamilyList extends StatelessWidget {
             child: Text(
               strings.rootFamily.subtitle.replaceAll(
                 '{root}',
-                items.isNotEmpty ? '–' : '',
+                items.isNotEmpty ? items.first.rootAr : '',
               ),
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: Theme.of(context).colorScheme.onSurface.withAlpha(160),
@@ -148,7 +148,7 @@ class _RootFamilyList extends StatelessWidget {
           ),
           sliver: SliverList.separated(
             itemCount: items.length,
-            separatorBuilder: (_, __) => const SizedBox(height: Spacing.sm),
+            separatorBuilder: (_, _) => const SizedBox(height: Spacing.sm),
             itemBuilder: (context, i) =>
                 _FamilyTile(item: items[i], tokens: tokens),
           ),

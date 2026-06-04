@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:bayan/core/i18n/strings.g.dart';
-import 'package:bayan/core/router/app_router.dart';
 import 'package:bayan/core/theme/app_tokens.dart';
 import 'package:bayan/core/theme/dimens.dart';
 import 'package:bayan/data/audio/audio_clip.dart';
