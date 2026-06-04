@@ -256,6 +256,52 @@ void main() {
       expect(results.length, lessThanOrEqualTo(30));
     });
   });
+
+  // ── Meaning-based search (translation field) ────────────────────────────────
+
+  group('Meaning-based search', () {
+    test('English meaning «mercy» finds رَحْمَة', () async {
+      final results = await db.searchDao.searchLemmas('mercy', langCode: 'en');
+      _expectContainsLemma(results, 'رَحْمَة');
+    });
+
+    test('English meaning «patience» finds صَبْر', () async {
+      final results = await db.searchDao.searchLemmas(
+        'patience',
+        langCode: 'en',
+      );
+      _expectContainsLemma(results, 'صَبْر');
+    });
+
+    test('French meaning «miséricorde» finds رَحْمَة', () async {
+      final results = await db.searchDao.searchLemmas(
+        'miséricorde',
+        langCode: 'fr',
+      );
+      _expectContainsLemma(results, 'رَحْمَة');
+    });
+
+    test('meaning match is case-insensitive («Mercy»)', () async {
+      final results = await db.searchDao.searchLemmas('Mercy', langCode: 'en');
+      _expectContainsLemma(results, 'رَحْمَة');
+    });
+
+    test('meaning search is scoped to the active language', () async {
+      // «mercy» is the English meaning; with langCode 'fr' it must NOT surface
+      // رَحْمَة (FR translation is «Miséricorde…»), and there is no Arabic/Latin
+      // match for «mercy» either.
+      final results = await db.searchDao.searchLemmas('mercy', langCode: 'fr');
+      expect(results.any((r) => r.lemmaAr == 'رَحْمَة'), isFalse);
+    });
+
+    test('a 1-char query does not trigger a meaning match', () async {
+      // Guard: meaning search requires >= 2 chars (else everything matches).
+      final results = await db.searchDao.searchLemmas('a', langCode: 'en');
+      // May still match Arabic ا via FTS, but should not explode to all lemmas
+      // through the meaning path.
+      expect(results.length, lessThanOrEqualTo(20));
+    });
+  });
 }
 
 // ── helpers ───────────────────────────────────────────────────────────────────

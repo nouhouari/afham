@@ -14,9 +14,10 @@ part 'search_dao.g.dart';
 ///     **and** lemmas.search_key (the bare dictionary form) → lemma ids.
 ///  2. Latin    : query.toLowerCase() → FTS5 prefix on forms_fts.latin, plus a
 ///     LIKE fallback on lemmas.latin → lemma ids.
-///  3. Union the two id sets.
-///  4. Load word_content for the requested lang_code.
-///  5. Sort by lemma.frequency DESC.
+///  3. Meaning  : substring LIKE on word_content.translation in the active
+///     language → so a word is findable by its meaning («mercy» → رَحْمَة).
+///  4. Union the three id sets.
+///  5. Load word_content for the requested lang_code; sort by frequency DESC.
 @DriftAccessor(include: {'package:bayan/data/database/tables.drift'})
 class SearchDao extends DatabaseAccessor<AppDatabase> with _$SearchDaoMixin {
   SearchDao(super.db);
@@ -42,6 +43,7 @@ class SearchDao extends DatabaseAccessor<AppDatabase> with _$SearchDaoMixin {
     final lemmaIds = <int>{
       ...await _ftsArabic(trimmed, limit: limit),
       ...await _ftsLatin(trimmed, limit: limit),
+      ...await _meaningSearch(trimmed, langCode: langCode, limit: limit),
     };
     if (lemmaIds.isEmpty) return const [];
 
@@ -111,6 +113,36 @@ class SearchDao extends DatabaseAccessor<AppDatabase> with _$SearchDaoMixin {
       for (final r in rows) r.read<int>('lemma_id'),
       for (final r in likeRows) r.read<int>('lemma_id'),
     };
+  }
+
+  /// Substring match on the **translation** (meaning) in [langCode], so a word
+  /// is also findable by typing its meaning in the user's own language
+  /// (e.g. «mercy» / «miséricorde» → رَحْمَة) — the worldwide entry point.
+  ///
+  /// Guarded to queries of ≥ 2 chars to avoid matching everything, and scoped
+  /// to the active language so «mercy» only matches English content.
+  Future<Set<int>> _meaningSearch(
+    String query, {
+    required String langCode,
+    required int limit,
+  }) async {
+    final q = query.trim();
+    if (q.length < 2) return const {};
+
+    // SQLite LIKE is case-insensitive for ASCII, so «mercy» matches «Mercy».
+    final rows = await customSelect(
+      'SELECT lemma_id FROM word_content '
+      'WHERE lang_code = ? AND translation LIKE ? '
+      'LIMIT ?',
+      variables: [
+        Variable.withString(langCode),
+        Variable.withString('%$q%'),
+        Variable.withInt(limit),
+      ],
+      readsFrom: {wordContent},
+    ).get();
+
+    return {for (final r in rows) r.read<int>('lemma_id')};
   }
 
   // ── result builder ─────────────────────────────────────────────────────────
