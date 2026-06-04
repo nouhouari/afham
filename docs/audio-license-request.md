@@ -29,8 +29,10 @@ I would like to request **written permission to use quran.com's word-by-word rec
 - For each vocabulary word, I extract the **single corresponding word clip** from the
   word-by-word audio and bundle it **offline** inside the app, played on demand when the user
   taps a word.
-- The current version covers a **curated set of ~20 high-frequency Qur'anic words**, which I
-  plan to expand over time.
+- I'm starting with a curated set of high-frequency words and **intend to grow the vocabulary
+  substantially over time — potentially toward coverage of the full Qur'anic word-by-word audio
+  set**. I'd therefore appreciate permission scoped to this ongoing expansion (not just the
+  initial words), so the project can grow without re-requesting.
 - I am happy to **credit Quran Foundation / quran.com prominently** (in the app's About screen
   and store listing) and to follow any attribution wording or conditions you require.
 
@@ -62,7 +64,8 @@ With gratitude,
 > Assalāmu ʿalaykum. I'm building **Af'ham**, a free, non-commercial, offline app that helps
 > people understand Qur'anic vocabulary. I'd like written permission to bundle quran.com's
 > **word-by-word audio** (`audio.qurancdn.com/wbw/…`) — one word clip per vocabulary entry,
-> ~20 words for now — played offline in the app. No ads, no paid tiers. I'll credit Quran
+> starting with high-frequency words and **growing toward broad/full coverage** — played
+> offline in the app. No ads, no paid tiers. I'll credit Quran
 > Foundation / quran.com and the reciter prominently and follow any conditions you set. Could
 > you grant permission for this free educational use, and tell me the reciter's name and your
 > preferred attribution? Repo: github.com/nouhouari/afham. Jazākum Allāhu khayran.
