@@ -1,4 +1,5 @@
 // ignore_for_file: lines_longer_than_80_chars
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:drift/drift.dart' show driftRuntimeOptions;
@@ -12,6 +13,48 @@ import 'package:bayan/data/seed/json_seed_importer.dart';
 /// available in plain unit tests).
 String _sampleJson() =>
     File('assets/db/seed/lemmas.sample.json').readAsStringSync();
+
+/// Row counts derived from the seed JSON itself, so the suite stays correct as
+/// the corpus grows (was hard-coded to 5; the corpus is now 20 and counting).
+typedef _Counts = ({
+  int lemmas,
+  int roots,
+  int content,
+  int forms,
+  int verses,
+  int occ,
+});
+
+_Counts _deriveCounts(String jsonStr) {
+  final lemmas = ((jsonDecode(jsonStr) as Map)['lemmas'] as List)
+      .cast<Map<String, dynamic>>();
+  final roots = <String>{};
+  final verses = <String>{};
+  var forms = 0;
+  var occ = 0;
+  for (final l in lemmas) {
+    roots.add((l['root'] as Map)['ar'] as String);
+    for (final sf
+        in (l['surface_forms'] as List).cast<Map<String, dynamic>>()) {
+      forms++;
+      final vs = sf['verses'] as List;
+      occ += vs.length;
+      for (final v in vs) {
+        verses.add('${(v as Map)['surah']}:${v['ayah']}');
+      }
+    }
+  }
+  return (
+    lemmas: lemmas.length,
+    roots: roots.length,
+    content: lemmas.length * 2, // fr + en per lemma
+    forms: forms,
+    verses: verses.length,
+    occ: occ,
+  );
+}
+
+final _expected = _deriveCounts(_sampleJson());
 
 Future<AppDatabase> _openImportedDb() async {
   final db = AppDatabase.forTesting(NativeDatabase.memory());
@@ -39,25 +82,25 @@ void main() {
       expect(await db.searchDao.isSeeded(), isTrue);
     });
 
-    test('imports all 5 sample lemmas', () async {
+    test('imports all sample lemmas (count derived from JSON)', () async {
       final row = await db
           .customSelect('SELECT COUNT(*) AS c FROM lemmas')
           .getSingle();
-      expect(row.read<int>('c'), 5);
+      expect(row.read<int>('c'), _expected.lemmas);
     });
 
     test('computes word_content rows for both fr and en', () async {
       final row = await db
           .customSelect('SELECT COUNT(*) AS c FROM word_content')
           .getSingle();
-      expect(row.read<int>('c'), 10); // 5 lemmas × 2 langs
+      expect(row.read<int>('c'), _expected.content); // lemmas × 2 langs
     });
 
     test('links surface forms to verses via occurrences', () async {
       final row = await db
           .customSelect('SELECT COUNT(*) AS c FROM occurrences')
           .getSingle();
-      expect(row.read<int>('c'), greaterThanOrEqualTo(5));
+      expect(row.read<int>('c'), _expected.occ);
     });
   });
 
@@ -114,12 +157,12 @@ void main() {
           .customSelect('SELECT COUNT(*) AS c FROM occurrences')
           .getSingle();
 
-      expect(lemmas.read<int>('c'), 5);
-      expect(roots.read<int>('c'), 5);
-      expect(content.read<int>('c'), 10);
-      expect(forms.read<int>('c'), 6); // rahma has 2 forms, others 1 each
-      expect(verses.read<int>('c'), 6);
-      expect(occ.read<int>('c'), 6);
+      expect(lemmas.read<int>('c'), _expected.lemmas);
+      expect(roots.read<int>('c'), _expected.roots);
+      expect(content.read<int>('c'), _expected.content);
+      expect(forms.read<int>('c'), _expected.forms);
+      expect(verses.read<int>('c'), _expected.verses);
+      expect(occ.read<int>('c'), _expected.occ);
     });
   });
 }
