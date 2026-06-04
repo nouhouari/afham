@@ -175,14 +175,24 @@ credentials provided.
 - [x] **Real audio**: 20 authentic word-by-word recitation clips (quran.com WBW) fetched via
       `tool/fetch_quran_word_audio.py` and packed into `assets/audio/pack_001.m4a` (one per
       lemma). Pipeline + gotchas: `docs/audio-pipeline.md`.
-- [ ] ⚠️ **RELEASE BLOCKER — audio licensing**: quran.com Terms (§1.4/§2.3) permit the audio
+- [ ] ⚠️ **RELEASE BLOCKER — audio licensing** (permission request **SENT** 2026-06-04,
+      awaiting Quran Foundation reply): quran.com Terms (§1.4/§2.3) permit the audio
       for *individual, noncommercial* use only and **forbid redistribution without written
-      consent**. The bundled clips are fine for dev/personal use but **must not ship**. Before
-      release: get Quran Foundation permission, OR swap to a freely-licensed recitation, OR ship
-      V1 without bundled audio. See `docs/audio-pipeline.md`.
+      consent**. The bundled clips are fine for dev/personal use but **must not ship** until
+      consent is granted. Decision for now: **keep the current bundled audio, continue dev**;
+      do not submit to a store until the reply lands (or we swap to a freely-licensed
+      recitation / ship V1 without bundled audio). Email draft: `docs/audio-license-request.md`.
 - [ ] Scale content + audio past the 20 curated lemmas toward the full Qur'anic corpus;
       surface audio-playback failures instead of swallowing them. (Nit: clarify `position`
       field semantics — clip-relative vs full-ayah.)
+      **App-size analysis (2026-06-04)** — de-risked: measured rates are ~750 B/lemma/language
+      (text, source; ~3–4× compressed in APK) and ~5.9 KB/clip (AAC-LC 32 kbps mono,
+      one pronunciation per lemma, language-independent). Full corpus ≈ **~3,400 lemmas**
+      (Quranic Arabic Corpus). Projected release APK: **~43 MB** (4 langs) → **~48 MB** (10 langs),
+      of which ~21 MB is the fixed Flutter engine + fonts and ~20 MB is audio. Well under the
+      Play 150 MB base-APK limit → **bundle everything, keep "100% offline at install"**; no
+      asset-delivery needed. Discipline: keep **one clip per lemma** (per-occurrence audio would
+      10–40× the audio). Optional guardrail: a CI `--analyze-size` budget check (~45 MB).
 - [ ] **Search-quality gap**: bare-Arabic search matches only the exact surface forms in FTS5,
       so lemmas whose seed forms carry the article (`الصبر`, `الإيمان`, `القلوب`…) aren't found
       by their dictionary form (`صبر`, `ايمان`, `قلب`) — only Latin (`sabr`) and the exact form
