@@ -8,22 +8,18 @@ part 'search_dao.g.dart';
 
 /// DAO for tolerant search over the Quranic vocabulary.
 ///
-/// Query pipeline:
-///  1. Detect whether the query is Arabic-script or Latin.
-///  2. Arabic path  : normaliseArabic(query) → FTS5 prefix match on forms_fts
-///     (search_key column) → resolve surface_forms → lemmas (DISTINCT).
-///  3. Latin path   : query.toLowerCase() → FTS5 prefix match on forms_fts
-///     (latin column). Fallback LIKE also used on lemmas.latin.
+/// Query pipeline (Arabic and Latin run **together** and are unioned — the
+/// query is never routed to a single script):
+///  1. Arabic   : normaliseArabic(query) → FTS5 prefix on forms_fts.search_key
+///     **and** lemmas.search_key (the bare dictionary form) → lemma ids.
+///  2. Latin    : query.toLowerCase() → FTS5 prefix on forms_fts.latin, plus a
+///     LIKE fallback on lemmas.latin → lemma ids.
+///  3. Union the two id sets.
 ///  4. Load word_content for the requested lang_code.
 ///  5. Sort by lemma.frequency DESC.
 @DriftAccessor(include: {'package:bayan/data/database/tables.drift'})
 class SearchDao extends DatabaseAccessor<AppDatabase> with _$SearchDaoMixin {
   SearchDao(super.db);
-
-  // ── helpers ────────────────────────────────────────────────────────────────
-
-  static bool _isArabic(String q) =>
-      q.runes.any((r) => r >= 0x0600 && r <= 0x06FF);
 
   // ── public API ─────────────────────────────────────────────────────────────
 
@@ -39,12 +35,14 @@ class SearchDao extends DatabaseAccessor<AppDatabase> with _$SearchDaoMixin {
     final trimmed = query.trim();
     if (trimmed.isEmpty) return const [];
 
-    final Set<int> lemmaIds;
-    if (_isArabic(trimmed)) {
-      lemmaIds = await _ftsArabic(trimmed, limit: limit);
-    } else {
-      lemmaIds = await _ftsLatin(trimmed, limit: limit);
-    }
+    // Search the Arabic and the Latin/transliteration indexes *together* in one
+    // pass and union the matches — the query is no longer gated to a single
+    // script by detection, so a word is found whether typed in Arabic letters
+    // or in transliteration (the irrelevant index simply returns nothing).
+    final lemmaIds = <int>{
+      ...await _ftsArabic(trimmed, limit: limit),
+      ...await _ftsLatin(trimmed, limit: limit),
+    };
     if (lemmaIds.isEmpty) return const [];
 
     return _buildResults(lemmaIds, langCode: langCode, limit: limit);
