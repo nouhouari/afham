@@ -33,8 +33,10 @@ _Counts _deriveCounts(String jsonStr) {
   final verses = <String>{};
   var forms = 0;
   var occ = 0;
+  var content = 0;
   for (final l in lemmas) {
     roots.add((l['root'] as Map)['ar'] as String);
+    content += (l['content'] as Map).length; // one row per language present
     for (final sf
         in (l['surface_forms'] as List).cast<Map<String, dynamic>>()) {
       forms++;
@@ -48,7 +50,7 @@ _Counts _deriveCounts(String jsonStr) {
   return (
     lemmas: lemmas.length,
     roots: roots.length,
-    content: lemmas.length * 2, // fr + en per lemma
+    content: content, // langs × lemmas (fr/en/id/ur)
     forms: forms,
     verses: verses.length,
     occ: occ,

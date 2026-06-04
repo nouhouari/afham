@@ -1,0 +1,70 @@
+{
+  "appTitle": "Af'ham",
+  "appTagline": "Pahami kata-kata Al-Qur'an",
+  "searchHint": "Cari kata Al-Qur'an…",
+  "searchHintArabic": "رَحْمَة  ·  rahma  ·  صبر",
+  "wordOfTheDay": "Kata Hari Ini",
+  "noResults": "Tidak ada hasil",
+  "noResultsFor": "Tidak ada hasil untuk «{query}»",
+  "searchPrompt": "Cari kata dari Al-Qur'an",
+  "searchPromptSub": "dalam huruf Arab atau transliterasi",
+  "loading": "Memuat…",
+  "error": "Terjadi kesalahan",
+  "retry": "Coba lagi",
+  "settings": {
+    "title": "Pengaturan",
+    "theme": "Tema",
+    "themeLight": "Terang (Daftar)",
+    "themeDark": "Gelap (Sakīna)",
+    "themeSystem": "Sistem",
+    "language": "Bahasa",
+    "languageFr": "Français",
+    "languageEn": "English",
+    "languageId": "Bahasa Indonesia",
+    "languageUr": "اردو",
+    "arabicScale": "Ukuran font Arab",
+    "arabicScaleSmall": "Kecil",
+    "arabicScaleNormal": "Normal",
+    "arabicScaleLarge": "Besar",
+    "arabicScaleXLarge": "Sangat besar",
+    "about": "Tentang",
+    "audioCredit": "Audio bacaan kata demi kata atas izin Quran.com (Quran Foundation)."
+  },
+  "word": {
+    "translation": "Terjemahan",
+    "root": "Akar kata",
+    "rootFamily": "Keluarga akar",
+    "tafsir": "Tafsir",
+    "gem": "Mutiara",
+    "mnemonic": "Tips mengingat",
+    "playAudio": "Putar pelafalan",
+    "stopAudio": "Berhenti",
+    "noAudio": "Belum ada audio",
+    "occurrences": "{count} kemunculan dalam Al-Qur'an",
+    "versesTitle": "Dalam Al-Qur'an",
+    "pos": {
+      "noun": "kata benda",
+      "verb": "kata kerja",
+      "particle": "partikel",
+      "adjective": "kata sifat",
+      "pronoun": "kata ganti",
+      "other": "lainnya"
+    }
+  },
+  "rootFamily": {
+    "title": "Keluarga akar",
+    "subtitle": "Kata-kata yang memiliki akar {root}",
+    "empty": "Tidak ada kata untuk akar ini"
+  },
+  "onboarding": {
+    "skip": "Lewati",
+    "next": "Berikutnya",
+    "start": "Mulai",
+    "slide1Title": "Pahami Al-Qur'an",
+    "slide1Body": "Beralih dari membaca ke memahami — dari bacaan mekanis ke bacaan hati (Tadabbur).",
+    "slide2Title": "Cari kata apa pun",
+    "slide2Body": "Ketik kata Al-Qur'an dalam huruf Arab atau transliterasi. Pencarian toleran terhadap harakat dan ejaan.",
+    "slide3Title": "Temukan maknanya",
+    "slide3Body": "Ketuk sebuah kata untuk fichenya: terjemahan, akar kata, tafsir, mutiara spiritual, dan tips mengingat — beserta pelafalannya."
+  }
+}

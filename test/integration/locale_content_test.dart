@@ -1,4 +1,6 @@
 // ignore_for_file: lines_longer_than_80_chars
+import 'dart:io';
+
 import 'package:drift/drift.dart' show driftRuntimeOptions;
 import 'package:drift/native.dart';
 import 'package:flutter/widgets.dart';
@@ -9,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bayan/core/providers/settings_providers.dart';
 import 'package:bayan/data/database/app_database.dart';
 import 'package:bayan/data/database/database_provider.dart';
-import 'package:bayan/data/seed/seed_data.dart';
+import 'package:bayan/data/seed/json_seed_importer.dart';
 
 /// Integration test for locale-aware content: the word definition (and the
 /// meaning search) must follow the active language, switching live.
@@ -26,7 +28,11 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     prefs = await SharedPreferences.getInstance();
     db = AppDatabase.forTesting(NativeDatabase.memory());
-    await seedDatabase(db);
+    // Import the JSON seed (has fr/en/id/ur), not the Dart seed (fr/en only).
+    await importLemmasJson(
+      db,
+      File('assets/db/seed/lemmas.sample.json').readAsStringSync(),
+    );
 
     container = ProviderContainer(
       overrides: [
@@ -67,6 +73,16 @@ void main() {
     await setLocale('fr');
     final fr2 = await container.read(lemmaDetailProvider(id).future);
     expect(fr2!.translation.toLowerCase(), contains('miséricorde'));
+
+    // Indonesian.
+    await setLocale('id');
+    final indo = await container.read(lemmaDetailProvider(id).future);
+    expect(indo!.translation.toLowerCase(), contains('rahmat'));
+
+    // Urdu (right-to-left script).
+    await setLocale('ur');
+    final urdu = await container.read(lemmaDetailProvider(id).future);
+    expect(urdu!.translation, contains('رحمت'));
   });
 
   test('meaning search follows the active language', () async {

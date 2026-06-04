@@ -80,10 +80,12 @@ Future<void> _importOneLemma(AppDatabase db, Map<String, dynamic> lemma) async {
   );
 
   // 3. WORD CONTENT (UNIQUE(lemma_id, lang_code) → insertOnConflictUpdate).
+  // Imports every language present in the content block (fr, en, id, ur, …) —
+  // adding a language is just more rows, no code change here.
   final content = _asMap(lemma['content'], 'content');
-  for (final lang in const ['fr', 'en']) {
+  for (final lang in content.keys) {
     final block = content[lang];
-    if (block == null) continue; // schema requires both, but stay defensive.
+    if (block == null) continue;
     final loc = _asMap(block, 'content.$lang');
     final wc = WordContentCompanion.insert(
       lemmaId: lemmaId,

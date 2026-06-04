@@ -115,6 +115,12 @@ class Translations$settings$en {
 	/// en: 'English'
 	String get languageEn => 'English';
 
+	/// en: 'Bahasa Indonesia'
+	String get languageId => 'Bahasa Indonesia';
+
+	/// en: 'اردو'
+	String get languageUr => 'اردو';
+
 	/// en: 'Arabic font size'
 	String get arabicScale => 'Arabic font size';
 
@@ -290,6 +296,8 @@ extension on Translations {
 			'settings.language' => 'Language',
 			'settings.languageFr' => 'Français',
 			'settings.languageEn' => 'English',
+			'settings.languageId' => 'Bahasa Indonesia',
+			'settings.languageUr' => 'اردو',
 			'settings.arabicScale' => 'Arabic font size',
 			'settings.arabicScaleSmall' => 'Small',
 			'settings.arabicScaleNormal' => 'Normal',

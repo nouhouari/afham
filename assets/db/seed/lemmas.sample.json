@@ -45,6 +45,18 @@
           "tafsir": "Ar-Rahma is God's active compassion toward creation; the Basmala invokes it as ar-Rahmān (vast) and ar-Rahīm (enduring).",
           "gem": "رَحْمَة shares the root ر-ح-م with raḥim (womb): divine mercy echoes a mother's tenderness.",
           "mnemonic": "Rahma echoes the Hebrew cognate raḥamim (mercy) — the same Semitic root meaning womb-deep compassion."
+        },
+        "id": {
+          "translation": "Rahmat, kasih sayang",
+          "tafsir": "Ar-Rahma adalah kasih sayang Allah yang aktif terhadap ciptaan-Nya; Basmalah menyebutnya sebagai ar-Rahmān (Maha Pengasih, luas) dan ar-Rahīm (Maha Penyayang, kekal).",
+          "gem": "رَحْمَة seakar dengan رَحِم (rahim) pada akar ر-ح-م: kasih sayang Allah menyerupai kelembutan seorang ibu.",
+          "mnemonic": "Rahma seakar dengan rahim (kandungan ibu): kasih sayang yang sedalam cinta seorang ibu kepada anaknya."
+        },
+        "ur": {
+          "translation": "رحمت، مہربانی",
+          "tafsir": "الرحمہ اللہ کی مخلوق پر فعّال مہربانی ہے؛ بسم اللہ میں اسے الرحمٰن (وسیع رحمت والا) اور الرحیم (ہمیشہ رحم کرنے والا) کے ناموں سے پکارا گیا ہے۔",
+          "gem": "رَحْمَة کا مادہ ر-ح-م رَحِم (ماں کی کوکھ) سے مشترک ہے: اللہ کی رحمت ماں کی شفقت کی یاد دلاتی ہے۔",
+          "mnemonic": "رحمت کا مادہ رَحِم (کوکھ) سے ہے: یہ ماں جیسی گہری اور بے پایاں شفقت کا نام ہے۔"
         }
       }
     },
@@ -81,6 +93,18 @@
           "tafsir": "As-Sabr is willing endurance amid hardship, obedience, and temptation. The verse pairs patience with prayer as twin sources of strength.",
           "gem": "The root ص-ب-ر carries the sense of restraining or binding: patience is the active holding-back of the self from complaint, not passive resignation.",
           "mnemonic": "Sabr = 'sober': a patient soul stays sober and steady under pressure."
+        },
+        "id": {
+          "translation": "Kesabaran, keteguhan",
+          "tafsir": "As-Sabr adalah ketabahan yang ikhlas dalam menghadapi musibah, ketaatan, dan godaan. Ayat ini memadukan kesabaran dengan salat sebagai dua sumber kekuatan.",
+          "gem": "Akar ص-ب-ر mengandung makna menahan dan mengikat: sabar adalah usaha aktif menahan diri dari keluh kesah, bukan kepasrahan yang pasif.",
+          "mnemonic": "Sabar berarti menahan diri: jiwa yang sabar tetap tenang dan teguh saat ditimpa tekanan."
+        },
+        "ur": {
+          "translation": "صبر، استقامت",
+          "tafsir": "الصبر مصیبت، اطاعت اور آزمائش میں خوشی سے ثابت قدم رہنے کا نام ہے۔ یہ آیت صبر اور نماز کو طاقت کے دو سرچشموں کے طور پر جوڑتی ہے۔",
+          "gem": "مادہ ص-ب-ر روکنے اور باندھنے کا مفہوم رکھتا ہے: صبر نفس کو شکوے سے روکنے کا فعّال عمل ہے، نہ کہ بے بسی کی خاموشی۔",
+          "mnemonic": "صبر کا مطلب نفس کو روکنا ہے: صابر دل دباؤ میں بھی پُرسکون اور ثابت قدم رہتا ہے۔"
         }
       }
     },
@@ -117,6 +141,18 @@
           "tafsir": "In the Light Verse (24:35), God is described as the light of the heavens and the earth: both physical light and spiritual guidance radiating to creation.",
           "gem": "Nūr is both visible light and the light of the heart; the Qur'an itself is called nūr, dispelling the darkness of ignorance.",
           "mnemonic": "Nūr → 'noor' → think of a luminous 'aurora' lighting the sky."
+        },
+        "id": {
+          "translation": "Cahaya",
+          "tafsir": "Dalam Ayat Cahaya (24:35), Allah digambarkan sebagai cahaya langit dan bumi: cahaya yang tampak sekaligus petunjuk spiritual yang memancar kepada seluruh ciptaan.",
+          "gem": "Nūr adalah cahaya yang kasat mata sekaligus cahaya hati; Al-Qur'an sendiri disebut nūr, yang menyingkirkan kegelapan kebodohan.",
+          "mnemonic": "Nur adalah cahaya: ingatlah fajar yang menyinari langit dan menghapus kegelapan."
+        },
+        "ur": {
+          "translation": "نور، روشنی",
+          "tafsir": "آیتِ نور (24:35) میں اللہ کو آسمانوں اور زمین کا نور بتایا گیا ہے: ظاہری روشنی بھی اور روحانی ہدایت بھی جو تمام مخلوق پر پھیلتی ہے۔",
+          "gem": "نور ظاہری روشنی بھی ہے اور دل کی روشنی بھی؛ قرآن کو خود نور کہا گیا ہے جو جہالت کی تاریکی کو مٹاتا ہے۔",
+          "mnemonic": "نور یعنی روشنی: اُس فجر کی طرح سوچیں جو آسمان کو روشن کر کے اندھیرا مٹا دیتی ہے۔"
         }
       }
     },
@@ -153,6 +189,18 @@
           "tafsir": "In the Qur'an the qalb is the locus of faith, understanding, and turning away. The verse affirms that hearts find rest only in the remembrance of God.",
           "gem": "Qalb derives from the root ق-ل-ب (to turn over): the human heart is ever-shifting, hence the prayer 'O Turner of hearts, make my heart firm.'",
           "mnemonic": "Qalb → think 'club' beating: your heart can flip — keep it turned toward God."
+        },
+        "id": {
+          "translation": "Hati (pusat pemahaman dan kehendak)",
+          "tafsir": "Dalam Al-Qur'an, qalb adalah tempat iman, pemahaman, dan penyimpangan. Ayat ini menegaskan bahwa hati hanya menjadi tenang dengan mengingat Allah.",
+          "gem": "Qalb berasal dari akar ق-ل-ب (berbolak-balik): hati manusia selalu berubah, karena itulah doa 'Wahai Yang membolak-balikkan hati, teguhkanlah hatiku'.",
+          "mnemonic": "Qalb dari akar 'berbolak-balik': hati bisa berubah-ubah, maka jagalah ia selalu menghadap Allah."
+        },
+        "ur": {
+          "translation": "دل (سمجھ اور ارادے کا مرکز)",
+          "tafsir": "قرآن میں قلب ایمان، سمجھ بوجھ اور انحراف کا مقام ہے۔ یہ آیت بتاتی ہے کہ دل صرف اللہ کے ذکر سے ہی سکون پاتے ہیں۔",
+          "gem": "قلب کا مادہ ق-ل-ب (الٹ پلٹ ہونا) ہے: انسان کا دل بدلتا رہتا ہے، اسی لیے دعا ہے 'اے دلوں کو پھیرنے والے، میرے دل کو ثابت رکھ'۔",
+          "mnemonic": "قلب 'پلٹنے' کے مادے سے ہے: دل بدلتا رہتا ہے، اسے ہمیشہ اللہ کی طرف پھیرے رکھیں۔"
         }
       }
     },
@@ -189,6 +237,18 @@
           "tafsir": "As-Salām is one of God's names; here it is the word of peace spoken to the blessed. The greeting 'as-salāmu alaykum' is a prayer for another's peace.",
           "gem": "Islām, muslim, salīm and salām share the root س-ل-م (wholeness, peace) — to be muslim is to seek that settled wholeness.",
           "mnemonic": "Salām is the cognate of Hebrew shalom — the same Semitic word for peace."
+        },
+        "id": {
+          "translation": "Kedamaian, keselamatan, salam",
+          "tafsir": "As-Salām adalah salah satu nama Allah; di sini ia adalah ucapan damai kepada penghuni surga. Salam 'as-salāmu alaykum' adalah doa keselamatan bagi orang lain.",
+          "gem": "Islām, muslim, salīm, dan salām seakar pada س-ل-م (keutuhan, kedamaian): menjadi muslim berarti mencari keutuhan yang penuh ketenangan itu.",
+          "mnemonic": "Salam adalah sepadan dengan kata Ibrani 'shalom': akar Semit yang sama untuk makna kedamaian."
+        },
+        "ur": {
+          "translation": "سلامتی، امن، سلام",
+          "tafsir": "السلام اللہ کے ناموں میں سے ایک ہے؛ یہاں یہ اہلِ جنت کو کہا گیا سلام کا کلمہ ہے۔ 'السلام علیکم' دوسروں کی سلامتی کے لیے دعا ہے۔",
+          "gem": "اسلام، مسلم، سلیم اور سلام سب مادہ س-ل-م (سلامتی، امن) سے ہیں: مسلمان ہونا اسی پُرسکون سلامتی کو پانے کی کوشش ہے۔",
+          "mnemonic": "سلام عبرانی لفظ 'شالوم' کا ہم رشتہ ہے: امن کے لیے وہی سامی مادہ۔"
         }
       }
     },
@@ -225,6 +285,18 @@
           "tafsir": "The proper Name of God in Arabic, which no other deity shares. Exegetes hold that it gathers all the divine attributes (the Beautiful Names).",
           "gem": "A unique, invariable Name: it takes no plural and no indefinite article. Many trace it to al-ilāh ('the god') contracted into Allāh.",
           "mnemonic": "Allāh ≈ al-ilāh contracted: the one ilāh (god) worthy of worship."
+        },
+        "id": {
+          "translation": "Allah — Nama diri Tuhan",
+          "tafsir": "Nama diri Tuhan dalam bahasa Arab, yang tidak dimiliki sesembahan lain. Para mufasir menyatakan bahwa nama ini menghimpun seluruh sifat Allah (al-asmāʾ al-ḥusnā).",
+          "gem": "Nama yang unik dan tetap: tidak berbentuk jamak dan tidak menerima artikel tak tentu. Banyak ulama menelusurinya dari al-ilāh ('Tuhan') yang diringkas menjadi Allāh.",
+          "mnemonic": "Allāh ≈ ringkasan dari al-ilāh: satu-satunya ilāh (sesembahan) yang layak disembah."
+        },
+        "ur": {
+          "translation": "اللہ — اللہ تعالیٰ کا ذاتی نام",
+          "tafsir": "عربی میں اللہ کا ذاتی نام، جس میں کوئی دوسرا معبود شریک نہیں۔ مفسرین کے نزدیک یہ نام تمام صفاتِ الٰہی (اسماء الحسنیٰ) کو جامع ہے۔",
+          "gem": "یہ ایک منفرد و غیر متغیر نام ہے: نہ اس کی جمع آتی ہے نہ نکرہ۔ بہت سے علما اسے 'الالٰہ' (معبود) کا مخفف قرار دیتے ہیں۔",
+          "mnemonic": "اللہ ≈ 'الالٰہ' کا مخفف: وہ واحد الٰہ (معبود) جو عبادت کے لائق ہے۔"
         }
       }
     },
@@ -261,6 +333,18 @@
           "tafsir": "Rabb joins lordship and nurturing care: the verb rabba means to raise and cause to grow. God is ar-Rabb, who brings everything to its perfection.",
           "gem": "Used absolutely, Rabb is reserved for God; applied to people it stays relative (rabb al-bayt, 'the master of the house').",
           "mnemonic": "Rabb shares the Semitic root R-B-B (greatness, mastery) with Hebrew rav (master)."
+        },
+        "id": {
+          "translation": "Tuhan, Pemelihara, Pendidik",
+          "tafsir": "Rabb memadukan ketuhanan dan pemeliharaan: kata rabba berarti mengasuh dan menumbuhkan. Allah adalah ar-Rabb yang mengantarkan segala sesuatu menuju kesempurnaannya.",
+          "gem": "Secara mutlak, Rabb hanya untuk Allah; bila disandarkan kepada manusia ia bersifat nisbi (rabb al-bait, 'tuan rumah').",
+          "mnemonic": "Rabb berakar pada makna mendidik dan menumbuhkan: Allah memelihara dan membesarkan seluruh ciptaan."
+        },
+        "ur": {
+          "translation": "رب، پروردگار، پالنے والا",
+          "tafsir": "رب ربوبیت اور پرورش دونوں کو جامع ہے: لفظ رَبَّ کے معنی پالنا اور بڑھانا ہیں۔ اللہ ہی الرب ہے جو ہر چیز کو اس کے کمال تک پہنچاتا ہے۔",
+          "gem": "مطلق طور پر 'رب' صرف اللہ کے لیے خاص ہے؛ انسان کے لیے یہ نسبت کے ساتھ آتا ہے (ربّ البیت یعنی گھر کا مالک)۔",
+          "mnemonic": "رب کا مادہ پالنے اور بڑھانے کا ہے: اللہ تمام مخلوق کا پالنہار اور پروردگار ہے۔"
         }
       }
     },
@@ -297,6 +381,18 @@
           "tafsir": "Al-Kitāb refers to the Qur'an and the scriptures revealed before it. The root k-t-b ('to write') stresses the fixed, preserved nature of God's word.",
           "gem": "In 2:2, dhālika l-kitāb opens with the far-demonstrative dhālika, marking the Book's loftiness.",
           "mnemonic": "Kitāb is from kataba ('he wrote'); same root as maktab ('office/desk'). The Book is what is written and kept."
+        },
+        "id": {
+          "translation": "Kitab, Kitab Suci",
+          "tafsir": "Al-Kitāb merujuk pada Al-Qur'an dan kitab-kitab yang diturunkan sebelumnya. Akar k-t-b ('menulis') menekankan sifat firman Allah yang tetap dan terpelihara.",
+          "gem": "Pada 2:2, dhālika l-kitāb dibuka dengan kata tunjuk jauh dhālika, menandai keagungan dan ketinggian Kitab itu.",
+          "mnemonic": "Kitāb berasal dari kataba ('ia menulis'), seakar dengan maktab ('meja/kantor'). Kitab adalah apa yang tertulis dan terjaga."
+        },
+        "ur": {
+          "translation": "کتاب، آسمانی صحیفہ",
+          "tafsir": "الکتاب سے مراد قرآن اور اس سے پہلے نازل ہونے والی کتابیں ہیں۔ مادہ ک-ت-ب ('لکھنا') اللہ کے کلام کے ثابت اور محفوظ ہونے پر دلالت کرتا ہے۔",
+          "gem": "2:2 میں ذٰلِکَ الْکِتاب میں دور کا اشارہ ذٰلِکَ آتا ہے، جو اس کتاب کی بلندی و عظمت کو ظاہر کرتا ہے۔",
+          "mnemonic": "کتاب کَتَبَ ('اس نے لکھا') سے ہے، مَکْتَب ('دفتر/میز') کا بھی یہی مادہ ہے۔ کتاب وہ ہے جو لکھی اور محفوظ کی جائے۔"
         }
       }
     },
@@ -333,6 +429,18 @@
           "tafsir": "Al-ʿilm is an essential attribute of God (al-ʿAlīm). The first revealed word is Iqraʾ ('Read!'), and God 'taught man what he knew not' (96:5).",
           "gem": "ʿallama (to teach), ʿālim (scholar) and ʿālam (world) share ع-ل-م: to know is to read the world's signs.",
           "mnemonic": "ʿilm ≈ ʿalam (a marker/sign): knowledge is what signposts and unveils the world."
+        },
+        "id": {
+          "translation": "Ilmu, pengetahuan",
+          "tafsir": "Al-ʿilm adalah sifat penting bagi Allah (al-ʿAlīm). Wahyu pertama adalah Iqraʾ ('Bacalah!'), dan Allah 'mengajarkan kepada manusia apa yang tidak diketahuinya' (96:5).",
+          "gem": "ʿallama (mengajar), ʿālim (ulama), dan ʿālam (alam) seakar pada ع-ل-م: mengetahui berarti membaca tanda-tanda di alam semesta.",
+          "mnemonic": "ʿIlm dekat dengan ʿalam (tanda/petunjuk): ilmu adalah yang menandai dan menyingkap rahasia dunia."
+        },
+        "ur": {
+          "translation": "علم، دانش",
+          "tafsir": "العلم اللہ کی ایک بنیادی صفت ہے (العلیم)۔ پہلی وحی اِقْرَأ ('پڑھ!') ہے، اور اللہ نے 'انسان کو وہ سکھایا جو وہ نہ جانتا تھا' (96:5)۔",
+          "gem": "عَلَّمَ (سکھانا)، عالِم (عالم) اور عالَم (دنیا) سب مادہ ع-ل-م سے ہیں: جاننا گویا کائنات کی نشانیوں کو پڑھنا ہے۔",
+          "mnemonic": "علم کا تعلق عَلَم (نشان/علامت) سے ہے: علم وہ ہے جو دنیا کی حقیقتوں کی طرف راہنمائی کرتا ہے۔"
         }
       }
     },
@@ -369,6 +477,18 @@
           "tafsir": "As-salāt is the second pillar of Islam. Al-Ghazālī describes it as an intimate conversation with God (munājāt); the verse pairs it with zakāt.",
           "gem": "The root ص-ل-و carries the sense of turning toward and supplicating; when God 'yuṣallī' upon the believer, He envelops them in grace (33:43).",
           "mnemonic": "Ṣalāt = your daily appointment with God: five calls not to be missed."
+        },
+        "id": {
+          "translation": "Salat, sholat (ibadah ritual)",
+          "tafsir": "As-salāt adalah rukun Islam yang kedua. Al-Ghazālī menggambarkannya sebagai perbincangan mesra dengan Allah (munājāt); ayat ini memadukannya dengan zakat.",
+          "gem": "Akar ص-ل-و mengandung makna menghadap dan berdoa; ketika Allah 'yuṣallī' atas hamba beriman, Dia menyelimutinya dengan rahmat (33:43).",
+          "mnemonic": "Salat adalah janji temumu setiap hari dengan Allah: lima panggilan yang tak boleh terlewat."
+        },
+        "ur": {
+          "translation": "نماز",
+          "tafsir": "الصلاۃ اسلام کا دوسرا رکن ہے۔ امام غزالی اسے اللہ سے دل کی سرگوشی (مناجات) کہتے ہیں؛ یہ آیت اسے زکات کے ساتھ جوڑتی ہے۔",
+          "gem": "مادہ ص-ل-و توجہ کرنے اور دعا کرنے کا مفہوم رکھتا ہے؛ جب اللہ مومن پر 'یُصَلِّی' فرماتا ہے تو اسے اپنی رحمت سے ڈھانپ لیتا ہے (33:43)۔",
+          "mnemonic": "نماز اللہ سے تمہاری روزانہ کی ملاقات ہے: پانچ بلاوے جنہیں ہرگز نہ چھوڑو۔"
         }
       }
     },
@@ -405,6 +525,18 @@
           "tafsir": "Al-īmān, the heart's conviction, goes beyond islām (outward submission). The Ḥadīth of Jibrīl defines it: belief in God, His angels, Books, messengers, the Last Day and divine decree.",
           "gem": "Īmān is from أ-م-ن (amn, safety): faith is an inner refuge, and the muʾmin entrusts their heart to safety.",
           "mnemonic": "Īmān and amān ('safety') share a root: to believe is to entrust your heart safely to God."
+        },
+        "id": {
+          "translation": "Iman, keyakinan hati",
+          "tafsir": "Al-īmān, keyakinan hati, lebih dalam daripada islām (kepasrahan lahiriah). Hadis Jibril mendefinisikannya: beriman kepada Allah, malaikat, kitab, rasul, Hari Akhir, dan takdir.",
+          "gem": "Īmān berasal dari أ-م-ن (amn, keamanan): iman adalah tempat berlindung batin, dan seorang mukmin menitipkan hatinya pada keamanan.",
+          "mnemonic": "Īmān dan amān ('keamanan') seakar: beriman berarti menitipkan hatimu dengan aman kepada Allah."
+        },
+        "ur": {
+          "translation": "ایمان، دل کا یقین",
+          "tafsir": "الایمان دل کا یقین ہے جو اسلام (ظاہری فرماں برداری) سے بڑھ کر ہے۔ حدیثِ جبریل اس کی تعریف کرتی ہے: اللہ، اس کے فرشتوں، کتابوں، رسولوں، آخرت اور تقدیر پر ایمان۔",
+          "gem": "ایمان مادہ أ-م-ن (امن) سے ہے: ایمان باطنی پناہ گاہ ہے، اور مومن اپنا دل اسی امن کے سپرد کر دیتا ہے۔",
+          "mnemonic": "ایمان اور امان ('سلامتی') ایک ہی مادے سے ہیں: ایمان لانا اپنے دل کو اللہ کے حوالے امن سے کرنا ہے۔"
         }
       }
     },
@@ -441,6 +573,18 @@
           "tafsir": "Al-ḥamd praises God for His very being, beyond received favours — hence its difference from shukr (gratitude). Al-Fātiḥa opens with al-ḥamdu li-Llāh.",
           "gem": "Muḥammad ('the much-praised') and Aḥmad share the root ح-م-د: praising God also evokes the Prophet's nature.",
           "mnemonic": "Ḥamd ↔ Aḥmad / Muḥammad: praise is written into the Prophet's very name."
+        },
+        "id": {
+          "translation": "Segala puji (yang layak)",
+          "tafsir": "Al-ḥamd memuji Allah atas Zat-Nya sendiri, melampaui nikmat yang diterima — di sinilah bedanya dengan syukur. Al-Fātiḥah dibuka dengan al-ḥamdu li-Llāh.",
+          "gem": "Muḥammad ('yang banyak dipuji') dan Aḥmad seakar pada ح-م-د: memuji Allah juga mengingatkan pada sifat Nabi.",
+          "mnemonic": "Ḥamd ↔ Aḥmad / Muḥammad: pujian itu tertulis di dalam nama Nabi sendiri."
+        },
+        "ur": {
+          "translation": "حمد، تعریف (جو اللہ کا حق ہے)",
+          "tafsir": "الحمد اللہ کی اس کی ذات کے سبب تعریف ہے، نعمتوں سے بڑھ کر — یہی شکر سے اس کا فرق ہے۔ سورۃ الفاتحہ الحمد للہ سے شروع ہوتی ہے۔",
+          "gem": "محمد ('بہت تعریف کیا گیا') اور احمد مادہ ح-م-د سے ہیں: اللہ کی حمد نبیؐ کی فطرت کی بھی یاد دلاتی ہے۔",
+          "mnemonic": "حمد ↔ احمد / محمد: تعریف خود نبیؐ کے نام میں رقم ہے۔"
         }
       }
     },
@@ -477,6 +621,18 @@
           "tafsir": "Al-hudā is a name of the Qur'an (2:185). Al-Ṭabarī distinguishes general guidance (showing the way) from special guidance (bringing one to the goal), reserved for believers.",
           "gem": "Al-Fātiḥa asks ihdinā ṣ-ṣirāṭ al-mustaqīm ('guide us to the straight path'), repeated in every unit of prayer.",
           "mnemonic": "Hudā = guidance; think of the hādī (guide) who both shows the road and leads you on it."
+        },
+        "id": {
+          "translation": "Petunjuk, jalan yang lurus",
+          "tafsir": "Al-hudā adalah salah satu nama Al-Qur'an (2:185). At-Ṭabarī membedakan petunjuk umum (menunjukkan jalan) dari petunjuk khusus (mengantarkan ke tujuan), yang khusus bagi orang beriman.",
+          "gem": "Al-Fātiḥah memohon ihdinā ṣ-ṣirāṭ al-mustaqīm ('tunjukilah kami jalan yang lurus'), diulang pada setiap rakaat salat.",
+          "mnemonic": "Hudā = petunjuk; bayangkan hādī (pemandu) yang menunjukkan jalan sekaligus menuntunmu di atasnya."
+        },
+        "ur": {
+          "translation": "ہدایت، سیدھا راستہ",
+          "tafsir": "الہدیٰ قرآن کے ناموں میں سے ایک ہے (2:185)۔ طبری عام ہدایت (راستہ دکھانا) اور خاص ہدایت (منزل تک پہنچانا) میں فرق کرتے ہیں، جو اہلِ ایمان کے لیے خاص ہے۔",
+          "gem": "سورۃ الفاتحہ میں اِہْدِنَا الصِّراطَ الْمُسْتَقِیم ('ہمیں سیدھا راستہ دکھا') ہے، جو ہر رکعت میں دہرایا جاتا ہے۔",
+          "mnemonic": "ہدیٰ = ہدایت؛ ہادی (رہنما) کا تصور کریں جو راستہ بھی دکھاتا ہے اور اُس پر چلاتا بھی ہے۔"
         }
       }
     },
@@ -513,6 +669,18 @@
           "tafsir": "Ash-shukr is the heart's response to divine blessings. God promises: 'If you are grateful, I will surely increase you' (14:7).",
           "gem": "Shukr is lived in three modes: acknowledging the blessing in the heart, professing it with the tongue, and using it in obedience.",
           "mnemonic": "Shukran ('thank you'): you thank God with the very word you use to thank people."
+        },
+        "id": {
+          "translation": "Syukur, rasa terima kasih",
+          "tafsir": "Asy-syukr adalah tanggapan hati terhadap nikmat-nikmat Allah. Allah berjanji: 'Jika kamu bersyukur, niscaya Aku akan menambah (nikmat) kepadamu' (14:7).",
+          "gem": "Syukur dihidupkan dalam tiga wujud: mengakui nikmat di dalam hati, menyatakannya dengan lisan, dan menggunakannya dalam ketaatan.",
+          "mnemonic": "Syukran ('terima kasih'): kamu bersyukur kepada Allah dengan kata yang sama untuk berterima kasih kepada manusia."
+        },
+        "ur": {
+          "translation": "شکر، شکر گزاری",
+          "tafsir": "الشکر اللہ کی نعمتوں پر دل کا ردِعمل ہے۔ اللہ وعدہ فرماتا ہے: 'اگر تم شکر کرو گے تو میں ضرور تمہیں زیادہ دوں گا' (14:7)۔",
+          "gem": "شکر تین صورتوں میں ادا ہوتا ہے: دل سے نعمت کا اعتراف، زبان سے اظہار، اور اطاعت میں اس کا استعمال۔",
+          "mnemonic": "شکراً ('شکریہ'): تم اللہ کا شکر اُسی لفظ سے ادا کرتے ہو جس سے لوگوں کا کرتے ہو۔"
         }
       }
     },
@@ -549,6 +717,18 @@
           "tafsir": "At-taqwā, from the root و-ق-ي ('to guard, shield oneself'), is the measure of nobility: 'the noblest before God is the most God-conscious' (49:13). It is to make a shield against whatever distances one from God.",
           "gem": "The muttaqī places a guard (wiqāya) between himself and disobedience; taqwā opens Al-Baqara: 'guidance for those of taqwā' (2:2).",
           "mnemonic": "Taqwā comes from wiqāya ('protection'): piety is the shield that guards you from harm."
+        },
+        "id": {
+          "translation": "Takwa, kesadaran akan Allah",
+          "tafsir": "At-taqwā, dari akar و-ق-ي ('menjaga, melindungi diri'), adalah ukuran kemuliaan: 'yang paling mulia di sisi Allah ialah yang paling bertakwa' (49:13). Ia adalah perisai dari segala yang menjauhkan dari Allah.",
+          "gem": "Orang bertakwa menempatkan perlindungan (wiqāya) antara dirinya dan kemaksiatan; takwa membuka Al-Baqarah: 'petunjuk bagi orang yang bertakwa' (2:2).",
+          "mnemonic": "Takwa berasal dari wiqāya ('perlindungan'): takwa adalah perisai yang menjagamu dari keburukan."
+        },
+        "ur": {
+          "translation": "تقویٰ، خوفِ خدا، پرہیزگاری",
+          "tafsir": "التقویٰ مادہ و-ق-ی ('بچانا، اپنی حفاظت کرنا') سے ہے، اور یہی شرف کا معیار ہے: 'اللہ کے نزدیک سب سے معزز وہ ہے جو سب سے زیادہ پرہیزگار ہے' (49:13)۔ یہ اللہ سے دور کرنے والی ہر چیز سے ڈھال بنانا ہے۔",
+          "gem": "متقی اپنے اور گناہ کے درمیان ایک ڈھال (وقایہ) رکھتا ہے؛ تقویٰ سے سورۃ البقرہ کا آغاز ہے: 'پرہیزگاروں کے لیے ہدایت' (2:2)۔",
+          "mnemonic": "تقویٰ 'وقایہ' (حفاظت) سے ہے: تقویٰ وہ ڈھال ہے جو تمہیں نقصان سے بچاتی ہے۔"
         }
       }
     },
@@ -585,6 +765,18 @@
           "tafsir": "Al-fatḥ joins opening and victory. Sūra 48 opens with 'We have granted you a clear victory' (48:1), understood as the treaty of Ḥudaybiyya — a peaceful conquest.",
           "gem": "Al-Fātiḥa ('the Opener') shares the root ف-ت-ح: it opens the Qur'an and the prayer; al-Fattāḥ ('the Opener') is a divine name.",
           "mnemonic": "Fatḥ ↔ fatḥa, the vowel 'a' that opens the mouth: the victory that opens the way."
+        },
+        "id": {
+          "translation": "Pembukaan, kemenangan",
+          "tafsir": "Al-fatḥ memadukan pembukaan dan kemenangan. Surah 48 dibuka dengan 'Sesungguhnya Kami telah memberimu kemenangan yang nyata' (48:1), yang dipahami sebagai Perjanjian Hudaibiyah — kemenangan yang damai.",
+          "gem": "Al-Fātiḥah ('Sang Pembuka') seakar pada ف-ت-ح: ia membuka Al-Qur'an dan salat; al-Fattāḥ ('Yang Maha Membuka') adalah nama Allah.",
+          "mnemonic": "Fatḥ ↔ fatḥah, harakat 'a' yang membuka mulut: kemenangan yang membuka jalan."
+        },
+        "ur": {
+          "translation": "فتح، کامیابی، کشادگی",
+          "tafsir": "الفتح کشادگی اور کامیابی دونوں کو جمع کرتا ہے۔ سورہ 48 کا آغاز ہے 'بے شک ہم نے تمہیں کھلی فتح عطا کی' (48:1)، جو صلحِ حدیبیہ یعنی ایک پُرامن فتح سمجھی جاتی ہے۔",
+          "gem": "الفاتحہ ('کھولنے والی') مادہ ف-ت-ح سے ہے: یہ قرآن اور نماز کا آغاز کرتی ہے؛ الفتّاح ('کھولنے والا') اللہ کا نام ہے۔",
+          "mnemonic": "فتح ↔ فتحہ، وہ 'اَ' کی حرکت جو منہ کھولتی ہے: وہ فتح جو راستہ کھول دیتی ہے۔"
         }
       }
     },
@@ -621,6 +813,18 @@
           "tafsir": "The Qur'an describes the soul in three states: inciting to evil (12:53), self-reproaching (75:2), and at peace (89:27). The nafs is the arena of spiritual struggle.",
           "gem": "Nafs means both 'self' and 'breath' (nafas): to purify the nafs (tazkiya) is to return the ego to the purity of the breath God breathed in.",
           "mnemonic": "Nafs ↔ nafas ('breath'): the soul is the breath God breathed into you."
+        },
+        "id": {
+          "translation": "Jiwa, diri, nyawa",
+          "tafsir": "Al-Qur'an menggambarkan jiwa dalam tiga keadaan: yang mendorong kepada keburukan (12:53), yang menyesali diri (75:2), dan yang tenang (89:27). Nafs adalah medan perjuangan spiritual.",
+          "gem": "Nafs berarti 'diri' sekaligus 'napas' (nafas): menyucikan nafs (tazkiyah) berarti mengembalikan ego pada kemurnian napas yang ditiupkan Allah.",
+          "mnemonic": "Nafs ↔ nafas ('napas'): jiwa adalah napas yang Allah tiupkan ke dalam dirimu."
+        },
+        "ur": {
+          "translation": "نفس، جان، اپنی ذات",
+          "tafsir": "قرآن نفس کی تین حالتیں بیان کرتا ہے: برائی پر اکسانے والا (12:53)، اپنے آپ کو ملامت کرنے والا (75:2)، اور مطمئن (89:27)۔ نفس روحانی جدوجہد کا میدان ہے۔",
+          "gem": "نفس کے معنی 'ذات' اور 'سانس' (نَفَس) دونوں ہیں: نفس کی تزکیہ گویا انا کو اُس سانس کی پاکیزگی کی طرف لوٹانا ہے جو اللہ نے پھونکی۔",
+          "mnemonic": "نفس ↔ نَفَس ('سانس'): روح وہی سانس ہے جو اللہ نے تم میں پھونکی۔"
         }
       }
     },
@@ -657,6 +861,18 @@
           "tafsir": "Adh-dhikr is a name of the Qur'an (15:9) and the practice of remembering God. 'In the remembrance of God hearts find rest' (13:28).",
           "gem": "Dhakara (to mention), dhikr (remembrance) and dhākira (memory) share ذ-ك-ر: remembering God is keeping Him present in the heart's memory.",
           "mnemonic": "Dhikr ↔ dhākira ('memory'): keep God present in memory at every moment."
+        },
+        "id": {
+          "translation": "Zikir, mengingat Allah",
+          "tafsir": "Adz-dzikr adalah salah satu nama Al-Qur'an (15:9) sekaligus amalan mengingat Allah. 'Dengan mengingat Allah hati menjadi tenteram' (13:28).",
+          "gem": "Dzakara (menyebut), dzikr (ingatan), dan dzākirah (memori) seakar pada ذ-ك-ر: mengingat Allah berarti menjaga-Nya tetap hadir dalam ingatan hati.",
+          "mnemonic": "Dzikir ↔ dzākirah ('memori'): jagalah Allah tetap hadir dalam ingatanmu setiap saat."
+        },
+        "ur": {
+          "translation": "ذکر، اللہ کی یاد",
+          "tafsir": "الذکر قرآن کے ناموں میں سے ایک ہے (15:9) اور اللہ کو یاد کرنے کا عمل بھی۔ 'اللہ کے ذکر سے ہی دل اطمینان پاتے ہیں' (13:28)۔",
+          "gem": "ذَکَرَ (یاد کرنا)، ذکر (یاد) اور ذاکرہ (حافظہ) سب مادہ ذ-ك-ر سے ہیں: اللہ کا ذکر اُسے دل کی یادداشت میں حاضر رکھنا ہے۔",
+          "mnemonic": "ذکر ↔ ذاکرہ ('حافظہ'): ہر لمحہ اللہ کو اپنی یاد میں حاضر رکھیں۔"
         }
       }
     },
@@ -693,6 +909,18 @@
           "tafsir": "Al-janna, the garden of eternal bliss promised to believers. The root ج-ن-ن means to cover or conceal: its trees veil the ground in shade.",
           "gem": "ج-ن-ن also yields jinn (a hidden being), janīn (a concealed foetus) and majnūn (whose reason is veiled): the janna is a veiled reality beyond imagination.",
           "mnemonic": "Janna = garden (jnan in dialect): your inner garden, cultivated by good deeds."
+        },
+        "id": {
+          "translation": "Surga, taman",
+          "tafsir": "Al-jannah, taman kebahagiaan abadi yang dijanjikan bagi orang beriman. Akar ج-ن-ن berarti menutupi atau menyembunyikan: pepohonannya menaungi tanah dengan rindangnya.",
+          "gem": "ج-ن-ن juga melahirkan jin (makhluk tersembunyi), janīn (janin yang tersembunyi), dan majnūn (yang akalnya tertutup): janah adalah hakikat tersembunyi yang melampaui khayal.",
+          "mnemonic": "Jannah = taman: tamanmu di dalam hati, yang dirawat dengan amal-amal kebaikan."
+        },
+        "ur": {
+          "translation": "جنت، باغ",
+          "tafsir": "الجنہ ابدی نعمتوں کا باغ ہے جس کا وعدہ اہلِ ایمان سے ہے۔ مادہ ج-ن-ن کا مطلب ڈھانپنا یا چھپانا ہے: اس کے درخت زمین کو اپنے سائے سے ڈھانپ لیتے ہیں۔",
+          "gem": "ج-ن-ن سے جن (چھپی ہوئی مخلوق)، جنین (پوشیدہ بچہ) اور مجنون (جس کی عقل ڈھکی ہو) بھی بنتے ہیں: جنت ایک پوشیدہ حقیقت ہے جو تصور سے بالاتر ہے۔",
+          "mnemonic": "جنت = باغ: تمہارا باطنی باغ، جو نیک اعمال سے سینچا جاتا ہے۔"
         }
       }
     },
@@ -729,6 +957,18 @@
           "tafsir": "Al-Karīm is a divine name (27:40) and describes the Qur'an itself ('a noble Qur'an', 56:77). It joins generosity (karam) to nobility of character.",
           "gem": "'The noblest before God is the most God-conscious' (49:13): true karāma comes from taqwā, not lineage.",
           "mnemonic": "Karīm = generous (karam, hospitality): to be karīm is to give without counting."
+        },
+        "id": {
+          "translation": "Mulia, dermawan, terhormat",
+          "tafsir": "Al-Karīm adalah salah satu nama Allah (27:40) dan menyifati Al-Qur'an itu sendiri ('Al-Qur'an yang mulia', 56:77). Ia memadukan kedermawanan (karam) dengan kemuliaan akhlak.",
+          "gem": "'Yang paling mulia di sisi Allah ialah yang paling bertakwa' (49:13): kemuliaan sejati lahir dari takwa, bukan dari keturunan.",
+          "mnemonic": "Karīm = dermawan (karam, kemurahan): menjadi karīm berarti memberi tanpa perhitungan."
+        },
+        "ur": {
+          "translation": "کریم، سخی، باعزت",
+          "tafsir": "الکریم اللہ کا ایک نام ہے (27:40) اور خود قرآن کی صفت بھی ('قرآنِ کریم'، 56:77)۔ یہ سخاوت (کرم) اور بلندیِ کردار دونوں کو جمع کرتا ہے۔",
+          "gem": "'اللہ کے نزدیک سب سے معزز وہ ہے جو سب سے زیادہ پرہیزگار ہے' (49:13): اصل عزت تقویٰ سے ہے، نسب سے نہیں۔",
+          "mnemonic": "کریم = سخی (کرم، مہمان نوازی): کریم ہونا یہ ہے کہ بے حساب عطا کرو۔"
         }
       }
     }

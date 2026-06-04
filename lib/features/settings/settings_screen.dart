@@ -92,6 +92,22 @@ class SettingsScreen extends ConsumerWidget {
             onTap: () =>
                 ref.read(localeProvider.notifier).setLocale(const Locale('en')),
           ),
+          _LanguageOption(
+            label: strings.settings.languageId,
+            locale: const Locale('id'),
+            current: locale,
+            tokens: tokens,
+            onTap: () =>
+                ref.read(localeProvider.notifier).setLocale(const Locale('id')),
+          ),
+          _LanguageOption(
+            label: strings.settings.languageUr,
+            locale: const Locale('ur'),
+            current: locale,
+            tokens: tokens,
+            onTap: () =>
+                ref.read(localeProvider.notifier).setLocale(const Locale('ur')),
+          ),
 
           const _Divider(),
 

@@ -1,0 +1,70 @@
+{
+  "appTitle": "Af'ham",
+  "appTagline": "قرآن کے الفاظ سمجھیں",
+  "searchHint": "قرآنی لفظ تلاش کریں…",
+  "searchHintArabic": "رَحْمَة  ·  rahma  ·  صبر",
+  "wordOfTheDay": "آج کا لفظ",
+  "noResults": "کوئی نتیجہ نہیں ملا",
+  "noResultsFor": "«{query}» کے لیے کوئی نتیجہ نہیں",
+  "searchPrompt": "قرآن سے کوئی لفظ تلاش کریں",
+  "searchPromptSub": "عربی یا رومن حروف میں",
+  "loading": "لوڈ ہو رہا ہے…",
+  "error": "ایک خرابی پیش آگئی",
+  "retry": "دوبارہ کوشش کریں",
+  "settings": {
+    "title": "ترتیبات",
+    "theme": "تھیم",
+    "themeLight": "روشن (Daftar)",
+    "themeDark": "تاریک (Sakīna)",
+    "themeSystem": "سسٹم",
+    "language": "زبان",
+    "languageFr": "Français",
+    "languageEn": "English",
+    "languageId": "Bahasa Indonesia",
+    "languageUr": "اردو",
+    "arabicScale": "عربی فونٹ کا سائز",
+    "arabicScaleSmall": "چھوٹا",
+    "arabicScaleNormal": "عام",
+    "arabicScaleLarge": "بڑا",
+    "arabicScaleXLarge": "بہت بڑا",
+    "about": "تعارف",
+    "audioCredit": "لفظ بہ لفظ تلاوت کا آڈیو بشکریہ Quran.com (Quran Foundation)۔"
+  },
+  "word": {
+    "translation": "ترجمہ",
+    "root": "مادہ",
+    "rootFamily": "مادے کا خاندان",
+    "tafsir": "تفسیر",
+    "gem": "نکتہ",
+    "mnemonic": "یاد رکھنے کی ترکیب",
+    "playAudio": "تلفظ سنیں",
+    "stopAudio": "روکیں",
+    "noAudio": "ابھی آڈیو نہیں",
+    "occurrences": "قرآن میں {count} بار",
+    "versesTitle": "قرآن میں",
+    "pos": {
+      "noun": "اسم",
+      "verb": "فعل",
+      "particle": "حرف",
+      "adjective": "صفت",
+      "pronoun": "ضمیر",
+      "other": "دیگر"
+    }
+  },
+  "rootFamily": {
+    "title": "مادے کا خاندان",
+    "subtitle": "{root} مادہ رکھنے والے الفاظ",
+    "empty": "اس مادے کے لیے کوئی لفظ نہیں ملا"
+  },
+  "onboarding": {
+    "skip": "چھوڑیں",
+    "next": "اگلا",
+    "start": "شروع کریں",
+    "slide1Title": "قرآن کو سمجھیں",
+    "slide1Body": "پڑھنے سے سمجھنے کی طرف — میکانکی تلاوت سے دل کی تلاوت (تدبر) کی طرف۔",
+    "slide2Title": "کوئی بھی لفظ تلاش کریں",
+    "slide2Body": "قرآنی لفظ عربی یا رومن حروف میں لکھیں۔ تلاش حرکات اور ہجے میں نرمی رکھتی ہے۔",
+    "slide3Title": "اس کا معنی دریافت کریں",
+    "slide3Body": "کسی لفظ پر ٹیپ کریں اور اس کا کارڈ دیکھیں: ترجمہ، مادہ، تفسیر، روحانی نکتہ اور یاد رکھنے کی ترکیب — اس کے تلفظ کے ساتھ۔"
+  }
+}

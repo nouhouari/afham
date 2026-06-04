@@ -100,11 +100,15 @@
     },
     "content": {
       "type": "object",
+      "description": "Per-language content. fr + en are required; any other 2–3 letter language code (id, ur, …) may be added and must conform to localizedContent.",
       "required": ["fr", "en"],
-      "additionalProperties": false,
+      "additionalProperties": { "$ref": "#/$defs/localizedContent" },
+      "propertyNames": { "pattern": "^[a-z]{2,3}$" },
       "properties": {
         "fr": { "$ref": "#/$defs/localizedContent" },
-        "en": { "$ref": "#/$defs/localizedContent" }
+        "en": { "$ref": "#/$defs/localizedContent" },
+        "id": { "$ref": "#/$defs/localizedContent" },
+        "ur": { "$ref": "#/$defs/localizedContent" }
       }
     },
     "lemma": {

@@ -72,6 +72,8 @@ class _Translations$settings$fr extends Translations$settings$en {
 	@override String get language => 'Langue';
 	@override String get languageFr => 'Français';
 	@override String get languageEn => 'English';
+	@override String get languageId => 'Bahasa Indonesia';
+	@override String get languageUr => 'اردو';
 	@override String get arabicScale => 'Taille police arabe';
 	@override String get arabicScaleSmall => 'Petite';
 	@override String get arabicScaleNormal => 'Normale';
@@ -175,6 +177,8 @@ extension on TranslationsFr {
 			'settings.language' => 'Langue',
 			'settings.languageFr' => 'Français',
 			'settings.languageEn' => 'English',
+			'settings.languageId' => 'Bahasa Indonesia',
+			'settings.languageUr' => 'اردو',
 			'settings.arabicScale' => 'Taille police arabe',
 			'settings.arabicScaleSmall' => 'Petite',
 			'settings.arabicScaleNormal' => 'Normale',

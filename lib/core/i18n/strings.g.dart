@@ -3,10 +3,10 @@
 /// Source: lib/core/i18n
 /// To regenerate, run: `dart run slang`
 ///
-/// Locales: 2
-/// Strings: 112 (56 per locale)
+/// Locales: 4
+/// Strings: 232 (58 per locale)
 ///
-/// Built on 2026-06-04 at 05:58 UTC
+/// Built on 2026-06-04 at 07:33 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
@@ -19,6 +19,8 @@ import 'package:slang_flutter/slang_flutter.dart';
 export 'package:slang_flutter/slang_flutter.dart';
 
 import 'strings_fr.g.dart' as l_fr;
+import 'strings_id.g.dart' as l_id;
+import 'strings_ur.g.dart' as l_ur;
 part 'strings_en.g.dart';
 
 /// Supported locales.
@@ -29,7 +31,9 @@ part 'strings_en.g.dart';
 /// - if (LocaleSettings.currentLocale == AppLocale.en) // locale check
 enum AppLocale with BaseAppLocale<AppLocale, Translations> {
 	en(languageCode: 'en'),
-	fr(languageCode: 'fr');
+	fr(languageCode: 'fr'),
+	id(languageCode: 'id'),
+	ur(languageCode: 'ur');
 
 	const AppLocale({
 		required this.languageCode,
@@ -69,6 +73,18 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
 				);
 			case AppLocale.fr:
 				return l_fr.TranslationsFr(
+					overrides: overrides,
+					cardinalResolver: cardinalResolver,
+					ordinalResolver: ordinalResolver,
+				);
+			case AppLocale.id:
+				return l_id.TranslationsId(
+					overrides: overrides,
+					cardinalResolver: cardinalResolver,
+					ordinalResolver: ordinalResolver,
+				);
+			case AppLocale.ur:
+				return l_ur.TranslationsUr(
 					overrides: overrides,
 					cardinalResolver: cardinalResolver,
 					ordinalResolver: ordinalResolver,
