@@ -10,8 +10,13 @@ Mobile app helping people who **read** the Qur'an in Arabic but don't **understa
 it (vocabulary gap) move from mechanical recitation to reading with the heart
 (*Tadabbur*). The user types/selects a Qur'anic word in its exact textual form → gets
 a concise **fiche**: Translation · Root (to learn word families) · short contextual
-Tafsir · a linguistic/spiritual gem (*pépite*) · a memory trick (*astuce mémo* —
-priority to Darija/dialectal links for francophones, else universal mnemonics).
+Tafsir · a linguistic/spiritual gem (*pépite*) · a memory trick (*astuce mémo*).
+
+**Target audience: worldwide** (clarified 2026-06-04) — *not* only francophones. Keep
+both Arabic and Latin/transliteration search (many users can't type Arabic); plan for UI
+languages and per-language content beyond FR/EN (the `word_content` lang_code model already
+supports adding a language by inserting rows, no schema change); prefer **universal**
+mnemonics over Darija-specific ones; consider an RTL Arabic UI locale.
 
 **Name:** Af'ham (أَفْهَم — "I understand"). Scaffolded as "Bayan", rebranded in
 `a16d981`. Residual "bayan" remains in the **Dart package name** (`pubspec.yaml`
@@ -25,7 +30,8 @@ decision. README is rebranded to Af'ham.
 - **Flutter** (iOS + Android). · **100% offline** — all text + micro-audio embedded
   locally; app stays lightweight. · **Relational local DB** linking Words / Roots /
   Verses / Languages. · **Sober/premium Islamic** design (Tarteel/Pillars), native
-  Light + Dark, never breaks reading flow. · **i18n FR + EN from V1.**
+  Light + Dark, never breaks reading flow. · **i18n FR + EN from V1**, architected to scale
+  to more languages (worldwide target).
 
 ## Locked technical decisions
 
