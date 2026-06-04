@@ -96,6 +96,53 @@ class SettingsScreen extends ConsumerWidget {
           _ArabicScalePreview(tokens: tokens),
           const SizedBox(height: Spacing.sm),
           _ScaleOptionRow(tokens: tokens, strings: strings),
+
+          const _Divider(),
+
+          // ── About / credits section ───────────────────────────────────────────
+          _SectionHeader(label: strings.settings.about),
+          _CreditLine(
+            icon: Icons.volume_up_outlined,
+            text: strings.settings.audioCredit,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ── Credit line ───────────────────────────────────────────────────────────────
+
+class _CreditLine extends StatelessWidget {
+  const _CreditLine({required this.icon, required this.text});
+
+  final IconData icon;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        Spacing.xl,
+        Spacing.sm,
+        Spacing.xl,
+        Spacing.sm,
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, size: 18, color: colorScheme.onSurface.withAlpha(140)),
+          const SizedBox(width: Spacing.sm),
+          Expanded(
+            child: Text(
+              text,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: colorScheme.onSurface.withAlpha(170),
+                height: 1.4,
+              ),
+            ),
+          ),
         ],
       ),
     );

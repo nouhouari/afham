@@ -24,7 +24,9 @@
     "arabicScaleSmall": "Petite",
     "arabicScaleNormal": "Normale",
     "arabicScaleLarge": "Grande",
-    "arabicScaleXLarge": "Très grande"
+    "arabicScaleXLarge": "Très grande",
+    "about": "À propos",
+    "audioCredit": "Audio de récitation mot à mot : avec l'aimable autorisation de Quran.com (Quran Foundation)."
   },
   "word": {
     "translation": "Traduction",

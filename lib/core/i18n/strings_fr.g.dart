@@ -76,6 +76,8 @@ class _Translations$settings$fr extends Translations$settings$en {
 	@override String get arabicScaleNormal => 'Normale';
 	@override String get arabicScaleLarge => 'Grande';
 	@override String get arabicScaleXLarge => 'Très grande';
+	@override String get about => 'À propos';
+	@override String get audioCredit => 'Audio de récitation mot à mot : avec l\'aimable autorisation de Quran.com (Quran Foundation).';
 }
 
 // Path: word
@@ -159,6 +161,8 @@ extension on TranslationsFr {
 			'settings.arabicScaleNormal' => 'Normale',
 			'settings.arabicScaleLarge' => 'Grande',
 			'settings.arabicScaleXLarge' => 'Très grande',
+			'settings.about' => 'À propos',
+			'settings.audioCredit' => 'Audio de récitation mot à mot : avec l\'aimable autorisation de Quran.com (Quran Foundation).',
 			'word.translation' => 'Traduction',
 			'word.root' => 'Racine',
 			'word.rootFamily' => 'Famille de racine',

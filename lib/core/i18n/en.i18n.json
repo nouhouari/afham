@@ -24,7 +24,9 @@
     "arabicScaleSmall": "Small",
     "arabicScaleNormal": "Normal",
     "arabicScaleLarge": "Large",
-    "arabicScaleXLarge": "X-Large"
+    "arabicScaleXLarge": "X-Large",
+    "about": "About",
+    "audioCredit": "Word-by-word recitation audio courtesy of Quran.com (Quran Foundation)."
   },
   "word": {
     "translation": "Translation",

@@ -128,6 +128,12 @@ class Translations$settings$en {
 
 	/// en: 'X-Large'
 	String get arabicScaleXLarge => 'X-Large';
+
+	/// en: 'About'
+	String get about => 'About';
+
+	/// en: 'Word-by-word recitation audio courtesy of Quran.com (Quran Foundation).'
+	String get audioCredit => 'Word-by-word recitation audio courtesy of Quran.com (Quran Foundation).';
 }
 
 // Path: word
@@ -252,6 +258,8 @@ extension on Translations {
 			'settings.arabicScaleNormal' => 'Normal',
 			'settings.arabicScaleLarge' => 'Large',
 			'settings.arabicScaleXLarge' => 'X-Large',
+			'settings.about' => 'About',
+			'settings.audioCredit' => 'Word-by-word recitation audio courtesy of Quran.com (Quran Foundation).',
 			'word.translation' => 'Translation',
 			'word.root' => 'Root',
 			'word.rootFamily' => 'Root family',
