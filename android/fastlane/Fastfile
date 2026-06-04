@@ -1,0 +1,28 @@
+default_platform(:android)
+
+# The App Bundle is produced by `flutter build appbundle --release` in the
+# release-android workflow before these lanes run.
+AAB = "../build/app/outputs/bundle/release/app-release.aab"
+
+platform :android do
+  desc "Upload the release AAB to the Play **Internal** track"
+  lane :internal do
+    upload_to_play_store(
+      track: "internal",
+      aab: AAB,
+      release_status: "draft",
+      skip_upload_apk: true,
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+    )
+  end
+
+  desc "Production track — DISABLED until store listing + credentials are ready"
+  lane :production do
+    UI.user_error!(
+      "Production lane is intentionally inactive (locked Phase-8 decision). " \
+      "Enable it once the Play listing and credentials are confirmed."
+    )
+  end
+end

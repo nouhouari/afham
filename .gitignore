@@ -43,3 +43,9 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# CI/CD runtime secrets (never committed)
+android/app/upload-keystore.jks
+android/play-service-account.json
+**/key.properties
+ios/fastlane/report.xml

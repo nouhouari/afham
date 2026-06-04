@@ -80,8 +80,8 @@ decision. README is rebranded to Af'ham.
 | 4 · Audio | AAC sprites + `ClippingAudioSource` (`audio_repository.dart`) | ✅ | `236a243` |
 | 5 · UI/UX | Word-detail fiche, root-family, search; models + `WordDetailDao` | ✅ gates APPROUVÉ (5.1 debt cleared) | `20c57bf` + fixes |
 | 6 · QA | Widget/integration tests, edge cases (option: MCP conductor e2e) | ✅ gate APPROUVÉ (136 tests) | `word_detail_dao` + `test/features/` |
-| 7 · Vérification | `flutter run` device; **airplane-mode audio**; `flutter build apk --analyze-size` | 🟡 partial (device boot ✓) | — |
-| 8 · CI/CD | GitHub Actions + Fastlane (see locked decisions below) | ⏳ | — |
+| 7 · Vérification | `flutter run` device; **airplane-mode audio**; `flutter build apk --analyze-size` | ✅ APPROUVÉ (22.4 MB; offline content ✓) | `docs/reviews/phase7-verification.md` |
+| 8 · CI/CD | GitHub Actions + Fastlane (see locked decisions below) | ✅ workflows in place (deploy lanes inactive until secrets) | `.github/workflows/`, `*/fastlane/` |
 
 **Parallelizable:** Phases 3 (content) and 5 (design) run in parallel after Phase 2.
 
@@ -110,6 +110,13 @@ Outcome per gate: **APPROUVÉ** (advance) or **À CORRIGER** (loop on the phase)
   (suite **136 passing**): `word_detail_dao_test` (incl. root-family blocker + wordOfDay
   coverage guards) + `test/features/` widget tests (AudioPlayButton ≥44pt a11y guard, search
   flow, fiche sheet). No `lib/` changes needed; analyze 0.
+- **Phase 7** (2026-06-04): verification **APPROUVÉ** → `docs/reviews/phase7-verification.md`.
+  Offline content confirmed under airplane mode; release APK **22.4 MB** (arm64). Audio is
+  offline-by-construction (valid bundled AAC + unit-tested wiring); real packs + non-silent
+  audio errors flagged. Tree formatted (`dart format`) so the CI format gate is green.
+- **Phase 8** (2026-06-04): CI/CD in place → `docs/ci-cd.md`. `ci.yml` (analyze/format/test/
+  validation build, Flutter 3.44.1, cached) + `release-android.yml`/`release-ios.yml` (tag
+  `v*`) + Fastlane lanes. Deploy lanes **inactive until secrets** (prod/deliver disabled).
 
 ## Agent orchestration (per phase)
 
@@ -150,12 +157,15 @@ credentials provided.
       surface audio-playback failures in prod.
 
 **Roadmap:**
-- [x] Phase 6 — widget/integration tests for the fiche + search flow; `word_detail_dao`
-      test (incl. the root-family fix). ✅ 136 tests, gate APPROUVÉ.
-- [ ] Phase 7 — airplane-mode audio playback; `flutter build apk --analyze-size`; iOS pass.
-- [ ] Phase 8 — CI/CD per the locked decisions above.
-- [ ] Scale content past the 20-lemma seed; real audio sprite packs (currently 3-clip sample).
-- [ ] (Separate decision) Dart package / app-id rename `bayan` → `afham`.
+- [x] Phase 6 — widget/integration tests; `word_detail_dao` test. ✅ 136 tests, gate APPROUVÉ.
+- [x] Phase 7 — airplane-mode offline content ✓; APK size 22.4 MB. ✅ (iOS build pass still TODO).
+- [x] Phase 8 — CI (analyze/format/test/build) + release workflows + Fastlane. ✅ deploy lanes
+      await secrets (see docs/ci-cd.md).
+- [ ] Provide CD secrets (Play service account, Android keystore, App Store Connect key, match repo).
+- [ ] iOS build pass (run on a real device / TestFlight once signing is set up).
+- [ ] Scale content past the 20-lemma seed; real audio sprite packs (currently 3-clip sample);
+      surface audio-playback failures instead of swallowing them.
+- [ ] (Separate decision) Dart package / app-id rename `bayan` → `afham` (before first store submit).
 
 ## Verification (current)
 

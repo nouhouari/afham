@@ -1,0 +1,63 @@
+name: Release iOS
+
+# Locked decisions (docs/PLAN.md §Phase 8):
+#   Trigger on tag v*. fastlane match (signing) -> gym (IPA) -> pilot (TestFlight).
+#   App Store `deliver` lane exists but is OFF. Deploy is INACTIVE until secrets
+#   are provided; until then the workflow stops after dependency setup (no IPA
+#   can be built without signing material).
+#
+# Required GitHub secrets:
+#   APP_STORE_CONNECT_API_KEY_ID
+#   APP_STORE_CONNECT_API_ISSUER_ID
+#   APP_STORE_CONNECT_API_KEY_P8     contents of the .p8 (raw)
+#   MATCH_GIT_URL                    repo holding the match certificates
+#   MATCH_PASSWORD                   match encryption passphrase
+#   MATCH_GIT_BASIC_AUTHORIZATION    base64 user:token for the match repo (if private)
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  ios:
+    name: Build & (conditionally) ship to TestFlight
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.44.1
+          channel: stable
+          cache: true
+
+      - name: Check signing/deploy readiness
+        id: gate
+        env:
+          KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_P8 }}
+          MATCH: ${{ secrets.MATCH_GIT_URL }}
+        run: |
+          echo "deploy=$([[ -n "$KEY" && -n "$MATCH" ]] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+
+      - run: flutter pub get
+      - run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Build, sign & upload to TestFlight
+        if: steps.gate.outputs.deploy == 'true'
+        working-directory: ios
+        env:
+          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+          APP_STORE_CONNECT_API_KEY_P8: ${{ secrets.APP_STORE_CONNECT_API_KEY_P8 }}
+          MATCH_GIT_URL: ${{ secrets.MATCH_GIT_URL }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
+          BUILD_NUMBER: ${{ github.run_number }}
+        run: |
+          bundle install
+          bundle exec fastlane beta
+
+      - name: Deploy skipped (no credentials yet)
+        if: steps.gate.outputs.deploy != 'true'
+        run: echo "::notice::iOS signing material not set — skipped match/gym/pilot. Add App Store Connect API key + MATCH_GIT_URL secrets to activate the TestFlight lane."

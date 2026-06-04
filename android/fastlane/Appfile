@@ -1,0 +1,3 @@
+# Google Play service-account JSON is written to this path by the CD workflow.
+json_key_file(ENV["PLAY_JSON_KEY_FILE"] || "play-service-account.json")
+package_name("com.houari.bayan")

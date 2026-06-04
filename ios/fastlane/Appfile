@@ -1,0 +1,4 @@
+app_identifier("com.houari.bayan")
+# apple_id / team_id are supplied via App Store Connect API key env vars in CI;
+# set them here only for local runs if needed.
+apple_id(ENV["FASTLANE_APPLE_ID"]) if ENV["FASTLANE_APPLE_ID"]

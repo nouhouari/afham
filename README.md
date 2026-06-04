@@ -1,5 +1,7 @@
 # Af'ham (أَفْهَم)
 
+[![CI](https://github.com/nouhouari/afham/actions/workflows/ci.yml/badge.svg)](https://github.com/nouhouari/afham/actions/workflows/ci.yml)
+
 A **100% offline** Flutter app that helps people who read the Qur'an in Arabic but
 don't understand it — bridging the vocabulary gap so reading becomes *Tadabbur*
 (reading with the heart) rather than mechanical recitation.
