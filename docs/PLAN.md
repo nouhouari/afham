@@ -1,79 +1,154 @@
 # Af'ham (أَفْهَم) — Project Plan & Status
 
-> Reconstructed 2026-06-04 from the original product brief + git history, after the
-> planning session's transcript was lost. This file is the source of truth for scope
-> and progress — keep it updated as phases land.
+> Source of truth for scope and progress. Realigned 2026-06-04 to the **canonical
+> 9-phase plan** (recovered from the user's device) after the original planning
+> session was lost. Keep this file updated as phases land and gates run.
 
 ## Product vision
 
-Mobile app helping people who **read** the Qur'an in Arabic but don't **understand** it
-(vocabulary gap) move from mechanical recitation to reading with the heart (*Tadabbur*).
+Mobile app helping people who **read** the Qur'an in Arabic but don't **understand**
+it (vocabulary gap) move from mechanical recitation to reading with the heart
+(*Tadabbur*). The user types/selects a Qur'anic word in its exact textual form → gets
+a concise **fiche**: Translation · Root (to learn word families) · short contextual
+Tafsir · a linguistic/spiritual gem (*pépite*) · a memory trick (*astuce mémo* —
+priority to Darija/dialectal links for francophones, else universal mnemonics).
 
-A user types/selects a Qur'anic word in its exact textual form and gets a concise
-**fiche**: Translation · Root (to learn word families) · short contextual Tafsir ·
-a linguistic/spiritual gem (*pépite*) · a memory trick (priority to Darija/dialectal
-connections for the francophone audience, else universal mnemonics).
-
-**Name:** Af'ham (أَفْهَم — "I understand"). Originally scaffolded as "Bayan"; rebranded
-in commit `a16d981`. Residual "bayan" still in `README.md`, `pubspec.yaml` (`name:`),
-and `bayan.iml` — pending cleanup.
+**Name:** Af'ham (أَفْهَم — "I understand"). Scaffolded as "Bayan", rebranded in
+`a16d981`. Residual "bayan" remains in the **Dart package name** (`pubspec.yaml`
+`name:`, drives every `package:bayan/...` import), the Android `applicationId
+com.houari.bayan`, the iOS bundle id, and `bayan.iml` — these are **deliberately not
+renamed** (invasive, risks signing/build breakage); a focused rename is a separate
+decision. README is rebranded to Af'ham.
 
 ## Hard constraints
 
-- **Framework:** Flutter (iOS + Android).
-- **100% offline** — all text + micro-audio embedded locally; app stays lightweight.
-- **Local DB:** relational model linking Words / Roots / Verses / Languages.
-- **Design:** sober, clean, premium; modern Islamic-app codes (Tarteel/Pillars vibe);
-  native Light + Dark themes; ultra-intuitive, never breaks the reading flow.
-- **i18n:** French + English from V1.
+- **Flutter** (iOS + Android). · **100% offline** — all text + micro-audio embedded
+  locally; app stays lightweight. · **Relational local DB** linking Words / Roots /
+  Verses / Languages. · **Sober/premium Islamic** design (Tarteel/Pillars), native
+  Light + Dark, never breaks reading flow. · **i18n FR + EN from V1.**
 
-## Key technical decisions
+## Locked technical decisions
 
-- **Database: Drift (SQLite)** — chosen over Hive/Isar for the relational
-  Words↔Roots↔Verses model and FTS5 search.
-- **Tolerant search: FTS5** with an Arabic normalizer (harakat-insensitive / phonetic).
-- **Audio: AAC sprite packs** played via `just_audio` `ClippingAudioSource`
-  (each clip = `pack_file` + `start_ms` + `duration_ms` in `audio_clips`).
-  Avoids shipping ~4–5k individual files; keeps APK/IPA small.
-- **Content pipeline:** an LLM prompt (`docs/content_generation_prompt.md`) emits JSON
-  validated against `docs/content_schema.json`, loaded by an idempotent importer.
-- **i18n:** `slang` codegen (`strings_*.g.dart`) from `en.i18n.json` / `fr.i18n.json`.
+- **DB: Drift (SQLite)** — chosen over Hive/Isar for the relational model + FTS5.
+- **Tolerant search: FTS5** + `arabic_normalizer` (strips harakat/tatweel; unifies
+  أ/إ/آ/ٱ→ا, ى→ي, ة→ه, ؤ→و, ئ→ي) producing `search_key`; query normalizes the same
+  way → FTS5 prefix on `surface_forms` + LIKE fallback on `latin` → resolve to lemma
+  → fiche, sorted by `frequency ↓`. (`رحمه` or `rahma` → lemma `رَحْمَة`.)
+- **Audio: AAC-LC sprite packs** (~3,400 clips of 0.5–1.5 s ≈ 15–30 MB total),
+  concatenated into a few packs; store `pack_file` + `start_ms` + `duration_ms`; play
+  the segment via `just_audio` `ClippingAudioSource`. Embedded in `assets/audio/`.
+  (Play Asset Delivery / on-demand rejected — would break "100% offline at install".)
+- **Content pipeline:** LLM prompt (`docs/content_generation_prompt.md`) → JSON
+  validated against `docs/content_schema.json` → idempotent Drift seed importer.
+- **i18n:** `slang` codegen (`strings_*.g.dart`). The app **must** be wrapped in
+  `TranslationProvider` (every screen uses `Translations.of(context)`).
+- **Codegen:** Drift + Riverpod (`riverpod_generator`) + slang via `build_runner`.
 
-## Data model (Drift / SQLite)
+## Data model (Drift / SQLite — §1.A, confirmed matching `lib/data/database/tables.drift`)
 
-`lemmas` (lemma_ar, latin, pos, frequency, root_id, audio_id) ·
-`roots` (root_ar, latin) ·
-`word_content` (lemma_id, **lang_code**, translation, tafsir, gem, mnemonic) — multilingual ·
-`verses` (surah, ayah, text_uthmani) ·
-`surface_forms` + `occurrences` (link lemmas ↔ verses) ·
-`audio_clips` (pack_file, start_ms, duration_ms).
+- `roots(id, root_ar, root_normalized, latin)`
+- `lemmas(id, root_id→roots, lemma_ar, search_key, latin, pos, frequency, audio_id→audio_clips)`
+  — the fiche entry (1 audio per lemma ≈ 3,400 clips).
+- `word_content(id, lemma_id→lemmas, lang_code, translation, tafsir, gem, mnemonic,
+  UNIQUE(lemma_id, lang_code))` — multilingual; adding a language = inserting rows.
+- `surface_forms(id, lemma_id→lemmas, text_ar, search_key, latin)` — each exact Qur'anic
+  form, points to its lemma; this is what we index.
+- `verses(id, surah, ayah, text_uthmani, text_simple, UNIQUE(surah, ayah))`
+- `occurrences(id, surface_form_id→surface_forms, verse_id→verses, position)` — N–N.
+- `audio_clips(id, pack_file, start_ms, duration_ms)` — sprite pointer + offset.
+- `forms_fts` — FTS5 virtual over `surface_forms(search_key, latin)` with sync triggers.
 
-## Phase ledger
+## Design system (§3, locked)
 
-| Phase | Scope | Status | Commit |
-|-------|-------|--------|--------|
-| Scaffold | Flutter app skeleton | ✅ | `18177ce` |
-| Phase 1 | Android build/startup on device; Arabic normalizer; token alignment; rebrand → Af'ham | ✅ | `a16d981`, `910470b` |
-| Settings | Persist theme + locale (SharedPreferences) | ✅ | `f21d154` |
-| Phase 2 | Drift schema + FTS5 tolerant search + 20-lemma seed | ✅ | `5d2b615` |
-| Phase 3 | Content-generation prompt + JSON schema + idempotent importer | ✅ | `bde53c3` |
-| Phase 4 | Offline audio (AAC sprites + ClippingAudioSource) | ✅ | `236a243` |
-| Phase 5 | Word-detail fiche: `LemmaDetail`/`RootFamilyItem`/`VerseSnippet` models, `WordDetailDao` (getLemmaDetail / lemmasByRoot / wordOfDay), detail sheet UI, search/root-family expansion | ✅ committed | `20c57bf` |
+`BayanTokens` ThemeExtension (`lib/core/theme/app_tokens.dart`); `buildDaftar()` (Light)
+/ `buildSakina()` (Dark). Fonts: Amiri (Arabic), Inter (Latin).
+- **Daftar (Light):** bg `#F5F0E8`, ink `#7A5C3E`, gold `#9A7B3F` (decorative only —
+  not text-safe on light), green `#3D6B52`, highlight `#EDE3CE`, memo `#D9EBE1`,
+  arabic `#3B2E1E`.
+- **Sakīna (Dark):** bg `#16241D`, gold `#C9A24B`, green `#3D7A58`, highlight `#1F3329`,
+  memo `#1A3028`, arabic `#ECE6D6`.
 
-## User flow (Étape 3)
+## Phase ledger (canonical 0–8)
 
-`search` (tolerant) → `word_detail` fiche (sheet) → `root_family` (siblings sharing a root,
-freq-sorted) · `settings` (theme + language). A **word-of-day** entry point exists in the
-DAO (`wordOfDay`) — a scope addition beyond the original brief.
+| Phase | Scope | Status | Ref |
+|------|------|--------|-----|
+| 0 · Cadrage | Design direction + palettes (Daftar/Sakīna), screen options | ✅ | tokens/theme |
+| 1 · Scaffold & socle | App skeleton, themes, router, Riverpod DI, `arabic_normalizer`; Android build/startup; rebrand → Af'ham | ✅ | `18177ce`,`a16d981`,`910479b` |
+| — Settings | Persist theme + locale (SharedPreferences) | ✅ | `f21d154` |
+| 2 · BDD + recherche | Drift schema + DAOs + FTS5 tolerant search + 20-lemma seed; tolerant-search DAO tests | ✅ | `5d2b615` |
+| 3 · Contenu | Content-gen prompt + JSON schema + idempotent seed importer | ✅ | `bde53c3` |
+| 4 · Audio | AAC sprites + `ClippingAudioSource` (`audio_repository.dart`) | ✅ | `236a243` |
+| 5 · UI/UX | Word-detail fiche, root-family, search; models + `WordDetailDao` | ✅ (gates run, debt logged) | `20c57bf` + fixes |
+| 6 · QA | Widget/integration tests, edge cases (option: MCP conductor e2e) | ⏳ next | — |
+| 7 · Vérification | `flutter run` device; **airplane-mode audio**; `flutter build apk --analyze-size` | 🟡 partial (device boot ✓) | — |
+| 8 · CI/CD | GitHub Actions + Fastlane (see locked decisions below) | ⏳ | — |
 
-## Open threads / next up
+**Parallelizable:** Phases 3 (content) and 5 (design) run in parallel after Phase 2.
 
-- [ ] Verify Phase-5 fiche on a real device against the "fiche concise" vision.
-- [ ] Finish Bayan → Af'ham rename (README, `pubspec.yaml` `name:`, `bayan.iml`).
-- [ ] Remove unused imports: `search_screen.dart:6`, `word_detail_sheet.dart:6`
-      (`core/router/app_router.dart`), tidy `unnecessary_underscores` lints.
-- [ ] Decide whether "word of the day" is a kept feature; if so, give it a UI surface.
-- [ ] Scale content beyond the 20-lemma seed via the Phase-3 pipeline.
-- [ ] Real audio sprite packs (currently seed-level).
-- [ ] iOS build pass (work so far has been Android-device focused).
-- [ ] Design-system polish: lock Light/Dark palettes (hex), typography for Arabic.
+## Review-gate rule (mandatory, transversal)
+
+No phase starts until the previous one passes **two green reviews**, each logged as a
+short compte-rendu in `docs/reviews/`:
+1. **Design review** — `ux-design-advisor` (UX/visual coherence + the data/API contract
+   supports the target UX).
+2. **Code review** — `/code-review` (correctness + reuse/simplicity); fixes applied
+   before continuing. `qa-test-engineer` complements on coverage.
+Outcome per gate: **APPROUVÉ** (advance) or **À CORRIGER** (loop on the phase).
+
+### Gate log
+
+- **Phase 5** (2026-06-04): design + code reviews run retroactively →
+  `docs/reviews/phase5-design.md`, `docs/reviews/phase5-code.md`. Both **À CORRIGER**;
+  **blocker fixed** (root-family now displays the root via `LEFT JOIN roots` + `rootAr`),
+  lints cleared. Remaining majors/minors logged as **Phase 5.1 debt** below. Earlier
+  phases (0–4) shipped without recorded gates — accepted as historical debt.
+
+## Agent orchestration (per phase)
+
+0 Explore + Plan + `ux-design-advisor` (2–3 design options, pick direction first) ·
+1 `flutter-dev-expert` (scaffold, core/) · 2 `flutter-dev-expert` (schema+DAOs+FTS5) →
+`qa-test-engineer` · 3 `general-purpose` (gen prompt, schema, seed) · 4 `general-purpose`
+(AAC concat → sprites) + `flutter-dev-expert` (audio repo) · 5 `ux-design-advisor` →
+`flutter-dev-expert` (Material 3 screens) · 6 `qa-test-engineer` (+ MCP conductor e2e) ·
+7 `flutter-dev-expert` (+ MCP playwright web build) · 8 `cicd-pipeline-engineer`.
+
+## Phase 8 — CI/CD (locked decisions)
+
+`match` (iOS signing), trigger on tag `v*`, initial targets **TestFlight + Play
+Internal**, accounts not ready → **secrets as placeholders, prod lanes inactive** until
+credentials provided.
+- **CI** (ubuntu, on PR/push): `pub get` → `build_runner` → `flutter analyze` →
+  `dart format --set-exit-if-changed` → `flutter test --coverage` → validation build.
+  Pin Flutter 3.44.1 (`subosito/flutter-action@v2`); cache pub + gradle.
+- **CD Android** (on `v*`): `flutter build appbundle --release` signed → `fastlane
+  supply` → Play Internal (prod off).
+- **CD iOS** (macos, on `v*`): `fastlane match` → `gym` → `pilot` → TestFlight (App
+  Store deliver lane present but off).
+- Tree: `.github/workflows/{ci,release-android,release-ios}.yml`,
+  `android/fastlane/{Fastfile,Appfile}`, `ios/fastlane/{Fastfile,Appfile,Matchfile}`.
+- User provides (agent wires, doesn't create): Apple Developer + App Store Connect API
+  key (.p8/Key ID/Issuer ID), Google Play service-account JSON, Android upload-keystore,
+  `match` certs repo → stored as base64 GitHub Secrets. Until present: prod lanes skip.
+
+## Open threads
+
+**Phase 5.1 (UI debt, from the gates):**
+- [ ] Delete/merge dead `WordDetailScreen` (~350 dup lines) → extract shared
+      `word_detail_blocks.dart` + an `AudioPlayButton`.
+- [ ] Accessibility: audio touch targets ≥ 44pt; remove gold-as-text on the light theme.
+- [ ] `wordOfDay` coverage (>31 lemmas, monthly variation); localize the sheet's
+      "not found"; `const _SearchPrompt`; shared POS i18n; search debounce; list keys.
+
+**Roadmap:**
+- [ ] Phase 6 — widget/integration tests for the fiche + search flow; a `word_detail_dao`
+      test (incl. the root-family fix).
+- [ ] Phase 7 — airplane-mode audio playback; `flutter build apk --analyze-size`; iOS pass.
+- [ ] Phase 8 — CI/CD per the locked decisions above.
+- [ ] Scale content past the 20-lemma seed; real audio sprite packs (currently 3-clip sample).
+- [ ] (Separate decision) Dart package / app-id rename `bayan` → `afham`.
+
+## Verification (current)
+
+`flutter analyze` → **0 issues** · `flutter test` → **94 passing** · app boots
+**crash-free** on the Samsung SM A245F (the `TranslationProvider` crash, found by running
+on-device, is fixed). Airplane-mode audio + bundle-size are Phase-7 items, not yet done.
