@@ -53,5 +53,16 @@
     "title": "Root family",
     "subtitle": "Words sharing the root {root}",
     "empty": "No words found for this root"
+  },
+  "onboarding": {
+    "skip": "Skip",
+    "next": "Next",
+    "start": "Get started",
+    "slide1Title": "Understand the Quran",
+    "slide1Body": "Move from reading to understanding — from mechanical recitation to reading with the heart (Tadabbur).",
+    "slide2Title": "Search any word",
+    "slide2Body": "Type a Quranic word in Arabic or transliteration. The search is tolerant to harakat and spelling.",
+    "slide3Title": "Discover its meaning",
+    "slide3Body": "Tap a word for its concise fiche: translation, root, tafsir, a spiritual gem and a memory tip — with its pronunciation."
   }
 }

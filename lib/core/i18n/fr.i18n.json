@@ -53,5 +53,16 @@
     "title": "Famille de racine",
     "subtitle": "Mots partageant la racine {root}",
     "empty": "Aucun mot trouvé pour cette racine"
+  },
+  "onboarding": {
+    "skip": "Passer",
+    "next": "Suivant",
+    "start": "Commencer",
+    "slide1Title": "Comprendre le Coran",
+    "slide1Body": "Passez de la lecture à la compréhension — d'une récitation mécanique à une lecture du cœur (Tadabbur).",
+    "slide2Title": "Cherchez un mot",
+    "slide2Body": "Tapez un mot coranique en arabe ou en translittération. La recherche tolère les harakat et l'orthographe.",
+    "slide3Title": "Découvrez son sens",
+    "slide3Body": "Touchez un mot pour sa fiche concise : traduction, racine, tafsir, une pépite spirituelle et une astuce mémo — avec sa prononciation."
   }
 }

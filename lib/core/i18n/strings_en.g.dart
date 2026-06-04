@@ -80,6 +80,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$settings$en settings = Translations$settings$en.internal(_root);
 	late final Translations$word$en word = Translations$word$en.internal(_root);
 	late final Translations$rootFamily$en rootFamily = Translations$rootFamily$en.internal(_root);
+	late final Translations$onboarding$en onboarding = Translations$onboarding$en.internal(_root);
 }
 
 // Path: settings
@@ -198,6 +199,42 @@ class Translations$rootFamily$en {
 	String get empty => 'No words found for this root';
 }
 
+// Path: onboarding
+class Translations$onboarding$en {
+	Translations$onboarding$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Skip'
+	String get skip => 'Skip';
+
+	/// en: 'Next'
+	String get next => 'Next';
+
+	/// en: 'Get started'
+	String get start => 'Get started';
+
+	/// en: 'Understand the Quran'
+	String get slide1Title => 'Understand the Quran';
+
+	/// en: 'Move from reading to understanding — from mechanical recitation to reading with the heart (Tadabbur).'
+	String get slide1Body => 'Move from reading to understanding — from mechanical recitation to reading with the heart (Tadabbur).';
+
+	/// en: 'Search any word'
+	String get slide2Title => 'Search any word';
+
+	/// en: 'Type a Quranic word in Arabic or transliteration. The search is tolerant to harakat and spelling.'
+	String get slide2Body => 'Type a Quranic word in Arabic or transliteration. The search is tolerant to harakat and spelling.';
+
+	/// en: 'Discover its meaning'
+	String get slide3Title => 'Discover its meaning';
+
+	/// en: 'Tap a word for its concise fiche: translation, root, tafsir, a spiritual gem and a memory tip — with its pronunciation.'
+	String get slide3Body => 'Tap a word for its concise fiche: translation, root, tafsir, a spiritual gem and a memory tip — with its pronunciation.';
+}
+
 // Path: word.pos
 class Translations$word$pos$en {
 	Translations$word$pos$en.internal(this._root);
@@ -280,6 +317,15 @@ extension on Translations {
 			'rootFamily.title' => 'Root family',
 			'rootFamily.subtitle' => 'Words sharing the root {root}',
 			'rootFamily.empty' => 'No words found for this root',
+			'onboarding.skip' => 'Skip',
+			'onboarding.next' => 'Next',
+			'onboarding.start' => 'Get started',
+			'onboarding.slide1Title' => 'Understand the Quran',
+			'onboarding.slide1Body' => 'Move from reading to understanding — from mechanical recitation to reading with the heart (Tadabbur).',
+			'onboarding.slide2Title' => 'Search any word',
+			'onboarding.slide2Body' => 'Type a Quranic word in Arabic or transliteration. The search is tolerant to harakat and spelling.',
+			'onboarding.slide3Title' => 'Discover its meaning',
+			'onboarding.slide3Body' => 'Tap a word for its concise fiche: translation, root, tafsir, a spiritual gem and a memory tip — with its pronunciation.',
 			_ => null,
 		};
 	}

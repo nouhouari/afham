@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:bayan/core/i18n/strings.g.dart';
@@ -15,13 +16,20 @@ Future<void> main() async {
   // the first frame. Async (not *Sync) because slang lazily loads per-locale
   // translations as deferred libraries.
   await LocaleSettings.setLocaleRaw(prefs.getString(localePrefKey) ?? 'fr');
+
+  // First launch → onboarding; otherwise straight to search.
+  final seenOnboarding = prefs.getBool(onboardingSeenKey) ?? false;
+  final router = buildAppRouter(
+    initialLocation: seenOnboarding ? Routes.search : Routes.onboarding,
+  );
+
   runApp(
     // TranslationProvider must wrap the tree so `Translations.of(context)`
     // (used by every screen) can resolve the active locale.
     TranslationProvider(
       child: ProviderScope(
         overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
-        child: const BayanApp(),
+        child: BayanApp(router: router),
       ),
     ),
   );
@@ -30,7 +38,9 @@ Future<void> main() async {
 /// Root widget — reads theme / locale providers and wires them into
 /// [MaterialApp.router].
 class BayanApp extends ConsumerWidget {
-  const BayanApp({super.key});
+  const BayanApp({super.key, required this.router});
+
+  final GoRouter router;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -56,7 +66,7 @@ class BayanApp extends ConsumerWidget {
       ],
 
       // Router
-      routerConfig: appRouter,
+      routerConfig: router,
     );
   }
 }

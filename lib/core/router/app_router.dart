@@ -1,19 +1,28 @@
 import 'package:go_router/go_router.dart';
 
+import 'package:bayan/features/onboarding/onboarding_screen.dart';
 import 'package:bayan/features/root_family/root_family_screen.dart';
 import 'package:bayan/features/search/search_screen.dart';
 import 'package:bayan/features/settings/settings_screen.dart';
 
 /// Named route identifiers — use these constants everywhere to avoid typos.
 abstract final class Routes {
+  static const onboarding = '/onboarding';
   static const search = '/';
   static const rootFamily = '/root/:rootId';
   static const settings = '/settings';
 }
 
-final appRouter = GoRouter(
-  initialLocation: Routes.search,
+/// Builds the app router. [initialLocation] is decided in `main()` — Onboarding
+/// on first launch, otherwise Search.
+GoRouter buildAppRouter({String initialLocation = Routes.search}) => GoRouter(
+  initialLocation: initialLocation,
   routes: [
+    GoRoute(
+      path: Routes.onboarding,
+      name: 'onboarding',
+      builder: (context, state) => const OnboardingScreen(),
+    ),
     GoRoute(
       path: Routes.search,
       name: 'search',

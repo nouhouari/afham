@@ -11,6 +11,10 @@ const _kThemeModeKey = 'settings.themeMode';
 /// Storage key for the persisted locale language code. Also read in `main()`.
 const localePrefKey = 'settings.locale';
 
+/// Storage key for whether the user has completed the first-launch onboarding.
+/// Read in `main()` to decide the initial route.
+const onboardingSeenKey = 'onboarding.seen';
+
 /// The [SharedPreferences] instance. Overridden with the real, async-loaded
 /// instance in `main()` via `ProviderScope(overrides: …)`.
 @Riverpod(keepAlive: true)

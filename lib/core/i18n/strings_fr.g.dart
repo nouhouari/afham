@@ -54,6 +54,7 @@ class TranslationsFr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$settings$fr settings = _Translations$settings$fr._(_root);
 	@override late final _Translations$word$fr word = _Translations$word$fr._(_root);
 	@override late final _Translations$rootFamily$fr rootFamily = _Translations$rootFamily$fr._(_root);
+	@override late final _Translations$onboarding$fr onboarding = _Translations$onboarding$fr._(_root);
 }
 
 // Path: settings
@@ -111,6 +112,24 @@ class _Translations$rootFamily$fr extends Translations$rootFamily$en {
 	@override String get title => 'Famille de racine';
 	@override String get subtitle => 'Mots partageant la racine {root}';
 	@override String get empty => 'Aucun mot trouvé pour cette racine';
+}
+
+// Path: onboarding
+class _Translations$onboarding$fr extends Translations$onboarding$en {
+	_Translations$onboarding$fr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get skip => 'Passer';
+	@override String get next => 'Suivant';
+	@override String get start => 'Commencer';
+	@override String get slide1Title => 'Comprendre le Coran';
+	@override String get slide1Body => 'Passez de la lecture à la compréhension — d\'une récitation mécanique à une lecture du cœur (Tadabbur).';
+	@override String get slide2Title => 'Cherchez un mot';
+	@override String get slide2Body => 'Tapez un mot coranique en arabe ou en translittération. La recherche tolère les harakat et l\'orthographe.';
+	@override String get slide3Title => 'Découvrez son sens';
+	@override String get slide3Body => 'Touchez un mot pour sa fiche concise : traduction, racine, tafsir, une pépite spirituelle et une astuce mémo — avec sa prononciation.';
 }
 
 // Path: word.pos
@@ -183,6 +202,15 @@ extension on TranslationsFr {
 			'rootFamily.title' => 'Famille de racine',
 			'rootFamily.subtitle' => 'Mots partageant la racine {root}',
 			'rootFamily.empty' => 'Aucun mot trouvé pour cette racine',
+			'onboarding.skip' => 'Passer',
+			'onboarding.next' => 'Suivant',
+			'onboarding.start' => 'Commencer',
+			'onboarding.slide1Title' => 'Comprendre le Coran',
+			'onboarding.slide1Body' => 'Passez de la lecture à la compréhension — d\'une récitation mécanique à une lecture du cœur (Tadabbur).',
+			'onboarding.slide2Title' => 'Cherchez un mot',
+			'onboarding.slide2Body' => 'Tapez un mot coranique en arabe ou en translittération. La recherche tolère les harakat et l\'orthographe.',
+			'onboarding.slide3Title' => 'Découvrez son sens',
+			'onboarding.slide3Body' => 'Touchez un mot pour sa fiche concise : traduction, racine, tafsir, une pépite spirituelle et une astuce mémo — avec sa prononciation.',
 			_ => null,
 		};
 	}
