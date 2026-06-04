@@ -163,11 +163,12 @@ credentials provided.
       await secrets (see docs/ci-cd.md).
 - [ ] Provide CD secrets (Play service account, Android keystore, App Store Connect key, match repo).
 - [ ] iOS build pass (run on a real device / TestFlight once signing is set up).
-- [ ] **Content coverage**: the shipped app currently imports only **5 lemmas** from
-      `assets/db/seed/lemmas.sample.json` (رَحْمَة, صَبْر, نُور, قَلْب, سَلَام); the 20-lemma
-      Dart seed is fallback-only. Generate the full JSON corpus via the Phase-3 pipeline.
-- [ ] Scale content past the seed; real audio sprite packs (currently 3-clip sample);
-      surface audio-playback failures instead of swallowing them.
+- [x] **Content coverage**: JSON corpus expanded **5 → 20 lemmas** (the full curated set),
+      schema-valid, every surface form verse-checked, **scholar-verified "ready to ship"
+      (0 errors)**. The shipped app now serves all 20.
+- [ ] Scale content past the 20 curated lemmas toward the full Qur'anic corpus; real audio
+      sprite packs (currently 3-clip sample); surface audio-playback failures instead of
+      swallowing them. (Nit: clarify `position` field semantics — clip-relative vs full-ayah.)
 - [ ] **Content accuracy** (quran-arabic-scholar review, 2026-06-04): fixed تَقْوَى root
       (→ و-ق-ي) and `اللَّه` mojibake in the Dart seed. Open warnings to review: نُور Ibn ʿArabī
       citation, صَلَاة "connexion", رَبّ/إِيمَان/حَمْد mnemonics, رَحْمَة 2:64 verse mismatch,

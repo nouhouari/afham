@@ -21,8 +21,8 @@
           ]
         },
         {
-          "text_ar": "رَحْمَةً",
-          "latin": "rahmatan",
+          "text_ar": "رَحْمَتُهُۥ",
+          "latin": "rahmatuhu",
           "verses": [
             {
               "surah": 2,
@@ -38,7 +38,7 @@
           "translation": "Miséricorde, bienveillance",
           "tafsir": "Ar-Rahma désigne la bienveillance active de Dieu envers Sa création ; la Basmala l'invoque sous deux formes, ar-Rahmān (étendue) et ar-Rahīm (constante).",
           "gem": "رَحْمَة partage sa racine ر-ح-م avec رَحِم (l'utérus) : la miséricorde divine évoque la tendresse maternelle.",
-          "mnemonic": "Pense à « rhem » / « rahma » en Darija (pitié, tendresse) : la rahma enveloppe comme un sein maternel."
+          "mnemonic": "Pense à « rhem » / « rahma » en derja (pitié, tendresse) : la rahma enveloppe comme un sein maternel."
         },
         "en": {
           "translation": "Mercy, compassion",
@@ -74,7 +74,7 @@
           "translation": "Patience, endurance",
           "tafsir": "As-Sabr est l'endurance consentie face à l'épreuve, l'obéissance et la tentation. Le verset associe la patience à la prière comme deux sources de force.",
           "gem": "La racine ص-ب-ر évoque l'idée de retenir, de lier : la patience est l'acte actif de retenir l'âme de la plainte, non une résignation passive.",
-          "mnemonic": "« Sber ! » en Darija (patience !) — tu l'entends dans chaque conseil de ta grand-mère."
+          "mnemonic": "« Sber ! » en derja (patience !) — tu l'entends dans chaque conseil de ta grand-mère."
         },
         "en": {
           "translation": "Patience, steadfastness",
@@ -146,7 +146,7 @@
           "translation": "Cœur (siège de l'âme et de l'intellect)",
           "tafsir": "Dans le Coran, le qalb est le lieu de la foi, de la compréhension et de la déviation. Le verset rappelle que seul le souvenir de Dieu apaise les cœurs.",
           "gem": "Qalb vient de la racine ق-ل-ب (se retourner) : le cœur humain est fluctuant, d'où l'invocation « Yā muqallib al-qulūb, thabbit qalbī ».",
-          "mnemonic": "« Qalb » comme « galb » en Darija (cœur) — garde ton galb tourné vers Dieu."
+          "mnemonic": "« Qalb » comme « galb » en derja (cœur) — garde ton galb tourné vers Dieu."
         },
         "en": {
           "translation": "Heart (seat of understanding and will)",
@@ -182,13 +182,553 @@
           "translation": "Paix, salut, sécurité",
           "tafsir": "As-Salām est l'un des noms divins ; ici, c'est la parole de paix adressée aux bienheureux. Le salut islamique « as-salāmu alaykum » est une prière pour la paix d'autrui.",
           "gem": "Islām, muslim, salīm et salām partagent la racine س-ل-م (intégrité, paix) : être musulman, c'est aspirer à cette plénitude apaisée.",
-          "mnemonic": "« Slama » / « bessalama » en Darija (paix, au revoir) — la paix comme salutation quotidienne."
+          "mnemonic": "« Slama » / « bessalama » en derja (paix, au revoir) — la paix comme salutation quotidienne."
         },
         "en": {
           "translation": "Peace, safety, greeting",
           "tafsir": "As-Salām is one of God's names; here it is the word of peace spoken to the blessed. The greeting 'as-salāmu alaykum' is a prayer for another's peace.",
           "gem": "Islām, muslim, salīm and salām share the root س-ل-م (wholeness, peace) — to be muslim is to seek that settled wholeness.",
           "mnemonic": "Salām is the cognate of Hebrew shalom — the same Semitic word for peace."
+        }
+      }
+    },
+    {
+      "root": { "ar": "إ-ل-ه", "latin": "a-l-h" },
+      "lemma_ar": "ٱللَّه",
+      "latin": "allah",
+      "pos": "proper_noun",
+      "frequency": 2699,
+      "surface_forms": [
+        {
+          "text_ar": "ٱللَّهُ",
+          "latin": "allahu",
+          "verses": [
+            {
+              "surah": 112,
+              "ayah": 1,
+              "text_uthmani": "قُلْ هُوَ ٱللَّهُ أَحَدٌ",
+              "text_simple": "قل هو الله أحد",
+              "position": 2
+            }
+          ]
+        }
+      ],
+      "content": {
+        "fr": {
+          "translation": "Allah — le Nom propre de Dieu",
+          "tafsir": "Nom propre de Dieu en arabe, qu'aucune autre divinité ne partage. Pour les exégètes, il rassemble tous les attributs divins (al-asmāʾ al-ḥusnā).",
+          "gem": "Nom invariable : ni pluriel, ni article indéfini. Beaucoup le rattachent à al-ilāh (la divinité) contracté en Allāh.",
+          "mnemonic": "Allāh ≈ al-ilāh contracté : le seul ilāh (dieu) digne d'adoration."
+        },
+        "en": {
+          "translation": "Allah — the proper Name of God",
+          "tafsir": "The proper Name of God in Arabic, which no other deity shares. Exegetes hold that it gathers all the divine attributes (the Beautiful Names).",
+          "gem": "A unique, invariable Name: it takes no plural and no indefinite article. Many trace it to al-ilāh ('the god') contracted into Allāh.",
+          "mnemonic": "Allāh ≈ al-ilāh contracted: the one ilāh (god) worthy of worship."
+        }
+      }
+    },
+    {
+      "root": { "ar": "ر-ب-ب", "latin": "r-b-b" },
+      "lemma_ar": "رَبّ",
+      "latin": "rabb",
+      "pos": "noun",
+      "frequency": 970,
+      "surface_forms": [
+        {
+          "text_ar": "رَبِّ",
+          "latin": "rabbi",
+          "verses": [
+            {
+              "surah": 1,
+              "ayah": 2,
+              "text_uthmani": "ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَٰلَمِينَ",
+              "text_simple": "الحمد لله رب العالمين",
+              "position": 2
+            }
+          ]
+        }
+      ],
+      "content": {
+        "fr": {
+          "translation": "Seigneur, Maître, Éducateur",
+          "tafsir": "Rabb réunit la seigneurie et le soin nourricier : le verbe رَبَّ signifie élever, faire croître. Dieu est ar-Rabb car Il mène toute chose vers sa perfection.",
+          "gem": "Employé absolument, Rabb est réservé à Dieu ; appliqué à l'homme il reste relatif (rabb al-bayt, le maître de maison).",
+          "mnemonic": "Rabb partage la racine sémitique R-B-B (grandeur, maîtrise) avec l'hébreu rav (maître)."
+        },
+        "en": {
+          "translation": "Lord, Master, Nurturer",
+          "tafsir": "Rabb joins lordship and nurturing care: the verb rabba means to raise and cause to grow. God is ar-Rabb, who brings everything to its perfection.",
+          "gem": "Used absolutely, Rabb is reserved for God; applied to people it stays relative (rabb al-bayt, 'the master of the house').",
+          "mnemonic": "Rabb shares the Semitic root R-B-B (greatness, mastery) with Hebrew rav (master)."
+        }
+      }
+    },
+    {
+      "root": { "ar": "ك-ت-ب", "latin": "k-t-b" },
+      "lemma_ar": "كِتَاب",
+      "latin": "kitab",
+      "pos": "noun",
+      "frequency": 230,
+      "surface_forms": [
+        {
+          "text_ar": "ٱلْكِتَٰبُ",
+          "latin": "al-kitabu",
+          "verses": [
+            {
+              "surah": 2,
+              "ayah": 2,
+              "text_uthmani": "ذَٰلِكَ ٱلْكِتَٰبُ لَا رَيْبَ فِيهِ",
+              "text_simple": "ذلك الكتاب لا ريب فيه",
+              "position": 1
+            }
+          ]
+        }
+      ],
+      "content": {
+        "fr": {
+          "translation": "Livre, Écriture sacrée",
+          "tafsir": "Al-Kitāb désigne le Coran et les Écritures révélées avant lui. La racine ك-ت-ب (écrire) souligne le caractère fixé et préservé de la Parole divine.",
+          "gem": "En 2:2, dhālika l-kitāb ouvre par le démonstratif d'éloignement dhālika, signe de la sublimité du Livre.",
+          "mnemonic": "Kitāb vient de kataba (écrire) ; en derja ktab = livre. Le Livre, c'est ce qui est écrit et gardé."
+        },
+        "en": {
+          "translation": "Book, Scripture",
+          "tafsir": "Al-Kitāb refers to the Qur'an and the scriptures revealed before it. The root k-t-b ('to write') stresses the fixed, preserved nature of God's word.",
+          "gem": "In 2:2, dhālika l-kitāb opens with the far-demonstrative dhālika, marking the Book's loftiness.",
+          "mnemonic": "Kitāb is from kataba ('he wrote'); same root as maktab ('office/desk'). The Book is what is written and kept."
+        }
+      }
+    },
+    {
+      "root": { "ar": "ع-ل-م", "latin": "a-l-m" },
+      "lemma_ar": "عِلْم",
+      "latin": "ilm",
+      "pos": "noun",
+      "frequency": 105,
+      "surface_forms": [
+        {
+          "text_ar": "عِلْمًا",
+          "latin": "ilman",
+          "verses": [
+            {
+              "surah": 20,
+              "ayah": 114,
+              "text_uthmani": "وَقُل رَّبِّ زِدْنِي عِلْمًا",
+              "text_simple": "وقل رب زدني علما",
+              "position": 3
+            }
+          ]
+        }
+      ],
+      "content": {
+        "fr": {
+          "translation": "Science, savoir, connaissance",
+          "tafsir": "Al-ʿilm est un attribut essentiel de Dieu (al-ʿAlīm). Le premier mot révélé est Iqraʾ (Lis !), et Dieu enseigne à l'homme ce qu'il ignorait (96:5).",
+          "gem": "ʿAllama (enseigner), ʿālim (savant) et ʿālam (monde) partagent ع-ل-م : connaître, c'est lire les signes du monde.",
+          "mnemonic": "ʿIlm ≈ ʿalam (signe, repère) : le savoir est ce qui balise et dévoile le monde."
+        },
+        "en": {
+          "translation": "Knowledge, science",
+          "tafsir": "Al-ʿilm is an essential attribute of God (al-ʿAlīm). The first revealed word is Iqraʾ ('Read!'), and God 'taught man what he knew not' (96:5).",
+          "gem": "ʿallama (to teach), ʿālim (scholar) and ʿālam (world) share ع-ل-م: to know is to read the world's signs.",
+          "mnemonic": "ʿilm ≈ ʿalam (a marker/sign): knowledge is what signposts and unveils the world."
+        }
+      }
+    },
+    {
+      "root": { "ar": "ص-ل-و", "latin": "s-l-w" },
+      "lemma_ar": "صَلَاة",
+      "latin": "salat",
+      "pos": "noun",
+      "frequency": 83,
+      "surface_forms": [
+        {
+          "text_ar": "ٱلصَّلَوٰةَ",
+          "latin": "as-salata",
+          "verses": [
+            {
+              "surah": 2,
+              "ayah": 43,
+              "text_uthmani": "وَأَقِيمُوا۟ ٱلصَّلَوٰةَ وَءَاتُوا۟ ٱلزَّكَوٰةَ",
+              "text_simple": "وأقيموا الصلاة وآتوا الزكاة",
+              "position": 1
+            }
+          ]
+        }
+      ],
+      "content": {
+        "fr": {
+          "translation": "Prière rituelle",
+          "tafsir": "As-salāt est le deuxième pilier de l'Islam. Al-Ghazālī la décrit comme un entretien intime avec Dieu (munājāt) ; le verset l'associe à la zakāt.",
+          "gem": "La racine ص-ل-و est liée à l'idée de se tourner vers et d'invoquer ; quand Dieu « yuṣallī » sur le croyant, Il le couvre de Sa grâce (33:43).",
+          "mnemonic": "Ṣalāt = ton rendez-vous quotidien avec Dieu : cinq appels à ne pas manquer."
+        },
+        "en": {
+          "translation": "Ritual prayer",
+          "tafsir": "As-salāt is the second pillar of Islam. Al-Ghazālī describes it as an intimate conversation with God (munājāt); the verse pairs it with zakāt.",
+          "gem": "The root ص-ل-و carries the sense of turning toward and supplicating; when God 'yuṣallī' upon the believer, He envelops them in grace (33:43).",
+          "mnemonic": "Ṣalāt = your daily appointment with God: five calls not to be missed."
+        }
+      }
+    },
+    {
+      "root": { "ar": "أ-م-ن", "latin": "a-m-n" },
+      "lemma_ar": "إِيمَان",
+      "latin": "iman",
+      "pos": "noun",
+      "frequency": 45,
+      "surface_forms": [
+        {
+          "text_ar": "ٱلْإِيمَٰنَ",
+          "latin": "al-iman",
+          "verses": [
+            {
+              "surah": 49,
+              "ayah": 7,
+              "text_uthmani": "وَلَٰكِنَّ ٱللَّهَ حَبَّبَ إِلَيْكُمُ ٱلْإِيمَٰنَ",
+              "text_simple": "ولكن الله حبب إليكم الإيمان",
+              "position": 4
+            }
+          ]
+        }
+      ],
+      "content": {
+        "fr": {
+          "translation": "Foi, croyance du cœur",
+          "tafsir": "Al-īmān, conviction du cœur, dépasse l'islām (soumission extérieure). Le ḥadīth de Jibrīl le définit : croire en Dieu, Ses anges, Ses Livres, Ses messagers, le Jour dernier et le décret.",
+          "gem": "Īmān vient de أ-م-ن (amn, sécurité) : la foi est un refuge intérieur, et le muʾmin met sa confiance en sûreté.",
+          "mnemonic": "Īmān et amān (sécurité) partagent la racine : croire, c'est confier son cœur en sécurité à Dieu."
+        },
+        "en": {
+          "translation": "Faith, inner belief",
+          "tafsir": "Al-īmān, the heart's conviction, goes beyond islām (outward submission). The Ḥadīth of Jibrīl defines it: belief in God, His angels, Books, messengers, the Last Day and divine decree.",
+          "gem": "Īmān is from أ-م-ن (amn, safety): faith is an inner refuge, and the muʾmin entrusts their heart to safety.",
+          "mnemonic": "Īmān and amān ('safety') share a root: to believe is to entrust your heart safely to God."
+        }
+      }
+    },
+    {
+      "root": { "ar": "ح-م-د", "latin": "h-m-d" },
+      "lemma_ar": "حَمْد",
+      "latin": "hamd",
+      "pos": "noun",
+      "frequency": 43,
+      "surface_forms": [
+        {
+          "text_ar": "ٱلْحَمْدُ",
+          "latin": "al-hamdu",
+          "verses": [
+            {
+              "surah": 1,
+              "ayah": 2,
+              "text_uthmani": "ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَٰلَمِينَ",
+              "text_simple": "الحمد لله رب العالمين",
+              "position": 0
+            }
+          ]
+        }
+      ],
+      "content": {
+        "fr": {
+          "translation": "Louange (méritée)",
+          "tafsir": "Al-ḥamd loue Dieu pour Son être même, au-delà des bienfaits reçus — d'où sa différence avec le shukr (gratitude). Al-Fātiḥa s'ouvre sur al-ḥamdu li-Llāh.",
+          "gem": "Muḥammad (« le très loué ») et Aḥmad partagent la racine ح-م-د : louer Dieu évoque aussi la nature du Prophète.",
+          "mnemonic": "Ḥamd ↔ Aḥmad / Muḥammad : la louange est inscrite dans le nom même du Prophète."
+        },
+        "en": {
+          "translation": "Praise, due praise",
+          "tafsir": "Al-ḥamd praises God for His very being, beyond received favours — hence its difference from shukr (gratitude). Al-Fātiḥa opens with al-ḥamdu li-Llāh.",
+          "gem": "Muḥammad ('the much-praised') and Aḥmad share the root ح-م-د: praising God also evokes the Prophet's nature.",
+          "mnemonic": "Ḥamd ↔ Aḥmad / Muḥammad: praise is written into the Prophet's very name."
+        }
+      }
+    },
+    {
+      "root": { "ar": "ه-د-ي", "latin": "h-d-y" },
+      "lemma_ar": "هُدًى",
+      "latin": "huda",
+      "pos": "noun",
+      "frequency": 85,
+      "surface_forms": [
+        {
+          "text_ar": "هُدًى",
+          "latin": "hudan",
+          "verses": [
+            {
+              "surah": 2,
+              "ayah": 2,
+              "text_uthmani": "ذَٰلِكَ ٱلْكِتَٰبُ لَا رَيْبَ فِيهِ هُدًى لِّلْمُتَّقِينَ",
+              "text_simple": "ذلك الكتاب لا ريب فيه هدى للمتقين",
+              "position": 6
+            }
+          ]
+        }
+      ],
+      "content": {
+        "fr": {
+          "translation": "Guidance, droit chemin",
+          "tafsir": "Al-hudā est un nom du Coran (2:185). At-Ṭabarī distingue la guidance générale (montrer la voie) de la guidance spéciale (faire parvenir au but), réservée aux croyants.",
+          "gem": "Al-Fātiḥa demande ihdinā ṣ-ṣirāṭ al-mustaqīm (« guide-nous vers le droit chemin »), répété dans chaque unité de prière.",
+          "mnemonic": "Hudā = la guidance ; pense au hādī (le guide) qui montre la route et t'y conduit."
+        },
+        "en": {
+          "translation": "Guidance, right path",
+          "tafsir": "Al-hudā is a name of the Qur'an (2:185). Al-Ṭabarī distinguishes general guidance (showing the way) from special guidance (bringing one to the goal), reserved for believers.",
+          "gem": "Al-Fātiḥa asks ihdinā ṣ-ṣirāṭ al-mustaqīm ('guide us to the straight path'), repeated in every unit of prayer.",
+          "mnemonic": "Hudā = guidance; think of the hādī (guide) who both shows the road and leads you on it."
+        }
+      }
+    },
+    {
+      "root": { "ar": "ش-ك-ر", "latin": "sh-k-r" },
+      "lemma_ar": "شُكْر",
+      "latin": "shukr",
+      "pos": "noun",
+      "frequency": 41,
+      "surface_forms": [
+        {
+          "text_ar": "شُكُورًا",
+          "latin": "shukuran",
+          "verses": [
+            {
+              "surah": 76,
+              "ayah": 9,
+              "text_uthmani": "إِنَّمَا نُطْعِمُكُمْ لِوَجْهِ ٱللَّهِ لَا نُرِيدُ مِنكُمْ جَزَآءً وَلَا شُكُورًا",
+              "text_simple": "إنما نطعمكم لوجه الله لا نريد منكم جزاء ولا شكورا",
+              "position": 9
+            }
+          ]
+        }
+      ],
+      "content": {
+        "fr": {
+          "translation": "Gratitude, reconnaissance",
+          "tafsir": "Ash-shukr est la réponse du cœur aux bienfaits divins. Dieu promet : « Si vous êtes reconnaissants, J'augmenterai » (14:7).",
+          "gem": "Le shukr se vit en trois temps : reconnaître le bienfait dans le cœur, l'avouer par la langue, l'employer dans l'obéissance.",
+          "mnemonic": "Shukran (merci) : tu remercies Dieu avec le même mot que tu remercies les gens."
+        },
+        "en": {
+          "translation": "Gratitude, thankfulness",
+          "tafsir": "Ash-shukr is the heart's response to divine blessings. God promises: 'If you are grateful, I will surely increase you' (14:7).",
+          "gem": "Shukr is lived in three modes: acknowledging the blessing in the heart, professing it with the tongue, and using it in obedience.",
+          "mnemonic": "Shukran ('thank you'): you thank God with the very word you use to thank people."
+        }
+      }
+    },
+    {
+      "root": { "ar": "و-ق-ي", "latin": "w-q-y" },
+      "lemma_ar": "تَقْوَى",
+      "latin": "taqwa",
+      "pos": "noun",
+      "frequency": 80,
+      "surface_forms": [
+        {
+          "text_ar": "ٱلتَّقْوَىٰ",
+          "latin": "at-taqwa",
+          "verses": [
+            {
+              "surah": 2,
+              "ayah": 197,
+              "text_uthmani": "وَتَزَوَّدُوا۟ فَإِنَّ خَيْرَ ٱلزَّادِ ٱلتَّقْوَىٰ",
+              "text_simple": "وتزودوا فإن خير الزاد التقوى",
+              "position": 5
+            }
+          ]
+        }
+      ],
+      "content": {
+        "fr": {
+          "translation": "Piété, conscience révérencielle de Dieu",
+          "tafsir": "At-taqwā, de la racine و-ق-ي (se prémunir, se protéger), est le critère de noblesse : « le plus noble auprès de Dieu est le plus pieux » (49:13). C'est se faire un bouclier contre ce qui éloigne de Dieu.",
+          "gem": "Le muttaqī place une protection (wiqāya) entre lui et la désobéissance ; la taqwā ouvre Al-Baqara : « guidance pour ceux qui ont la taqwā » (2:2).",
+          "mnemonic": "Taqwā vient de wiqāya (protection) : la piété est le bouclier qui te garde du mal."
+        },
+        "en": {
+          "translation": "God-consciousness, reverent piety",
+          "tafsir": "At-taqwā, from the root و-ق-ي ('to guard, shield oneself'), is the measure of nobility: 'the noblest before God is the most God-conscious' (49:13). It is to make a shield against whatever distances one from God.",
+          "gem": "The muttaqī places a guard (wiqāya) between himself and disobedience; taqwā opens Al-Baqara: 'guidance for those of taqwā' (2:2).",
+          "mnemonic": "Taqwā comes from wiqāya ('protection'): piety is the shield that guards you from harm."
+        }
+      }
+    },
+    {
+      "root": { "ar": "ف-ت-ح", "latin": "f-t-h" },
+      "lemma_ar": "فَتْح",
+      "latin": "fath",
+      "pos": "noun",
+      "frequency": 38,
+      "surface_forms": [
+        {
+          "text_ar": "فَتْحًا",
+          "latin": "fathan",
+          "verses": [
+            {
+              "surah": 48,
+              "ayah": 1,
+              "text_uthmani": "إِنَّا فَتَحْنَا لَكَ فَتْحًا مُّبِينًا",
+              "text_simple": "إنا فتحنا لك فتحا مبينا",
+              "position": 3
+            }
+          ]
+        }
+      ],
+      "content": {
+        "fr": {
+          "translation": "Ouverture, victoire",
+          "tafsir": "Al-fatḥ unit l'ouverture et la victoire. La sourate 48 s'ouvre sur « Nous t'avons accordé une victoire éclatante » (48:1), comprise comme le traité de Ḥudaybiyya, une conquête pacifique.",
+          "gem": "Al-Fātiḥa (« l'Ouvrante ») partage la racine ف-ت-ح : elle ouvre le Coran et la prière ; al-Fattāḥ (Celui qui ouvre) est un nom divin.",
+          "mnemonic": "Fatḥ ↔ fatḥa, la voyelle « a » qui ouvre la bouche : la victoire qui ouvre le chemin."
+        },
+        "en": {
+          "translation": "Opening, victory",
+          "tafsir": "Al-fatḥ joins opening and victory. Sūra 48 opens with 'We have granted you a clear victory' (48:1), understood as the treaty of Ḥudaybiyya — a peaceful conquest.",
+          "gem": "Al-Fātiḥa ('the Opener') shares the root ف-ت-ح: it opens the Qur'an and the prayer; al-Fattāḥ ('the Opener') is a divine name.",
+          "mnemonic": "Fatḥ ↔ fatḥa, the vowel 'a' that opens the mouth: the victory that opens the way."
+        }
+      }
+    },
+    {
+      "root": { "ar": "ن-ف-س", "latin": "n-f-s" },
+      "lemma_ar": "نَفْس",
+      "latin": "nafs",
+      "pos": "noun",
+      "frequency": 295,
+      "surface_forms": [
+        {
+          "text_ar": "ٱلنَّفْسُ",
+          "latin": "an-nafsu",
+          "verses": [
+            {
+              "surah": 89,
+              "ayah": 27,
+              "text_uthmani": "يَٰٓأَيَّتُهَا ٱلنَّفْسُ ٱلْمُطْمَئِنَّةُ",
+              "text_simple": "يا أيتها النفس المطمئنة",
+              "position": 1
+            }
+          ]
+        }
+      ],
+      "content": {
+        "fr": {
+          "translation": "Âme, soi, personne",
+          "tafsir": "Le Coran décrit l'âme en trois états : qui incite au mal (12:53), qui se blâme (75:2), et apaisée (89:27). La nafs est le champ du combat spirituel.",
+          "gem": "Nafs signifie à la fois « soi » et « souffle » (nafas) : purifier la nafs (tazkiya), c'est rendre l'ego à la pureté du souffle insufflé par Dieu.",
+          "mnemonic": "Nafs ↔ nafas (souffle) : l'âme est le souffle que Dieu a insufflé en toi."
+        },
+        "en": {
+          "translation": "Soul, self, person",
+          "tafsir": "The Qur'an describes the soul in three states: inciting to evil (12:53), self-reproaching (75:2), and at peace (89:27). The nafs is the arena of spiritual struggle.",
+          "gem": "Nafs means both 'self' and 'breath' (nafas): to purify the nafs (tazkiya) is to return the ego to the purity of the breath God breathed in.",
+          "mnemonic": "Nafs ↔ nafas ('breath'): the soul is the breath God breathed into you."
+        }
+      }
+    },
+    {
+      "root": { "ar": "ذ-ك-ر", "latin": "dh-k-r" },
+      "lemma_ar": "ذِكْر",
+      "latin": "dhikr",
+      "pos": "noun",
+      "frequency": 76,
+      "surface_forms": [
+        {
+          "text_ar": "ٱلذِّكْرَ",
+          "latin": "adh-dhikra",
+          "verses": [
+            {
+              "surah": 15,
+              "ayah": 9,
+              "text_uthmani": "إِنَّا نَحْنُ نَزَّلْنَا ٱلذِّكْرَ وَإِنَّا لَهُۥ لَحَٰفِظُونَ",
+              "text_simple": "إنا نحن نزلنا الذكر وإنا له لحافظون",
+              "position": 3
+            }
+          ]
+        }
+      ],
+      "content": {
+        "fr": {
+          "translation": "Rappel, évocation, souvenir de Dieu",
+          "tafsir": "Adh-dhikr est un nom du Coran (15:9) et la pratique de l'évocation de Dieu. « C'est par le rappel de Dieu que les cœurs s'apaisent » (13:28).",
+          "gem": "Dhakara (évoquer), dhikr (rappel) et dhākira (mémoire) partagent ذ-ك-ر : se souvenir de Dieu, c'est Le maintenir présent à la mémoire du cœur.",
+          "mnemonic": "Dhikr ↔ dhākira (mémoire) : garder Dieu présent en mémoire à chaque instant."
+        },
+        "en": {
+          "translation": "Remembrance, mention of God",
+          "tafsir": "Adh-dhikr is a name of the Qur'an (15:9) and the practice of remembering God. 'In the remembrance of God hearts find rest' (13:28).",
+          "gem": "Dhakara (to mention), dhikr (remembrance) and dhākira (memory) share ذ-ك-ر: remembering God is keeping Him present in the heart's memory.",
+          "mnemonic": "Dhikr ↔ dhākira ('memory'): keep God present in memory at every moment."
+        }
+      }
+    },
+    {
+      "root": { "ar": "ج-ن-ن", "latin": "j-n-n" },
+      "lemma_ar": "جَنَّة",
+      "latin": "janna",
+      "pos": "noun",
+      "frequency": 147,
+      "surface_forms": [
+        {
+          "text_ar": "ٱلْجَنَّةَ",
+          "latin": "al-jannata",
+          "verses": [
+            {
+              "surah": 2,
+              "ayah": 35,
+              "text_uthmani": "وَقُلْنَا يَٰٓـَٔادَمُ ٱسْكُنْ أَنتَ وَزَوْجُكَ ٱلْجَنَّةَ",
+              "text_simple": "وقلنا يا آدم اسكن أنت وزوجك الجنة",
+              "position": 5
+            }
+          ]
+        }
+      ],
+      "content": {
+        "fr": {
+          "translation": "Paradis, jardin",
+          "tafsir": "Al-janna, jardin de la félicité éternelle promis aux croyants. La racine ج-ن-ن signifie couvrir, cacher : ses arbres voilent le sol de leur ombre.",
+          "gem": "ج-ن-ن donne aussi jinn (être caché), janīn (fœtus caché) et majnūn (dont la raison est voilée) : la janna est une réalité voilée qui dépasse l'imagination.",
+          "mnemonic": "Janna = jardin (jnan en derja) : ton jardin intérieur, cultivé par les bonnes œuvres."
+        },
+        "en": {
+          "translation": "Paradise, garden",
+          "tafsir": "Al-janna, the garden of eternal bliss promised to believers. The root ج-ن-ن means to cover or conceal: its trees veil the ground in shade.",
+          "gem": "ج-ن-ن also yields jinn (a hidden being), janīn (a concealed foetus) and majnūn (whose reason is veiled): the janna is a veiled reality beyond imagination.",
+          "mnemonic": "Janna = garden (jnan in dialect): your inner garden, cultivated by good deeds."
+        }
+      }
+    },
+    {
+      "root": { "ar": "ك-ر-م", "latin": "k-r-m" },
+      "lemma_ar": "كَرِيم",
+      "latin": "karim",
+      "pos": "adjective",
+      "frequency": 27,
+      "surface_forms": [
+        {
+          "text_ar": "كَرِيمٌ",
+          "latin": "karimun",
+          "verses": [
+            {
+              "surah": 56,
+              "ayah": 77,
+              "text_uthmani": "إِنَّهُۥ لَقُرْءَانٌ كَرِيمٌ",
+              "text_simple": "إنه لقرآن كريم",
+              "position": 2
+            }
+          ]
+        }
+      ],
+      "content": {
+        "fr": {
+          "translation": "Noble, généreux, honorable",
+          "tafsir": "Al-Karīm est un nom divin (27:40) et qualifie le Coran lui-même (« un noble Coran », 56:77). Il joint la générosité (karam) à la noblesse de caractère.",
+          "gem": "« Le plus noble auprès de Dieu est le plus pieux » (49:13) : la vraie karāma vient de la taqwā, non de la lignée.",
+          "mnemonic": "Karīm = généreux (karam en derja, l'hospitalité) : être karīm, c'est donner sans compter."
+        },
+        "en": {
+          "translation": "Noble, generous, honourable",
+          "tafsir": "Al-Karīm is a divine name (27:40) and describes the Qur'an itself ('a noble Qur'an', 56:77). It joins generosity (karam) to nobility of character.",
+          "gem": "'The noblest before God is the most God-conscious' (49:13): true karāma comes from taqwā, not lineage.",
+          "mnemonic": "Karīm = generous (karam, hospitality): to be karīm is to give without counting."
         }
       }
     }
