@@ -136,15 +136,19 @@ void main() {
     /// We mirror the private _mapState logic to exercise all branches.
 
     AudioPlaybackState mapState(PlayerState state) {
-      if (state.playing) return AudioPlaybackState.playing;
+      // `completed` must be checked before the `playing` flag: at the end of a
+      // clip just_audio reports completed *with* playing still true.
       switch (state.processingState) {
+        case ProcessingState.completed:
+        case ProcessingState.idle:
+          return AudioPlaybackState.idle;
         case ProcessingState.loading:
         case ProcessingState.buffering:
           return AudioPlaybackState.loading;
-        case ProcessingState.idle:
         case ProcessingState.ready:
-        case ProcessingState.completed:
-          return AudioPlaybackState.idle;
+          return state.playing
+              ? AudioPlaybackState.playing
+              : AudioPlaybackState.idle;
       }
     }
 
@@ -190,14 +194,20 @@ void main() {
       );
     });
 
-    test('playing=true overrides any processing state', () {
-      for (final ps in ProcessingState.values) {
-        expect(
-          mapState(PlayerState(true, ps)),
-          AudioPlaybackState.playing,
-          reason: 'processing=$ps should still yield playing',
-        );
-      }
+    test('playing=true + processing=ready → playing', () {
+      expect(
+        mapState(PlayerState(true, ProcessingState.ready)),
+        AudioPlaybackState.playing,
+      );
+    });
+
+    test('completed maps to idle EVEN while playing (button resets at end)', () {
+      // Regression guard: just_audio leaves playing==true at the end of a clip;
+      // the button must return to "play", not stay on "stop".
+      expect(
+        mapState(PlayerState(true, ProcessingState.completed)),
+        AudioPlaybackState.idle,
+      );
     });
   });
 

@@ -40,9 +40,21 @@ enum AudioPlaybackState {
 /// facilitate testing without a native audio platform.
 class AudioRepository {
   AudioRepository({AudioPlayer? audioPlayer})
-    : _player = audioPlayer ?? AudioPlayer();
+    : _player = audioPlayer ?? AudioPlayer() {
+    // just_audio keeps `playing == true` at the end of a clip (processingState
+    // becomes `completed`). Reset to a clean idle state so the UI returns to the
+    // "play" icon and the next tap replays the clip instead of toggling stop.
+    _completionSub = _player.processingStateStream.listen((ps) {
+      if (ps == ProcessingState.completed) {
+        _player.stop();
+      }
+    });
+  }
 
   final AudioPlayer _player;
+
+  // Resets the player when a clip finishes (see constructor).
+  StreamSubscription<ProcessingState>? _completionSub;
 
   // Tracks which clip id is currently loaded (null = none).
   int? _currentClipId;
@@ -109,21 +121,26 @@ class AudioRepository {
   /// Must be called when the repository is disposed (app shutdown / test
   /// teardown).  Riverpod calls this via [ref.onDispose].
   Future<void> dispose() async {
+    await _completionSub?.cancel();
     await _player.dispose();
   }
 
   // ── Mapping just_audio state → AudioPlaybackState ─────────────────────────
 
   static AudioPlaybackState _mapState(PlayerState state) {
-    if (state.playing) return AudioPlaybackState.playing;
+    // `completed` must be checked before the `playing` flag: at the end of a
+    // clip just_audio reports completed *with* playing still true.
     switch (state.processingState) {
+      case ProcessingState.completed:
+      case ProcessingState.idle:
+        return AudioPlaybackState.idle;
       case ProcessingState.loading:
       case ProcessingState.buffering:
         return AudioPlaybackState.loading;
-      case ProcessingState.idle:
       case ProcessingState.ready:
-      case ProcessingState.completed:
-        return AudioPlaybackState.idle;
+        return state.playing
+            ? AudioPlaybackState.playing
+            : AudioPlaybackState.idle;
     }
   }
 }
