@@ -5,8 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:bayan/core/i18n/strings.g.dart';
 import 'package:bayan/core/theme/app_tokens.dart';
 import 'package:bayan/core/theme/dimens.dart';
+import 'package:bayan/core/widgets/audio_play_button.dart';
 import 'package:bayan/data/audio/audio_clip.dart';
-import 'package:bayan/data/audio/audio_repository.dart';
 import 'package:bayan/data/database/database_provider.dart';
 import 'package:bayan/data/database/models/lemma_detail.dart';
 
@@ -70,7 +70,7 @@ class _WordDetailSheet extends ConsumerWidget {
                 child: detailAsync.when(
                   data: (detail) => detail == null
                       ? _SheetError(
-                          message: 'Lemma #$lemmaId not found',
+                          message: Translations.of(context).error,
                           scrollController: scrollController,
                         )
                       : _SheetContent(
@@ -278,7 +278,7 @@ class _HeaderBlock extends ConsumerWidget {
               ),
             ),
             // Audio button
-            _SheetAudioButton(clip: clip, tokens: tokens),
+            AudioPlayButton(clip: clip, iconSize: 28, filled: true),
           ],
         ),
         const SizedBox(height: Spacing.xs),
@@ -376,7 +376,7 @@ class _RootBlock extends StatelessWidget {
                   child: Text(
                     detail.rootAr,
                     style: tokens.arabicBody.copyWith(
-                      color: tokens.accent,
+                      color: tokens.accentText,
                     ),
                   ),
                 ),
@@ -419,7 +419,7 @@ class _GemBlock extends StatelessWidget {
       borderColor: tokens.accent,
       fillColor: tokens.highlightBackground,
       label: Translations.of(context).word.gem.toUpperCase(),
-      labelColor: tokens.accent,
+      labelColor: tokens.accentText,
       icon: Icons.auto_awesome_rounded,
       iconColor: tokens.accent,
       child: Text(gem, style: theme.textTheme.bodyLarge),
@@ -609,77 +609,6 @@ class _PosPill extends StatelessWidget {
           color: theme.colorScheme.onSurface.withAlpha(160),
         ),
       ),
-    );
-  }
-}
-
-// ── Audio button (inside sheet) ───────────────────────────────────────────────
-
-class _SheetAudioButton extends ConsumerWidget {
-  const _SheetAudioButton({required this.clip, required this.tokens});
-
-  final AudioClip? clip;
-  final BayanTokens tokens;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final strings = Translations.of(context);
-
-    if (clip == null) {
-      return Tooltip(
-        message: strings.word.noAudio,
-        child: Icon(
-          Icons.volume_off_outlined,
-          size: 24,
-          color: Theme.of(context).colorScheme.onSurface.withAlpha(60),
-        ),
-      );
-    }
-
-    final repo = ref.watch(audioRepositoryProvider);
-
-    return StreamBuilder<AudioPlaybackState>(
-      stream: repo.playbackState,
-      initialData: AudioPlaybackState.idle,
-      builder: (context, snapshot) {
-        final state = snapshot.data ?? AudioPlaybackState.idle;
-        final isThisClipActive = repo.currentClipId == clip!.id;
-
-        if (isThisClipActive && state == AudioPlaybackState.loading) {
-          return SizedBox(
-            width: 48,
-            height: 48,
-            child: Padding(
-              padding: const EdgeInsets.all(Spacing.md),
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-                color: tokens.accent,
-              ),
-            ),
-          );
-        }
-
-        final isPlaying =
-            isThisClipActive && state == AudioPlaybackState.playing;
-
-        return IconButton(
-          iconSize: 28,
-          tooltip: isPlaying ? strings.word.stopAudio : strings.word.playAudio,
-          icon: Icon(
-            isPlaying
-                ? Icons.stop_circle_rounded
-                : Icons.play_circle_filled_rounded,
-            color: tokens.accent,
-          ),
-          onPressed: () async {
-            try {
-              await repo.playClip(clip);
-            } catch (_) {
-              // Asset not yet present in dev — swallow silently.
-            }
-          },
-        );
-      },
     );
   }
 }

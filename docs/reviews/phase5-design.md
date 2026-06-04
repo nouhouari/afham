@@ -63,3 +63,17 @@ Périmètre approuvé : *stabiliser + corrections rapides et sûres ; différer 
 **État du gate :** À CORRIGER → **blocker levé** ; les deux majors d'accessibilité/contraste
 sont consignés comme dette Phase 5.1 (passe de polish UI). Checkpoint Phase 5 passe avec
 dette documentée. Les 3 « règles verrouillées » ci-dessus s'appliquent dès la Phase 5.1.
+
+## Mise à jour — Phase 5.1 (2026-06-04)
+
+Dette d'accessibilité **résolue** :
+- **D2** ✅ — `AudioPlayButton` partagé (`lib/core/widgets/audio_play_button.dart`) garantit
+  une cible tactile ≥ 44 pt sur toutes les surfaces (sheet, cartes résultat, mot-du-jour,
+  tuiles famille). Les 4 anciens boutons `GestureDetector`/`IconButton` sont supprimés.
+- **D3** ✅ — token `accentText` ajouté (encre `#7A5C3E` sur clair, or `#C9A24B` sur sombre) ;
+  l'or n'est plus utilisé comme couleur de texte (racine, label Pépite, label Mot-du-jour,
+  translittération de racine). L'or reste décoratif (bordures, icônes).
+
+Les 3 règles verrouillées sont désormais respectées (≥44 pt ; or décoratif sur clair ;
+sous-widgets de détail partagés — l'écran plein dupliqué a été supprimé). **Gate design : APPROUVÉ.**
+Vérifié sur appareil (SM A245F) : accueil + fiche rendus correctement.

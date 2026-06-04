@@ -172,3 +172,22 @@ Périmètre approuvé : *stabiliser + corrections rapides et sûres ; différer 
 
 **État du gate :** À CORRIGER → **blocker levé** ; les majors/mineurs restants sont
 consignés comme dette Phase 5.1. Le checkpoint Phase 5 passe avec dette documentée.
+
+## Mise à jour — Phase 5.1 (2026-06-04)
+
+Dette **résolue** :
+- **#3 (major)** ✅ — `WordDetailScreen` (code mort) + sa route `/word/:lemmaId` **supprimés** ;
+  ~490 lignes (dont ~350 dupliquées) éliminées. Plus de doute « sheet vs screen ».
+- **#8 (major) + audio** ✅ — `AudioPlayButton` partagé extrait
+  (`lib/core/widgets/audio_play_button.dart`) ; les 4 boutons audio dupliqués remplacés.
+- **#2 (major)** ✅ — `wordOfDay` : l'appelant passe désormais un index jour-depuis-époque
+  (`search_screen.dart`), couvrant tout le corpus avec rotation quotidienne.
+- **#5** ✅ — message « not found » de la sheet localisé (`strings.error`).
+- **#6** ✅ — `const _SearchPrompt`.
+- **#7** ✅ — `_PosLabel` traduit le POS (même `switch` que la fiche).
+
+**Reste différé (mineur, non bloquant) :** debounce sur la recherche ; `ValueKey` sur les
+items de liste ; remontée utilisateur en cas d'échec audio en prod.
+
+`flutter analyze` : 0 issue · `flutter test` : 94 passing · boot propre + accueil/fiche
+vérifiés sur SM A245F. **Gate code : APPROUVÉ** (mineurs restants suivis dans docs/PLAN.md).

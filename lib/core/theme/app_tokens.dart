@@ -23,6 +23,7 @@ import 'package:flutter/material.dart';
 class BayanTokens extends ThemeExtension<BayanTokens> {
   const BayanTokens({
     required this.accent,
+    required this.accentText,
     required this.arabicTextColor,
     required this.highlightBackground,
     required this.memoBackground,
@@ -36,6 +37,11 @@ class BayanTokens extends ThemeExtension<BayanTokens> {
 
   /// Gold accent — used for borders/backgrounds in Pépite block; text-safe only on dark.
   final Color accent;
+
+  /// Text-safe variant of the accent: warm ink on the light theme (where gold
+  /// fails WCAG AA), gold on the dark theme. Use for accent-coloured *text*
+  /// (labels, root letters); use [accent] for decorative borders/icons.
+  final Color accentText;
 
   /// Primary text colour for Arabic script blocks (adapts per theme).
   final Color arabicTextColor;
@@ -70,6 +76,7 @@ class BayanTokens extends ThemeExtension<BayanTokens> {
 
   static const BayanTokens daftar = BayanTokens(
     accent: Color(0xFF9A7B3F),
+    accentText: Color(0xFF7A5C3E), // encre brun-chaud — text-safe on light
     arabicTextColor: Color(0xFF3B2E1E),
     highlightBackground: Color(0xFFEDE3CE),
     memoBackground: Color(0xFFD9EBE1),
@@ -113,6 +120,7 @@ class BayanTokens extends ThemeExtension<BayanTokens> {
 
   static const BayanTokens sakina = BayanTokens(
     accent: Color(0xFFC9A24B),
+    accentText: Color(0xFFC9A24B), // gold — text-safe on dark (6.7:1)
     arabicTextColor: Color(0xFFECE6D6),
     highlightBackground: Color(0xFF1F3329),
     memoBackground: Color(0xFF1A3028),
@@ -161,6 +169,7 @@ class BayanTokens extends ThemeExtension<BayanTokens> {
   @override
   BayanTokens copyWith({
     Color? accent,
+    Color? accentText,
     Color? arabicTextColor,
     Color? highlightBackground,
     Color? memoBackground,
@@ -173,6 +182,7 @@ class BayanTokens extends ThemeExtension<BayanTokens> {
   }) {
     return BayanTokens(
       accent: accent ?? this.accent,
+      accentText: accentText ?? this.accentText,
       arabicTextColor: arabicTextColor ?? this.arabicTextColor,
       highlightBackground: highlightBackground ?? this.highlightBackground,
       memoBackground: memoBackground ?? this.memoBackground,
@@ -190,6 +200,7 @@ class BayanTokens extends ThemeExtension<BayanTokens> {
     if (other == null) return this;
     return BayanTokens(
       accent: Color.lerp(accent, other.accent, t)!,
+      accentText: Color.lerp(accentText, other.accentText, t)!,
       arabicTextColor: Color.lerp(arabicTextColor, other.arabicTextColor, t)!,
       highlightBackground: Color.lerp(
         highlightBackground,

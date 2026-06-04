@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bayan/core/i18n/strings.g.dart';
 import 'package:bayan/core/theme/app_tokens.dart';
 import 'package:bayan/core/theme/dimens.dart';
+import 'package:bayan/core/widgets/audio_play_button.dart';
 import 'package:bayan/data/audio/audio_clip.dart';
-import 'package:bayan/data/audio/audio_repository.dart';
 import 'package:bayan/data/database/database_provider.dart';
 import 'package:bayan/data/database/models/lemma_detail.dart';
 import 'package:bayan/features/word_detail/word_detail_sheet.dart';
@@ -229,7 +229,7 @@ class _FamilyTile extends StatelessWidget {
                 ),
               const SizedBox(width: Spacing.xs),
               // Audio button
-              _FamilyAudioButton(clip: clip, tokens: tokens),
+              AudioPlayButton(clip: clip, iconSize: 22),
             ],
           ),
         ),
@@ -238,65 +238,3 @@ class _FamilyTile extends StatelessWidget {
   }
 }
 
-// ── Audio button for family tiles ─────────────────────────────────────────────
-
-class _FamilyAudioButton extends ConsumerWidget {
-  const _FamilyAudioButton({required this.clip, required this.tokens});
-
-  final AudioClip? clip;
-  final BayanTokens tokens;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    if (clip == null) {
-      return Icon(
-        Icons.volume_off_outlined,
-        size: 18,
-        color: Theme.of(context).colorScheme.onSurface.withAlpha(50),
-      );
-    }
-
-    final repo = ref.watch(audioRepositoryProvider);
-
-    return StreamBuilder<AudioPlaybackState>(
-      stream: repo.playbackState,
-      initialData: AudioPlaybackState.idle,
-      builder: (context, snapshot) {
-        final state = snapshot.data ?? AudioPlaybackState.idle;
-        final isThisClipActive = repo.currentClipId == clip!.id;
-
-        if (isThisClipActive && state == AudioPlaybackState.loading) {
-          return SizedBox(
-            width: 32,
-            height: 32,
-            child: Padding(
-              padding: const EdgeInsets.all(Spacing.sm),
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-                color: tokens.accent,
-              ),
-            ),
-          );
-        }
-
-        final isPlaying =
-            isThisClipActive && state == AudioPlaybackState.playing;
-
-        return GestureDetector(
-          onTap: () async {
-            try {
-              await repo.playClip(clip);
-            } catch (_) {}
-          },
-          child: Icon(
-            isPlaying
-                ? Icons.stop_circle_outlined
-                : Icons.play_circle_outline_rounded,
-            size: 22,
-            color: tokens.accent,
-          ),
-        );
-      },
-    );
-  }
-}

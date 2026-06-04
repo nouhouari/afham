@@ -5,8 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:bayan/core/i18n/strings.g.dart';
 import 'package:bayan/core/theme/app_tokens.dart';
 import 'package:bayan/core/theme/dimens.dart';
+import 'package:bayan/core/widgets/audio_play_button.dart';
 import 'package:bayan/data/audio/audio_clip.dart';
-import 'package:bayan/data/audio/audio_repository.dart';
 import 'package:bayan/data/database/database_provider.dart';
 import 'package:bayan/data/database/models/lemma_detail.dart';
 import 'package:bayan/data/database/models/search_result.dart';
@@ -240,9 +240,10 @@ class _EmptyHome extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // dayOfMonth drives the deterministic word-of-day selection.
-    final dayOfMonth = DateTime.now().day;
-    final wordAsync = ref.watch(wordOfDayProvider(dayOfMonth));
+    // Whole-epoch day index so the word-of-day rotates through the entire
+    // corpus and changes every day (not just within a 1–31 day-of-month window).
+    final dayIndex = DateTime.now().difference(DateTime.utc(2024, 1, 1)).inDays;
+    final wordAsync = ref.watch(wordOfDayProvider(dayIndex));
     final strings = Translations.of(context);
 
     return CustomScrollView(
@@ -276,10 +277,10 @@ class _EmptyHome extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: Spacing.lg),
             child: wordAsync.when(
               data: (detail) => detail == null
-                  ? _SearchPrompt()
+                  ? const _SearchPrompt()
                   : _WordOfDayCard(detail: detail, tokens: tokens),
               loading: () => _WordOfDayCardSkeleton(tokens: tokens),
-              error: (_, _) => _SearchPrompt(),
+              error: (_, _) => const _SearchPrompt(),
             ),
           ),
         ),
@@ -375,14 +376,14 @@ class _WordOfDayCard extends StatelessWidget {
                       Text(
                         strings.wordOfTheDay.toUpperCase(),
                         style: theme.textTheme.labelSmall?.copyWith(
-                          color: tokens.accent,
+                          color: tokens.accentText,
                           letterSpacing: 1.2,
                         ),
                       ),
                     ],
                   ),
                   const Spacer(),
-                  _CardAudioButton(clip: clip, tokens: tokens),
+                  AudioPlayButton(clip: clip, iconSize: 22),
                 ],
               ),
               const SizedBox(height: Spacing.md),
@@ -458,71 +459,10 @@ class _WordOfDayCardSkeleton extends StatelessWidget {
 }
 
 class _SearchPrompt extends StatelessWidget {
+  const _SearchPrompt();
+
   @override
   Widget build(BuildContext context) => const SizedBox.shrink();
-}
-
-// ── Audio button on card ──────────────────────────────────────────────────────
-
-class _CardAudioButton extends ConsumerWidget {
-  const _CardAudioButton({required this.clip, required this.tokens});
-
-  final AudioClip? clip;
-  final BayanTokens tokens;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    if (clip == null) {
-      return Icon(
-        Icons.volume_off_outlined,
-        size: 18,
-        color: Theme.of(context).colorScheme.onSurface.withAlpha(50),
-      );
-    }
-
-    final repo = ref.watch(audioRepositoryProvider);
-
-    return StreamBuilder<AudioPlaybackState>(
-      stream: repo.playbackState,
-      initialData: AudioPlaybackState.idle,
-      builder: (context, snapshot) {
-        final state = snapshot.data ?? AudioPlaybackState.idle;
-        final isThisClipActive = repo.currentClipId == clip!.id;
-
-        if (isThisClipActive && state == AudioPlaybackState.loading) {
-          return SizedBox(
-            width: 32,
-            height: 32,
-            child: Padding(
-              padding: const EdgeInsets.all(Spacing.sm),
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-                color: tokens.accent,
-              ),
-            ),
-          );
-        }
-
-        final isPlaying =
-            isThisClipActive && state == AudioPlaybackState.playing;
-
-        return GestureDetector(
-          onTap: () async {
-            try {
-              await repo.playClip(clip);
-            } catch (_) {}
-          },
-          child: Icon(
-            isPlaying
-                ? Icons.stop_circle_outlined
-                : Icons.play_circle_outline_rounded,
-            size: 22,
-            color: tokens.accent,
-          ),
-        );
-      },
-    );
-  }
 }
 
 // ── No results state ──────────────────────────────────────────────────────────
@@ -674,7 +614,7 @@ class _ResultCard extends ConsumerWidget {
                           Text(
                             result.rootLatin,
                             style: theme.textTheme.labelSmall?.copyWith(
-                              color: tokens.accent,
+                              color: tokens.accentText,
                             ),
                           ),
                         ],
@@ -697,7 +637,7 @@ class _ResultCard extends ConsumerWidget {
               const SizedBox(width: Spacing.xs),
 
               // Right: audio button
-              _ResultAudioButton(clip: clip, tokens: tokens),
+              AudioPlayButton(clip: clip, iconSize: 22),
             ],
           ),
         ),
@@ -741,6 +681,15 @@ class _PosLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = Translations.of(context);
+    final label = switch (pos.toLowerCase()) {
+      'noun' => strings.word.pos.noun,
+      'verb' => strings.word.pos.verb,
+      'particle' => strings.word.pos.particle,
+      'adjective' => strings.word.pos.adjective,
+      'pronoun' => strings.word.pos.pronoun,
+      _ => pos,
+    };
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: Spacing.xs, vertical: 2),
       decoration: BoxDecoration(
@@ -748,7 +697,7 @@ class _PosLabel extends StatelessWidget {
         borderRadius: BorderRadius.circular(Radii.chip),
       ),
       child: Text(
-        pos,
+        label,
         style: theme.textTheme.labelSmall?.copyWith(
           color: theme.colorScheme.onSurface.withAlpha(140),
         ),
@@ -757,71 +706,3 @@ class _PosLabel extends StatelessWidget {
   }
 }
 
-// ── Audio button for result cards ─────────────────────────────────────────────
-
-class _ResultAudioButton extends ConsumerWidget {
-  const _ResultAudioButton({required this.clip, required this.tokens});
-
-  final AudioClip? clip;
-  final BayanTokens tokens;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    if (clip == null) {
-      return Padding(
-        padding: const EdgeInsets.only(top: Spacing.xs),
-        child: Icon(
-          Icons.volume_off_outlined,
-          size: 18,
-          color: Theme.of(context).colorScheme.onSurface.withAlpha(50),
-        ),
-      );
-    }
-
-    final repo = ref.watch(audioRepositoryProvider);
-
-    return StreamBuilder<AudioPlaybackState>(
-      stream: repo.playbackState,
-      initialData: AudioPlaybackState.idle,
-      builder: (context, snapshot) {
-        final state = snapshot.data ?? AudioPlaybackState.idle;
-        final isThisClipActive = repo.currentClipId == clip!.id;
-
-        if (isThisClipActive && state == AudioPlaybackState.loading) {
-          return SizedBox(
-            width: 32,
-            height: 32,
-            child: Padding(
-              padding: const EdgeInsets.all(Spacing.sm),
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-                color: tokens.accent,
-              ),
-            ),
-          );
-        }
-
-        final isPlaying =
-            isThisClipActive && state == AudioPlaybackState.playing;
-
-        return GestureDetector(
-          onTap: () async {
-            try {
-              await repo.playClip(clip);
-            } catch (_) {}
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(top: Spacing.xs),
-            child: Icon(
-              isPlaying
-                  ? Icons.stop_circle_outlined
-                  : Icons.play_circle_outline_rounded,
-              size: 22,
-              color: tokens.accent,
-            ),
-          ),
-        );
-      },
-    );
-  }
-}

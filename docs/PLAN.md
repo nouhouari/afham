@@ -78,7 +78,7 @@ decision. README is rebranded to Af'ham.
 | 2 · BDD + recherche | Drift schema + DAOs + FTS5 tolerant search + 20-lemma seed; tolerant-search DAO tests | ✅ | `5d2b615` |
 | 3 · Contenu | Content-gen prompt + JSON schema + idempotent seed importer | ✅ | `bde53c3` |
 | 4 · Audio | AAC sprites + `ClippingAudioSource` (`audio_repository.dart`) | ✅ | `236a243` |
-| 5 · UI/UX | Word-detail fiche, root-family, search; models + `WordDetailDao` | ✅ (gates run, debt logged) | `20c57bf` + fixes |
+| 5 · UI/UX | Word-detail fiche, root-family, search; models + `WordDetailDao` | ✅ gates APPROUVÉ (5.1 debt cleared) | `20c57bf` + fixes |
 | 6 · QA | Widget/integration tests, edge cases (option: MCP conductor e2e) | ⏳ next | — |
 | 7 · Vérification | `flutter run` device; **airplane-mode audio**; `flutter build apk --analyze-size` | 🟡 partial (device boot ✓) | — |
 | 8 · CI/CD | GitHub Actions + Fastlane (see locked decisions below) | ⏳ | — |
@@ -100,8 +100,12 @@ Outcome per gate: **APPROUVÉ** (advance) or **À CORRIGER** (loop on the phase)
 - **Phase 5** (2026-06-04): design + code reviews run retroactively →
   `docs/reviews/phase5-design.md`, `docs/reviews/phase5-code.md`. Both **À CORRIGER**;
   **blocker fixed** (root-family now displays the root via `LEFT JOIN roots` + `rootAr`),
-  lints cleared. Remaining majors/minors logged as **Phase 5.1 debt** below. Earlier
-  phases (0–4) shipped without recorded gates — accepted as historical debt.
+  lints cleared. Earlier phases (0–4) shipped without recorded gates — historical debt.
+- **Phase 5.1** (2026-06-04): gate debt cleared → both gates now **APPROUVÉ**. Deleted dead
+  `WordDetailScreen` + route (~490 lines); extracted shared `AudioPlayButton` (≥44pt, fixes
+  D2 + dup); added `accentText` token (fixes D3 gold-as-text); `wordOfDay` full-corpus
+  rotation; localized not-found; POS i18n in search; `const _SearchPrompt`. Verified on
+  device (analyze 0, 94 tests, home + fiche render). Only minor nice-to-haves remain.
 
 ## Agent orchestration (per phase)
 
@@ -132,12 +136,14 @@ credentials provided.
 
 ## Open threads
 
-**Phase 5.1 (UI debt, from the gates):**
-- [ ] Delete/merge dead `WordDetailScreen` (~350 dup lines) → extract shared
-      `word_detail_blocks.dart` + an `AudioPlayButton`.
-- [ ] Accessibility: audio touch targets ≥ 44pt; remove gold-as-text on the light theme.
-- [ ] `wordOfDay` coverage (>31 lemmas, monthly variation); localize the sheet's
-      "not found"; `const _SearchPrompt`; shared POS i18n; search debounce; list keys.
+**Phase 5.1 (UI debt, from the gates) — ✅ DONE 2026-06-04:**
+- [x] Deleted dead `WordDetailScreen` + route; extracted shared `AudioPlayButton`
+      (`lib/core/widgets/audio_play_button.dart`).
+- [x] Accessibility: audio targets ≥ 44pt; `accentText` token removes gold-as-text on light.
+- [x] `wordOfDay` full-corpus daily rotation; localized sheet "not found";
+      `const _SearchPrompt`; POS i18n in search results.
+- [ ] Remaining minor (non-blocking): search debounce; `ValueKey` on list items;
+      surface audio-playback failures in prod.
 
 **Roadmap:**
 - [ ] Phase 6 — widget/integration tests for the fiche + search flow; a `word_detail_dao`
