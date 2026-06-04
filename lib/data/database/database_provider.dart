@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import 'package:bayan/core/providers/settings_providers.dart';
 import 'package:bayan/data/database/app_database.dart';
 import 'package:bayan/data/database/models/lemma_detail.dart';
 import 'package:bayan/data/database/models/search_result.dart';
@@ -61,9 +62,10 @@ class SearchQuery extends _$SearchQuery {
 Future<List<SearchResult>> searchResults(Ref ref) async {
   final db = ref.watch(appDatabaseProvider);
   final query = ref.watch(searchQueryProvider);
+  final lang = ref.watch(localeProvider).languageCode;
   // Expose a stable empty list for blank queries without hitting the DB.
   if (query.trim().isEmpty) return const [];
-  return db.searchDao.searchLemmas(query);
+  return db.searchDao.searchLemmas(query, langCode: lang);
 }
 
 /// Loads the full [LemmaDetail] for a given lemma id.
@@ -72,14 +74,16 @@ Future<List<SearchResult>> searchResults(Ref ref) async {
 @riverpod
 Future<LemmaDetail?> lemmaDetail(Ref ref, int lemmaId) async {
   final db = ref.watch(appDatabaseProvider);
-  return db.wordDetailDao.getLemmaDetail(lemmaId);
+  final lang = ref.watch(localeProvider).languageCode;
+  return db.wordDetailDao.getLemmaDetail(lemmaId, langCode: lang);
 }
 
 /// Returns all lemmas sharing [rootId] for the root-family screen.
 @riverpod
 Future<List<RootFamilyItem>> rootFamilyItems(Ref ref, int rootId) async {
   final db = ref.watch(appDatabaseProvider);
-  return db.wordDetailDao.lemmasByRoot(rootId);
+  final lang = ref.watch(localeProvider).languageCode;
+  return db.wordDetailDao.lemmasByRoot(rootId, langCode: lang);
 }
 
 /// Returns the deterministic word-of-the-day lemma detail.
@@ -89,5 +93,6 @@ Future<List<RootFamilyItem>> rootFamilyItems(Ref ref, int rootId) async {
 @riverpod
 Future<LemmaDetail?> wordOfDay(Ref ref, int dayOfMonth) async {
   final db = ref.watch(appDatabaseProvider);
-  return db.wordDetailDao.wordOfDay(dayOfMonth);
+  final lang = ref.watch(localeProvider).languageCode;
+  return db.wordDetailDao.wordOfDay(dayOfMonth, langCode: lang);
 }

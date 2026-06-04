@@ -8,8 +8,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:bayan/core/i18n/strings.g.dart';
+import 'package:bayan/core/providers/settings_providers.dart';
 import 'package:bayan/core/theme/theme.dart';
 import 'package:bayan/data/audio/audio_clip.dart';
 import 'package:bayan/data/audio/audio_repository.dart';
@@ -50,6 +52,10 @@ Future<AppDatabase> _openSeededDb() async {
   await seedDatabase(db);
   return db;
 }
+
+// Mock SharedPreferences so the locale provider (read by content providers)
+// resolves in tests.
+late SharedPreferences _prefs;
 
 /// Resolves a lemma id by exact Arabic surface via tolerant FTS search.
 Future<int> _lemmaId(AppDatabase db, String arabic) async {
@@ -106,6 +112,7 @@ Widget _buildApp(AppDatabase db, int lemmaId) {
       overrides: [
         appDatabaseProvider.overrideWith((ref) => db),
         audioRepositoryProvider.overrideWithValue(_FakeAudioRepository()),
+        sharedPreferencesProvider.overrideWithValue(_prefs),
       ],
       child: MaterialApp.router(
         theme: buildDaftar(),
@@ -131,6 +138,8 @@ void main() {
   });
 
   setUp(() async {
+    SharedPreferences.setMockInitialValues({});
+    _prefs = await SharedPreferences.getInstance();
     db = await _openSeededDb();
     rahmaId = await _lemmaId(db, 'رَحْمَة');
   });

@@ -8,8 +8,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:bayan/core/i18n/strings.g.dart';
+import 'package:bayan/core/providers/settings_providers.dart';
 import 'package:bayan/core/theme/theme.dart';
 import 'package:bayan/data/audio/audio_clip.dart';
 import 'package:bayan/data/audio/audio_repository.dart';
@@ -52,6 +54,10 @@ Future<AppDatabase> _openSeededDb() async {
   return db;
 }
 
+// Mock SharedPreferences so the locale provider (now read by the content
+// providers) resolves to French in tests.
+late SharedPreferences _prefs;
+
 // ── Router helper ─────────────────────────────────────────────────────────────
 //
 // SearchScreen calls context.goNamed('settings') from the AppBar settings icon,
@@ -83,6 +89,7 @@ Widget _buildApp(AppDatabase db) {
       overrides: [
         appDatabaseProvider.overrideWith((ref) => db),
         audioRepositoryProvider.overrideWithValue(_FakeAudioRepository()),
+        sharedPreferencesProvider.overrideWithValue(_prefs),
       ],
       child: MaterialApp.router(
         theme: buildDaftar(),
@@ -108,6 +115,8 @@ void main() {
   });
 
   setUp(() async {
+    SharedPreferences.setMockInitialValues({});
+    _prefs = await SharedPreferences.getInstance();
     db = await _openSeededDb();
   });
 
