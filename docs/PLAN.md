@@ -79,7 +79,7 @@ decision. README is rebranded to Af'ham.
 | 3 · Contenu | Content-gen prompt + JSON schema + idempotent seed importer | ✅ | `bde53c3` |
 | 4 · Audio | AAC sprites + `ClippingAudioSource` (`audio_repository.dart`) | ✅ | `236a243` |
 | 5 · UI/UX | Word-detail fiche, root-family, search; models + `WordDetailDao` | ✅ gates APPROUVÉ (5.1 debt cleared) | `20c57bf` + fixes |
-| 6 · QA | Widget/integration tests, edge cases (option: MCP conductor e2e) | ⏳ next | — |
+| 6 · QA | Widget/integration tests, edge cases (option: MCP conductor e2e) | ✅ gate APPROUVÉ (136 tests) | `word_detail_dao` + `test/features/` |
 | 7 · Vérification | `flutter run` device; **airplane-mode audio**; `flutter build apk --analyze-size` | 🟡 partial (device boot ✓) | — |
 | 8 · CI/CD | GitHub Actions + Fastlane (see locked decisions below) | ⏳ | — |
 
@@ -106,6 +106,10 @@ Outcome per gate: **APPROUVÉ** (advance) or **À CORRIGER** (loop on the phase)
   D2 + dup); added `accentText` token (fixes D3 gold-as-text); `wordOfDay` full-corpus
   rotation; localized not-found; POS i18n in search; `const _SearchPrompt`. Verified on
   device (analyze 0, 94 tests, home + fiche render). Only minor nice-to-haves remain.
+- **Phase 6** (2026-06-04): QA gate **APPROUVÉ** → `docs/reviews/phase6-tests.md`. +42 tests
+  (suite **136 passing**): `word_detail_dao_test` (incl. root-family blocker + wordOfDay
+  coverage guards) + `test/features/` widget tests (AudioPlayButton ≥44pt a11y guard, search
+  flow, fiche sheet). No `lib/` changes needed; analyze 0.
 
 ## Agent orchestration (per phase)
 
@@ -146,8 +150,8 @@ credentials provided.
       surface audio-playback failures in prod.
 
 **Roadmap:**
-- [ ] Phase 6 — widget/integration tests for the fiche + search flow; a `word_detail_dao`
-      test (incl. the root-family fix).
+- [x] Phase 6 — widget/integration tests for the fiche + search flow; `word_detail_dao`
+      test (incl. the root-family fix). ✅ 136 tests, gate APPROUVÉ.
 - [ ] Phase 7 — airplane-mode audio playback; `flutter build apk --analyze-size`; iOS pass.
 - [ ] Phase 8 — CI/CD per the locked decisions above.
 - [ ] Scale content past the 20-lemma seed; real audio sprite packs (currently 3-clip sample).
