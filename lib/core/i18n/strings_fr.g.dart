@@ -42,8 +42,15 @@ class TranslationsFr extends Translations with BaseTranslations<AppLocale, Trans
 	@override String get appTitle => 'Af\'ham';
 	@override String get appTagline => 'Comprendre les mots du Coran';
 	@override String get searchHint => 'Chercher un mot coranique…';
+	@override String get searchHintArabic => 'رَحْمَة  ·  rahma  ·  صبر';
 	@override String get wordOfTheDay => 'Mot du jour';
 	@override String get noResults => 'Aucun résultat';
+	@override String get noResultsFor => 'Aucun résultat pour « {query} »';
+	@override String get searchPrompt => 'Cherche un mot du Coran';
+	@override String get searchPromptSub => 'en arabe ou en translittération';
+	@override String get loading => 'Chargement…';
+	@override String get error => 'Une erreur est survenue';
+	@override String get retry => 'Réessayer';
 	@override late final _Translations$settings$fr settings = _Translations$settings$fr._(_root);
 	@override late final _Translations$word$fr word = _Translations$word$fr._(_root);
 	@override late final _Translations$rootFamily$fr rootFamily = _Translations$rootFamily$fr._(_root);
@@ -65,6 +72,10 @@ class _Translations$settings$fr extends Translations$settings$en {
 	@override String get languageFr => 'Français';
 	@override String get languageEn => 'English';
 	@override String get arabicScale => 'Taille police arabe';
+	@override String get arabicScaleSmall => 'Petite';
+	@override String get arabicScaleNormal => 'Normale';
+	@override String get arabicScaleLarge => 'Grande';
+	@override String get arabicScaleXLarge => 'Très grande';
 }
 
 // Path: word
@@ -76,11 +87,16 @@ class _Translations$word$fr extends Translations$word$en {
 	// Translations
 	@override String get translation => 'Traduction';
 	@override String get root => 'Racine';
+	@override String get rootFamily => 'Famille de racine';
 	@override String get tafsir => 'Tafsir';
 	@override String get gem => 'Pépite';
 	@override String get mnemonic => 'Astuce mémo';
 	@override String get playAudio => 'Écouter la prononciation';
+	@override String get stopAudio => 'Arrêter';
+	@override String get noAudio => 'Pas encore d\'audio';
 	@override String get occurrences => '{count} occurrence(s) dans le Coran';
+	@override String get versesTitle => 'Dans le Coran';
+	@override late final _Translations$word$pos$fr pos = _Translations$word$pos$fr._(_root);
 }
 
 // Path: rootFamily
@@ -92,6 +108,22 @@ class _Translations$rootFamily$fr extends Translations$rootFamily$en {
 	// Translations
 	@override String get title => 'Famille de racine';
 	@override String get subtitle => 'Mots partageant la racine {root}';
+	@override String get empty => 'Aucun mot trouvé pour cette racine';
+}
+
+// Path: word.pos
+class _Translations$word$pos$fr extends Translations$word$pos$en {
+	_Translations$word$pos$fr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get noun => 'nom';
+	@override String get verb => 'verbe';
+	@override String get particle => 'particule';
+	@override String get adjective => 'adjectif';
+	@override String get pronoun => 'pronom';
+	@override String get other => 'autre';
 }
 
 /// The flat map containing all translations for locale <fr>.
@@ -105,8 +137,15 @@ extension on TranslationsFr {
 			'appTitle' => 'Af\'ham',
 			'appTagline' => 'Comprendre les mots du Coran',
 			'searchHint' => 'Chercher un mot coranique…',
+			'searchHintArabic' => 'رَحْمَة  ·  rahma  ·  صبر',
 			'wordOfTheDay' => 'Mot du jour',
 			'noResults' => 'Aucun résultat',
+			'noResultsFor' => 'Aucun résultat pour « {query} »',
+			'searchPrompt' => 'Cherche un mot du Coran',
+			'searchPromptSub' => 'en arabe ou en translittération',
+			'loading' => 'Chargement…',
+			'error' => 'Une erreur est survenue',
+			'retry' => 'Réessayer',
 			'settings.title' => 'Réglages',
 			'settings.theme' => 'Thème',
 			'settings.themeLight' => 'Clair (Daftar)',
@@ -116,15 +155,30 @@ extension on TranslationsFr {
 			'settings.languageFr' => 'Français',
 			'settings.languageEn' => 'English',
 			'settings.arabicScale' => 'Taille police arabe',
+			'settings.arabicScaleSmall' => 'Petite',
+			'settings.arabicScaleNormal' => 'Normale',
+			'settings.arabicScaleLarge' => 'Grande',
+			'settings.arabicScaleXLarge' => 'Très grande',
 			'word.translation' => 'Traduction',
 			'word.root' => 'Racine',
+			'word.rootFamily' => 'Famille de racine',
 			'word.tafsir' => 'Tafsir',
 			'word.gem' => 'Pépite',
 			'word.mnemonic' => 'Astuce mémo',
 			'word.playAudio' => 'Écouter la prononciation',
+			'word.stopAudio' => 'Arrêter',
+			'word.noAudio' => 'Pas encore d\'audio',
 			'word.occurrences' => '{count} occurrence(s) dans le Coran',
+			'word.versesTitle' => 'Dans le Coran',
+			'word.pos.noun' => 'nom',
+			'word.pos.verb' => 'verbe',
+			'word.pos.particle' => 'particule',
+			'word.pos.adjective' => 'adjectif',
+			'word.pos.pronoun' => 'pronom',
+			'word.pos.other' => 'autre',
 			'rootFamily.title' => 'Famille de racine',
 			'rootFamily.subtitle' => 'Mots partageant la racine {root}',
+			'rootFamily.empty' => 'Aucun mot trouvé pour cette racine',
 			_ => null,
 		};
 	}

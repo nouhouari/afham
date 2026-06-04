@@ -2,8 +2,15 @@
   "appTitle": "Af'ham",
   "appTagline": "Understand the words of the Quran",
   "searchHint": "Search a Quranic word…",
+  "searchHintArabic": "رَحْمَة  ·  rahma  ·  صبر",
   "wordOfTheDay": "Word of the Day",
   "noResults": "No results found",
+  "noResultsFor": "No results for «{query}»",
+  "searchPrompt": "Search a word from the Quran",
+  "searchPromptSub": "in Arabic or transliteration",
+  "loading": "Loading…",
+  "error": "An error occurred",
+  "retry": "Retry",
   "settings": {
     "title": "Settings",
     "theme": "Theme",
@@ -13,19 +20,36 @@
     "language": "Language",
     "languageFr": "Français",
     "languageEn": "English",
-    "arabicScale": "Arabic font size"
+    "arabicScale": "Arabic font size",
+    "arabicScaleSmall": "Small",
+    "arabicScaleNormal": "Normal",
+    "arabicScaleLarge": "Large",
+    "arabicScaleXLarge": "X-Large"
   },
   "word": {
     "translation": "Translation",
     "root": "Root",
+    "rootFamily": "Root family",
     "tafsir": "Tafsir",
     "gem": "Gem",
     "mnemonic": "Memory tip",
     "playAudio": "Play pronunciation",
-    "occurrences": "{count} occurrence(s) in the Quran"
+    "stopAudio": "Stop",
+    "noAudio": "No audio yet",
+    "occurrences": "{count} occurrence(s) in the Quran",
+    "versesTitle": "In the Quran",
+    "pos": {
+      "noun": "noun",
+      "verb": "verb",
+      "particle": "particle",
+      "adjective": "adjective",
+      "pronoun": "pronoun",
+      "other": "other"
+    }
   },
   "rootFamily": {
     "title": "Root family",
-    "subtitle": "Words sharing the root {root}"
+    "subtitle": "Words sharing the root {root}",
+    "empty": "No words found for this root"
   }
 }

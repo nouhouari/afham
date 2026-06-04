@@ -1,6 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:bayan/data/database/app_database.dart';
+import 'package:bayan/data/database/models/lemma_detail.dart';
 import 'package:bayan/data/database/models/search_result.dart';
 import 'package:bayan/data/seed/audio_seed_importer.dart';
 import 'package:bayan/data/seed/json_seed_importer.dart';
@@ -63,4 +64,30 @@ Future<List<SearchResult>> searchResults(Ref ref) async {
   // Expose a stable empty list for blank queries without hitting the DB.
   if (query.trim().isEmpty) return const [];
   return db.searchDao.searchLemmas(query);
+}
+
+/// Loads the full [LemmaDetail] for a given lemma id.
+///
+/// Used by the word-detail sheet and (indirectly) the word-of-day card.
+@riverpod
+Future<LemmaDetail?> lemmaDetail(Ref ref, int lemmaId) async {
+  final db = ref.watch(appDatabaseProvider);
+  return db.wordDetailDao.getLemmaDetail(lemmaId);
+}
+
+/// Returns all lemmas sharing [rootId] for the root-family screen.
+@riverpod
+Future<List<RootFamilyItem>> rootFamilyItems(Ref ref, int rootId) async {
+  final db = ref.watch(appDatabaseProvider);
+  return db.wordDetailDao.lemmasByRoot(rootId);
+}
+
+/// Returns the deterministic word-of-the-day lemma detail.
+///
+/// [dayOfMonth] should be [DateTime.now().day] from the UI layer, so this
+/// provider itself stays pure and testable.
+@riverpod
+Future<LemmaDetail?> wordOfDay(Ref ref, int dayOfMonth) async {
+  final db = ref.watch(appDatabaseProvider);
+  return db.wordDetailDao.wordOfDay(dayOfMonth);
 }

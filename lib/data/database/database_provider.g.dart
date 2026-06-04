@@ -171,3 +171,282 @@ final class SearchResultsProvider
 }
 
 String _$searchResultsHash() => r'f59b056215f27b59fc0af59b62034e725cb70ab9';
+
+/// Loads the full [LemmaDetail] for a given lemma id.
+///
+/// Used by the word-detail sheet and (indirectly) the word-of-day card.
+
+@ProviderFor(lemmaDetail)
+final lemmaDetailProvider = LemmaDetailFamily._();
+
+/// Loads the full [LemmaDetail] for a given lemma id.
+///
+/// Used by the word-detail sheet and (indirectly) the word-of-day card.
+
+final class LemmaDetailProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<LemmaDetail?>,
+          LemmaDetail?,
+          FutureOr<LemmaDetail?>
+        >
+    with $FutureModifier<LemmaDetail?>, $FutureProvider<LemmaDetail?> {
+  /// Loads the full [LemmaDetail] for a given lemma id.
+  ///
+  /// Used by the word-detail sheet and (indirectly) the word-of-day card.
+  LemmaDetailProvider._({
+    required LemmaDetailFamily super.from,
+    required int super.argument,
+  }) : super(
+         retry: null,
+         name: r'lemmaDetailProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$lemmaDetailHash();
+
+  @override
+  String toString() {
+    return r'lemmaDetailProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<LemmaDetail?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<LemmaDetail?> create(Ref ref) {
+    final argument = this.argument as int;
+    return lemmaDetail(ref, argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is LemmaDetailProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$lemmaDetailHash() => r'b41b2af00ceeaf6f0554722332ea396a54178e30';
+
+/// Loads the full [LemmaDetail] for a given lemma id.
+///
+/// Used by the word-detail sheet and (indirectly) the word-of-day card.
+
+final class LemmaDetailFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<LemmaDetail?>, int> {
+  LemmaDetailFamily._()
+    : super(
+        retry: null,
+        name: r'lemmaDetailProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  /// Loads the full [LemmaDetail] for a given lemma id.
+  ///
+  /// Used by the word-detail sheet and (indirectly) the word-of-day card.
+
+  LemmaDetailProvider call(int lemmaId) =>
+      LemmaDetailProvider._(argument: lemmaId, from: this);
+
+  @override
+  String toString() => r'lemmaDetailProvider';
+}
+
+/// Returns all lemmas sharing [rootId] for the root-family screen.
+
+@ProviderFor(rootFamilyItems)
+final rootFamilyItemsProvider = RootFamilyItemsFamily._();
+
+/// Returns all lemmas sharing [rootId] for the root-family screen.
+
+final class RootFamilyItemsProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<RootFamilyItem>>,
+          List<RootFamilyItem>,
+          FutureOr<List<RootFamilyItem>>
+        >
+    with
+        $FutureModifier<List<RootFamilyItem>>,
+        $FutureProvider<List<RootFamilyItem>> {
+  /// Returns all lemmas sharing [rootId] for the root-family screen.
+  RootFamilyItemsProvider._({
+    required RootFamilyItemsFamily super.from,
+    required int super.argument,
+  }) : super(
+         retry: null,
+         name: r'rootFamilyItemsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$rootFamilyItemsHash();
+
+  @override
+  String toString() {
+    return r'rootFamilyItemsProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<List<RootFamilyItem>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<RootFamilyItem>> create(Ref ref) {
+    final argument = this.argument as int;
+    return rootFamilyItems(ref, argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is RootFamilyItemsProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$rootFamilyItemsHash() => r'643127229d2bf9bcbc68648928ca24fd4bcf5967';
+
+/// Returns all lemmas sharing [rootId] for the root-family screen.
+
+final class RootFamilyItemsFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<List<RootFamilyItem>>, int> {
+  RootFamilyItemsFamily._()
+    : super(
+        retry: null,
+        name: r'rootFamilyItemsProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  /// Returns all lemmas sharing [rootId] for the root-family screen.
+
+  RootFamilyItemsProvider call(int rootId) =>
+      RootFamilyItemsProvider._(argument: rootId, from: this);
+
+  @override
+  String toString() => r'rootFamilyItemsProvider';
+}
+
+/// Returns the deterministic word-of-the-day lemma detail.
+///
+/// [dayOfMonth] should be [DateTime.now().day] from the UI layer, so this
+/// provider itself stays pure and testable.
+
+@ProviderFor(wordOfDay)
+final wordOfDayProvider = WordOfDayFamily._();
+
+/// Returns the deterministic word-of-the-day lemma detail.
+///
+/// [dayOfMonth] should be [DateTime.now().day] from the UI layer, so this
+/// provider itself stays pure and testable.
+
+final class WordOfDayProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<LemmaDetail?>,
+          LemmaDetail?,
+          FutureOr<LemmaDetail?>
+        >
+    with $FutureModifier<LemmaDetail?>, $FutureProvider<LemmaDetail?> {
+  /// Returns the deterministic word-of-the-day lemma detail.
+  ///
+  /// [dayOfMonth] should be [DateTime.now().day] from the UI layer, so this
+  /// provider itself stays pure and testable.
+  WordOfDayProvider._({
+    required WordOfDayFamily super.from,
+    required int super.argument,
+  }) : super(
+         retry: null,
+         name: r'wordOfDayProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$wordOfDayHash();
+
+  @override
+  String toString() {
+    return r'wordOfDayProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<LemmaDetail?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<LemmaDetail?> create(Ref ref) {
+    final argument = this.argument as int;
+    return wordOfDay(ref, argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is WordOfDayProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$wordOfDayHash() => r'3eb6fa27372ec7244060592bd84ad43541d9b5f6';
+
+/// Returns the deterministic word-of-the-day lemma detail.
+///
+/// [dayOfMonth] should be [DateTime.now().day] from the UI layer, so this
+/// provider itself stays pure and testable.
+
+final class WordOfDayFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<LemmaDetail?>, int> {
+  WordOfDayFamily._()
+    : super(
+        retry: null,
+        name: r'wordOfDayProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  /// Returns the deterministic word-of-the-day lemma detail.
+  ///
+  /// [dayOfMonth] should be [DateTime.now().day] from the UI layer, so this
+  /// provider itself stays pure and testable.
+
+  WordOfDayProvider call(int dayOfMonth) =>
+      WordOfDayProvider._(argument: dayOfMonth, from: this);
+
+  @override
+  String toString() => r'wordOfDayProvider';
+}

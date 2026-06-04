@@ -2,8 +2,15 @@
   "appTitle": "Af'ham",
   "appTagline": "Comprendre les mots du Coran",
   "searchHint": "Chercher un mot coranique…",
+  "searchHintArabic": "رَحْمَة  ·  rahma  ·  صبر",
   "wordOfTheDay": "Mot du jour",
   "noResults": "Aucun résultat",
+  "noResultsFor": "Aucun résultat pour « {query} »",
+  "searchPrompt": "Cherche un mot du Coran",
+  "searchPromptSub": "en arabe ou en translittération",
+  "loading": "Chargement…",
+  "error": "Une erreur est survenue",
+  "retry": "Réessayer",
   "settings": {
     "title": "Réglages",
     "theme": "Thème",
@@ -13,19 +20,36 @@
     "language": "Langue",
     "languageFr": "Français",
     "languageEn": "English",
-    "arabicScale": "Taille police arabe"
+    "arabicScale": "Taille police arabe",
+    "arabicScaleSmall": "Petite",
+    "arabicScaleNormal": "Normale",
+    "arabicScaleLarge": "Grande",
+    "arabicScaleXLarge": "Très grande"
   },
   "word": {
     "translation": "Traduction",
     "root": "Racine",
+    "rootFamily": "Famille de racine",
     "tafsir": "Tafsir",
     "gem": "Pépite",
     "mnemonic": "Astuce mémo",
     "playAudio": "Écouter la prononciation",
-    "occurrences": "{count} occurrence(s) dans le Coran"
+    "stopAudio": "Arrêter",
+    "noAudio": "Pas encore d'audio",
+    "occurrences": "{count} occurrence(s) dans le Coran",
+    "versesTitle": "Dans le Coran",
+    "pos": {
+      "noun": "nom",
+      "verb": "verbe",
+      "particle": "particule",
+      "adjective": "adjectif",
+      "pronoun": "pronom",
+      "other": "autre"
+    }
   },
   "rootFamily": {
     "title": "Famille de racine",
-    "subtitle": "Mots partageant la racine {root}"
+    "subtitle": "Mots partageant la racine {root}",
+    "empty": "Aucun mot trouvé pour cette racine"
   }
 }

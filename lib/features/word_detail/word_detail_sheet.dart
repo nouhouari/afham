@@ -1,21 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:bayan/core/i18n/strings.g.dart';
+import 'package:bayan/core/router/app_router.dart';
 import 'package:bayan/core/theme/app_tokens.dart';
 import 'package:bayan/core/theme/dimens.dart';
 import 'package:bayan/data/audio/audio_clip.dart';
 import 'package:bayan/data/audio/audio_repository.dart';
 import 'package:bayan/data/database/database_provider.dart';
 import 'package:bayan/data/database/models/lemma_detail.dart';
-import 'package:bayan/features/word_detail/word_detail_sheet.dart';
 
-/// Full-screen word detail — used when navigating directly via a deep-link
-/// route (`/word/:lemmaId`). In the normal flow the [showWordDetailSheet]
-/// bottom sheet is used instead; this screen is a fallback / accessibility
-/// path that reuses the same widgets.
-class WordDetailScreen extends ConsumerWidget {
-  const WordDetailScreen({super.key, required this.lemmaId});
+// ── Public entry point ────────────────────────────────────────────────────────
+
+/// Opens the word-detail bottom sheet for [lemmaId].
+///
+/// Usage (from any screen):
+/// ```dart
+/// showWordDetailSheet(context, lemmaId: 42);
+/// ```
+Future<void> showWordDetailSheet(
+  BuildContext context, {
+  required int lemmaId,
+}) {
+  return showModalBottomSheet<void>(
+    context: context,
+    isScrollControlled: true,
+    // Clip so the drag handle and top-radius render correctly.
+    clipBehavior: Clip.antiAliasWithSaveLayer,
+    backgroundColor: Colors.transparent,
+    builder: (_) => _WordDetailSheet(lemmaId: lemmaId),
+  );
+}
+
+// ── Sheet wrapper ─────────────────────────────────────────────────────────────
+
+class _WordDetailSheet extends ConsumerWidget {
+  const _WordDetailSheet({required this.lemmaId});
 
   final int lemmaId;
 
@@ -23,40 +44,71 @@ class WordDetailScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final detailAsync = ref.watch(lemmaDetailProvider(lemmaId));
     final tokens = Theme.of(context).extension<BayanTokens>()!;
-    final strings = Translations.of(context);
+    final colorScheme = Theme.of(context).colorScheme;
 
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        elevation: 0,
-        // Back arrow shown by GoRouter automatically
-      ),
-      body: detailAsync.when(
-        data: (detail) {
-          if (detail == null) {
-            return Center(
-              child: Text(
-                strings.error,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            );
-          }
-          return _DetailBody(detail: detail, tokens: tokens);
-        },
-        loading: () => Center(
-          child: CircularProgressIndicator(color: tokens.accent),
-        ),
-        error: (e, _) => Center(
-          child: Padding(
-            padding: const EdgeInsets.all(Spacing.xl),
-            child: Text(
-              '${strings.error}\n$e',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.error,
-              ),
-              textAlign: TextAlign.center,
+    return DraggableScrollableSheet(
+      initialChildSize: 0.55,
+      minChildSize: 0.4,
+      maxChildSize: 0.92,
+      expand: false,
+      snap: true,
+      snapSizes: const [0.55, 0.92],
+      builder: (context, scrollController) {
+        return DecoratedBox(
+          decoration: BoxDecoration(
+            color: colorScheme.surface,
+            boxShadow: tokens.sheetShadow,
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(Radii.sheet),
             ),
+          ),
+          child: Column(
+            children: [
+              // Drag handle
+              const _DragHandle(),
+              // Content
+              Expanded(
+                child: detailAsync.when(
+                  data: (detail) => detail == null
+                      ? _SheetError(
+                          message: 'Lemma #$lemmaId not found',
+                          scrollController: scrollController,
+                        )
+                      : _SheetContent(
+                          detail: detail,
+                          scrollController: scrollController,
+                        ),
+                  loading: () => const _SheetLoading(),
+                  error: (e, _) => _SheetError(
+                    message: e.toString(),
+                    scrollController: scrollController,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+// ── Drag handle ───────────────────────────────────────────────────────────────
+
+class _DragHandle extends StatelessWidget {
+  const _DragHandle();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: Spacing.md),
+      child: Center(
+        child: Container(
+          width: 36,
+          height: 4,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.onSurface.withAlpha(50),
+            borderRadius: BorderRadius.circular(Radii.pill),
           ),
         ),
       ),
@@ -64,15 +116,74 @@ class WordDetailScreen extends ConsumerWidget {
   }
 }
 
-class _DetailBody extends StatelessWidget {
-  const _DetailBody({required this.detail, required this.tokens});
+// ── Loading / Error ───────────────────────────────────────────────────────────
+
+class _SheetLoading extends StatelessWidget {
+  const _SheetLoading();
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: CircularProgressIndicator(
+        color: Theme.of(context).extension<BayanTokens>()!.accent,
+      ),
+    );
+  }
+}
+
+class _SheetError extends StatelessWidget {
+  const _SheetError({
+    required this.message,
+    required this.scrollController,
+  });
+
+  final String message;
+  final ScrollController scrollController;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      controller: scrollController,
+      padding: const EdgeInsets.all(Spacing.xl),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.error_outline,
+              size: 48,
+              color: Theme.of(context).colorScheme.error,
+            ),
+            const SizedBox(height: Spacing.md),
+            Text(
+              message,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.error,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ── Sheet content (6 blocs) ───────────────────────────────────────────────────
+
+class _SheetContent extends StatelessWidget {
+  const _SheetContent({
+    required this.detail,
+    required this.scrollController,
+  });
 
   final LemmaDetail detail;
-  final BayanTokens tokens;
+  final ScrollController scrollController;
 
   @override
   Widget build(BuildContext context) {
     return ListView(
+      controller: scrollController,
       padding: const EdgeInsets.fromLTRB(
         Spacing.xl,
         Spacing.sm,
@@ -80,8 +191,11 @@ class _DetailBody extends StatelessWidget {
         Spacing.xxl,
       ),
       children: [
+        // (a) Header: Arabic hero word + transliteration + audio
         _HeaderBlock(detail: detail),
         const SizedBox(height: Spacing.xl),
+
+        // (b) Translation
         if (detail.translation.isNotEmpty) ...[
           _FactBlock(
             label: Translations.of(context).word.translation,
@@ -89,10 +203,14 @@ class _DetailBody extends StatelessWidget {
           ),
           const SizedBox(height: Spacing.lg),
         ],
+
+        // (c) Root (tappable → root family)
         if (detail.hasRoot) ...[
-          _RootChip(detail: detail),
+          _RootBlock(detail: detail),
           const SizedBox(height: Spacing.lg),
         ],
+
+        // (d) Tafsir
         if (detail.tafsir.isNotEmpty) ...[
           _FactBlock(
             label: Translations.of(context).word.tafsir,
@@ -100,31 +218,40 @@ class _DetailBody extends StatelessWidget {
           ),
           const SizedBox(height: Spacing.lg),
         ],
+
+        // (e) Pépite — gold highlight box
         if (detail.gem.isNotEmpty) ...[
-          _GemBox(gem: detail.gem),
+          _GemBlock(gem: detail.gem),
           const SizedBox(height: Spacing.lg),
         ],
+
+        // (f) Astuce Mémo — green memo box
         if (detail.mnemonic.isNotEmpty) ...[
-          _MemoBox(mnemonic: detail.mnemonic),
+          _MemoBlock(mnemonic: detail.mnemonic),
           const SizedBox(height: Spacing.lg),
         ],
-        if (detail.verses.isNotEmpty) _VersesSection(verses: detail.verses),
+
+        // Verse occurrences
+        if (detail.verses.isNotEmpty) ...[
+          _VersesBlock(verses: detail.verses),
+        ],
       ],
     );
   }
 }
 
-// The blocks below mirror _SheetContent sub-widgets but live inside the screen.
-// They intentionally share the same visual design.
+// ── (a) Header block ──────────────────────────────────────────────────────────
 
 class _HeaderBlock extends ConsumerWidget {
   const _HeaderBlock({required this.detail});
+
   final LemmaDetail detail;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tokens = Theme.of(context).extension<BayanTokens>()!;
     final theme = Theme.of(context);
+
     final clip = detail.hasAudio
         ? AudioClip(
             id: detail.audioId!,
@@ -140,6 +267,7 @@ class _HeaderBlock extends ConsumerWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Arabic hero word
             Expanded(
               child: Directionality(
                 textDirection: TextDirection.rtl,
@@ -150,10 +278,12 @@ class _HeaderBlock extends ConsumerWidget {
                 ),
               ),
             ),
-            _AudioButton(clip: clip, tokens: tokens),
+            // Audio button
+            _SheetAudioButton(clip: clip, tokens: tokens),
           ],
         ),
         const SizedBox(height: Spacing.xs),
+        // Transliteration + POS pill
         Row(
           children: [
             Text(
@@ -172,8 +302,11 @@ class _HeaderBlock extends ConsumerWidget {
   }
 }
 
+// ── (b)/(d) Fact block ────────────────────────────────────────────────────────
+
 class _FactBlock extends StatelessWidget {
   const _FactBlock({required this.label, required this.body});
+
   final String label;
   final String body;
 
@@ -197,14 +330,17 @@ class _FactBlock extends StatelessWidget {
   }
 }
 
-class _RootChip extends StatelessWidget {
-  const _RootChip({required this.detail});
+// ── (c) Root block ────────────────────────────────────────────────────────────
+
+class _RootBlock extends StatelessWidget {
+  const _RootBlock({required this.detail});
+
   final LemmaDetail detail;
 
   @override
   Widget build(BuildContext context) {
-    final tokens = Theme.of(context).extension<BayanTokens>()!;
     final theme = Theme.of(context);
+    final tokens = Theme.of(context).extension<BayanTokens>()!;
     final strings = Translations.of(context);
 
     return Column(
@@ -218,76 +354,116 @@ class _RootChip extends StatelessWidget {
           ),
         ),
         const SizedBox(height: Spacing.xs),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Directionality(
-              textDirection: TextDirection.rtl,
-              child: Text(
-                detail.rootAr,
-                style: tokens.arabicBody.copyWith(color: tokens.accent),
-              ),
+        // Tappable root row → root family screen
+        InkWell(
+          onTap: () {
+            Navigator.of(context).pop(); // close sheet first
+            context.goNamed(
+              'rootFamily',
+              pathParameters: {'rootId': detail.rootId.toString()},
+            );
+          },
+          borderRadius: BorderRadius.circular(Radii.chip),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: Spacing.sm,
+              vertical: Spacing.xs,
             ),
-            const SizedBox(width: Spacing.sm),
-            Text(
-              '(${detail.rootLatin})',
-              style: theme.textTheme.bodyMedium?.copyWith(
-                fontStyle: FontStyle.italic,
-                color: theme.colorScheme.onSurface.withAlpha(160),
-              ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Text(
+                    detail.rootAr,
+                    style: tokens.arabicBody.copyWith(
+                      color: tokens.accent,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: Spacing.sm),
+                Text(
+                  '(${detail.rootLatin})',
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: theme.colorScheme.onSurface.withAlpha(160),
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+                const SizedBox(width: Spacing.xs),
+                Icon(
+                  Icons.chevron_right_rounded,
+                  size: 18,
+                  color: tokens.accent,
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ],
     );
   }
 }
 
-class _GemBox extends StatelessWidget {
-  const _GemBox({required this.gem});
+// ── (e) Pépite block (gold) ───────────────────────────────────────────────────
+
+class _GemBlock extends StatelessWidget {
+  const _GemBlock({required this.gem});
+
   final String gem;
 
   @override
   Widget build(BuildContext context) {
     final tokens = Theme.of(context).extension<BayanTokens>()!;
-    return _BoxedBlock(
+    final theme = Theme.of(context);
+
+    return _HighlightBox(
       borderColor: tokens.accent,
       fillColor: tokens.highlightBackground,
       label: Translations.of(context).word.gem.toUpperCase(),
       labelColor: tokens.accent,
       icon: Icons.auto_awesome_rounded,
-      body: gem,
+      iconColor: tokens.accent,
+      child: Text(gem, style: theme.textTheme.bodyLarge),
     );
   }
 }
 
-class _MemoBox extends StatelessWidget {
-  const _MemoBox({required this.mnemonic});
+// ── (f) Mémo block (green) ────────────────────────────────────────────────────
+
+class _MemoBlock extends StatelessWidget {
+  const _MemoBlock({required this.mnemonic});
+
   final String mnemonic;
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final tokens = Theme.of(context).extension<BayanTokens>()!;
-    return _BoxedBlock(
+    final theme = Theme.of(context);
+
+    return _HighlightBox(
       borderColor: colorScheme.secondary,
       fillColor: tokens.memoBackground,
       label: Translations.of(context).word.mnemonic.toUpperCase(),
       labelColor: colorScheme.secondary,
       icon: Icons.lightbulb_outline_rounded,
-      body: mnemonic,
+      iconColor: colorScheme.secondary,
+      child: Text(mnemonic, style: theme.textTheme.bodyLarge),
     );
   }
 }
 
-class _BoxedBlock extends StatelessWidget {
-  const _BoxedBlock({
+// ── Shared highlight box ──────────────────────────────────────────────────────
+
+class _HighlightBox extends StatelessWidget {
+  const _HighlightBox({
     required this.borderColor,
     required this.fillColor,
     required this.label,
     required this.labelColor,
     required this.icon,
-    required this.body,
+    required this.iconColor,
+    required this.child,
   });
 
   final Color borderColor;
@@ -295,7 +471,8 @@ class _BoxedBlock extends StatelessWidget {
   final String label;
   final Color labelColor;
   final IconData icon;
-  final String body;
+  final Color iconColor;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -313,7 +490,7 @@ class _BoxedBlock extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(icon, size: 14, color: labelColor),
+                Icon(icon, size: 14, color: iconColor),
                 const SizedBox(width: Spacing.xs),
                 Text(
                   label,
@@ -325,7 +502,7 @@ class _BoxedBlock extends StatelessWidget {
               ],
             ),
             const SizedBox(height: Spacing.sm),
-            Text(body, style: theme.textTheme.bodyLarge),
+            child,
           ],
         ),
       ),
@@ -333,8 +510,11 @@ class _BoxedBlock extends StatelessWidget {
   }
 }
 
-class _VersesSection extends StatelessWidget {
-  const _VersesSection({required this.verses});
+// ── Verses block ──────────────────────────────────────────────────────────────
+
+class _VersesBlock extends StatelessWidget {
+  const _VersesBlock({required this.verses});
+
   final List<VerseSnippet> verses;
 
   @override
@@ -394,14 +574,18 @@ class _VersesSection extends StatelessWidget {
   }
 }
 
+// ── POS pill ──────────────────────────────────────────────────────────────────
+
 class _PosPill extends StatelessWidget {
   const _PosPill({required this.pos});
+
   final String pos;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final strings = Translations.of(context);
+
     final label = switch (pos.toLowerCase()) {
       'noun' => strings.word.pos.noun,
       'verb' => strings.word.pos.verb,
@@ -412,7 +596,10 @@ class _PosPill extends StatelessWidget {
     };
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: Spacing.sm, vertical: 2),
+      padding: const EdgeInsets.symmetric(
+        horizontal: Spacing.sm,
+        vertical: 2,
+      ),
       decoration: BoxDecoration(
         color: theme.colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(Radii.chip),
@@ -427,8 +614,11 @@ class _PosPill extends StatelessWidget {
   }
 }
 
-class _AudioButton extends ConsumerWidget {
-  const _AudioButton({required this.clip, required this.tokens});
+// ── Audio button (inside sheet) ───────────────────────────────────────────────
+
+class _SheetAudioButton extends ConsumerWidget {
+  const _SheetAudioButton({required this.clip, required this.tokens});
+
   final AudioClip? clip;
   final BayanTokens tokens;
 
@@ -455,6 +645,7 @@ class _AudioButton extends ConsumerWidget {
       builder: (context, snapshot) {
         final state = snapshot.data ?? AudioPlaybackState.idle;
         final isThisClipActive = repo.currentClipId == clip!.id;
+
         if (isThisClipActive && state == AudioPlaybackState.loading) {
           return SizedBox(
             width: 48,
@@ -468,8 +659,10 @@ class _AudioButton extends ConsumerWidget {
             ),
           );
         }
+
         final isPlaying =
             isThisClipActive && state == AudioPlaybackState.playing;
+
         return IconButton(
           iconSize: 28,
           tooltip: isPlaying ? strings.word.stopAudio : strings.word.playAudio,
@@ -482,7 +675,9 @@ class _AudioButton extends ConsumerWidget {
           onPressed: () async {
             try {
               await repo.playClip(clip);
-            } catch (_) {}
+            } catch (_) {
+              // Asset not yet present in dev — swallow silently.
+            }
           },
         );
       },
