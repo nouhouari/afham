@@ -62,11 +62,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           const _SearchDivider(),
           Expanded(
             child: resultsAsync.when(
-              data: (results) => _ResultsBody(
-                query: query,
-                results: results,
-                tokens: tokens,
-              ),
+              data: (results) =>
+                  _ResultsBody(query: query, results: results, tokens: tokens),
               loading: () => _LoadingState(tokens: tokens),
               error: (e, _) => _ErrorState(error: e),
             ),
@@ -102,9 +99,7 @@ class _SearchField extends ConsumerWidget {
         style: Theme.of(context).textTheme.bodyLarge,
         decoration: InputDecoration(
           hintText: strings.searchHint,
-          hintStyle: TextStyle(
-            color: colorScheme.onSurface.withAlpha(100),
-          ),
+          hintStyle: TextStyle(color: colorScheme.onSurface.withAlpha(100)),
           prefixIcon: Icon(
             Icons.search_rounded,
             color: colorScheme.onSurface.withAlpha(160),
@@ -192,9 +187,7 @@ class _LoadingState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: CircularProgressIndicator(color: tokens.accent),
-    );
+    return Center(child: CircularProgressIndicator(color: tokens.accent));
   }
 }
 
@@ -263,7 +256,9 @@ class _EmptyHome extends ConsumerWidget {
                 Text(
                   strings.appTagline,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface.withAlpha(180),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withAlpha(180),
                   ),
                 ),
               ],
@@ -302,7 +297,9 @@ class _EmptyHome extends ConsumerWidget {
                 Text(
                   strings.searchPrompt,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface.withAlpha(160),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withAlpha(160),
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -310,7 +307,9 @@ class _EmptyHome extends ConsumerWidget {
                 Text(
                   strings.searchPromptSub,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface.withAlpha(100),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withAlpha(100),
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -391,10 +390,7 @@ class _WordOfDayCard extends StatelessWidget {
               // Arabic word (hero)
               Directionality(
                 textDirection: TextDirection.rtl,
-                child: Text(
-                  detail.lemmaAr,
-                  style: tokens.arabicHero,
-                ),
+                child: Text(detail.lemmaAr, style: tokens.arabicHero),
               ),
               const SizedBox(height: Spacing.xs),
 
@@ -576,10 +572,7 @@ class _ResultCard extends ConsumerWidget {
                       children: [
                         Directionality(
                           textDirection: TextDirection.rtl,
-                          child: Text(
-                            result.lemmaAr,
-                            style: tokens.arabicBody,
-                          ),
+                          child: Text(result.lemmaAr, style: tokens.arabicBody),
                         ),
                         const SizedBox(width: Spacing.sm),
                         Text(
@@ -705,4 +698,3 @@ class _PosLabel extends StatelessWidget {
     );
   }
 }
-

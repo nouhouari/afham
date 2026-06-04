@@ -18,10 +18,7 @@ import 'package:bayan/data/database/models/lemma_detail.dart';
 /// ```dart
 /// showWordDetailSheet(context, lemmaId: 42);
 /// ```
-Future<void> showWordDetailSheet(
-  BuildContext context, {
-  required int lemmaId,
-}) {
+Future<void> showWordDetailSheet(BuildContext context, {required int lemmaId}) {
   return showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
@@ -131,10 +128,7 @@ class _SheetLoading extends StatelessWidget {
 }
 
 class _SheetError extends StatelessWidget {
-  const _SheetError({
-    required this.message,
-    required this.scrollController,
-  });
+  const _SheetError({required this.message, required this.scrollController});
 
   final String message;
   final ScrollController scrollController;
@@ -171,10 +165,7 @@ class _SheetError extends StatelessWidget {
 // ── Sheet content (6 blocs) ───────────────────────────────────────────────────
 
 class _SheetContent extends StatelessWidget {
-  const _SheetContent({
-    required this.detail,
-    required this.scrollController,
-  });
+  const _SheetContent({required this.detail, required this.scrollController});
 
   final LemmaDetail detail;
   final ScrollController scrollController;
@@ -231,9 +222,7 @@ class _SheetContent extends StatelessWidget {
         ],
 
         // Verse occurrences
-        if (detail.verses.isNotEmpty) ...[
-          _VersesBlock(verses: detail.verses),
-        ],
+        if (detail.verses.isNotEmpty) ...[_VersesBlock(verses: detail.verses)],
       ],
     );
   }
@@ -375,9 +364,7 @@ class _RootBlock extends StatelessWidget {
                   textDirection: TextDirection.rtl,
                   child: Text(
                     detail.rootAr,
-                    style: tokens.arabicBody.copyWith(
-                      color: tokens.accentText,
-                    ),
+                    style: tokens.arabicBody.copyWith(color: tokens.accentText),
                   ),
                 ),
                 const SizedBox(width: Spacing.sm),
@@ -595,10 +582,7 @@ class _PosPill extends StatelessWidget {
     };
 
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: Spacing.sm,
-        vertical: 2,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: Spacing.sm, vertical: 2),
       decoration: BoxDecoration(
         color: theme.colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(Radii.chip),

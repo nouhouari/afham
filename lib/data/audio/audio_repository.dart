@@ -40,7 +40,7 @@ enum AudioPlaybackState {
 /// facilitate testing without a native audio platform.
 class AudioRepository {
   AudioRepository({AudioPlayer? audioPlayer})
-      : _player = audioPlayer ?? AudioPlayer();
+    : _player = audioPlayer ?? AudioPlayer();
 
   final AudioPlayer _player;
 
@@ -51,9 +51,8 @@ class AudioRepository {
 
   /// Streams the current playback state derived from [just_audio]'s
   /// [ProcessingState] and [playing] flag.
-  Stream<AudioPlaybackState> get playbackState => _player.playerStateStream.map(
-    (s) => _mapState(s),
-  );
+  Stream<AudioPlaybackState> get playbackState =>
+      _player.playerStateStream.map((s) => _mapState(s));
 
   /// The id of the clip currently loaded (null if none).
   int? get currentClipId => _currentClipId;

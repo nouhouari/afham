@@ -77,18 +77,16 @@ class SettingsScreen extends ConsumerWidget {
             locale: const Locale('fr'),
             current: locale,
             tokens: tokens,
-            onTap: () => ref
-                .read(localeProvider.notifier)
-                .setLocale(const Locale('fr')),
+            onTap: () =>
+                ref.read(localeProvider.notifier).setLocale(const Locale('fr')),
           ),
           _LanguageOption(
             label: strings.settings.languageEn,
             locale: const Locale('en'),
             current: locale,
             tokens: tokens,
-            onTap: () => ref
-                .read(localeProvider.notifier)
-                .setLocale(const Locale('en')),
+            onTap: () =>
+                ref.read(localeProvider.notifier).setLocale(const Locale('en')),
           ),
 
           const _Divider(),
@@ -180,9 +178,7 @@ class _ThemeOption extends StatelessWidget {
       ),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: _selected
-              ? tokens.highlightBackground
-              : colorScheme.surface,
+          color: _selected ? tokens.highlightBackground : colorScheme.surface,
           border: _selected
               ? Border.all(color: tokens.accent, width: 1.5)
               : Border.all(color: colorScheme.outlineVariant, width: 1),
@@ -201,7 +197,9 @@ class _ThemeOption extends StatelessWidget {
                 Icon(
                   icon,
                   size: 22,
-                  color: _selected ? tokens.accent : colorScheme.onSurface.withAlpha(160),
+                  color: _selected
+                      ? tokens.accent
+                      : colorScheme.onSurface.withAlpha(160),
                 ),
                 const SizedBox(width: Spacing.md),
                 Expanded(
@@ -214,7 +212,9 @@ class _ThemeOption extends StatelessWidget {
                           color: _selected
                               ? colorScheme.onSurface
                               : colorScheme.onSurface,
-                          fontWeight: _selected ? FontWeight.w600 : FontWeight.w400,
+                          fontWeight: _selected
+                              ? FontWeight.w600
+                              : FontWeight.w400,
                         ),
                       ),
                       Text(
@@ -268,9 +268,7 @@ class _LanguageOption extends StatelessWidget {
       ),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: _selected
-              ? tokens.highlightBackground
-              : colorScheme.surface,
+          color: _selected ? tokens.highlightBackground : colorScheme.surface,
           border: _selected
               ? Border.all(color: tokens.accent, width: 1.5)
               : Border.all(color: colorScheme.outlineVariant, width: 1),
@@ -320,7 +318,9 @@ class _ArabicScalePreview extends StatelessWidget {
       ),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surfaceContainerHighest.withAlpha(80),
+          color: Theme.of(
+            context,
+          ).colorScheme.surfaceContainerHighest.withAlpha(80),
           borderRadius: BorderRadius.circular(Radii.card),
         ),
         child: Padding(
@@ -409,7 +409,9 @@ class _ScaleChip extends StatelessWidget {
         child: Text(
           label,
           style: theme.textTheme.labelSmall?.copyWith(
-            color: selected ? colorScheme.onSurface : colorScheme.onSurface.withAlpha(160),
+            color: selected
+                ? colorScheme.onSurface
+                : colorScheme.onSurface.withAlpha(160),
             fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
           ),
           textAlign: TextAlign.center,

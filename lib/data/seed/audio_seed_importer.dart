@@ -35,9 +35,7 @@ const String kAudioManifestAssetPath = 'assets/audio/manifest.json';
 Future<void> importAudioManifest(AppDatabase db, String jsonString) async {
   final decoded = json.decode(jsonString);
   if (decoded is! List) {
-    throw const FormatException(
-      'Audio manifest root must be a JSON array.',
-    );
+    throw const FormatException('Audio manifest root must be a JSON array.');
   }
 
   await db.transaction(() async {
@@ -88,9 +86,9 @@ Future<void> _importOneClip(AppDatabase db, Map<String, dynamic> entry) async {
   // 2. Find the matching lemma by latin key (case-insensitive LIKE).
   //    Using customUpdate / customStatement is not available in a DAO-less
   //    context, so we use a SELECT + UPDATE pair inside the transaction.
-  final lemmaRows = await (db.select(db.lemmas)
-        ..where((l) => l.latin.lower().equals(key)))
-      .get();
+  final lemmaRows = await (db.select(
+    db.lemmas,
+  )..where((l) => l.latin.lower().equals(key))).get();
 
   for (final lemma in lemmaRows) {
     if (lemma.audioId == clipId) continue; // already up-to-date
@@ -109,25 +107,28 @@ Future<int> _upsertAudioClip(
   required int durationMs,
 }) async {
   // Check for existing row.
-  final existing = await (db.select(db.audioClips)
-        ..where(
-          (a) =>
-              a.packFile.equals(packFile) &
-              a.startMs.equals(startMs) &
-              a.durationMs.equals(durationMs),
-        )
-        ..limit(1))
-      .getSingleOrNull();
+  final existing =
+      await (db.select(db.audioClips)
+            ..where(
+              (a) =>
+                  a.packFile.equals(packFile) &
+                  a.startMs.equals(startMs) &
+                  a.durationMs.equals(durationMs),
+            )
+            ..limit(1))
+          .getSingleOrNull();
 
   if (existing != null) return existing.id;
 
-  return db.into(db.audioClips).insert(
-    AudioClipsCompanion.insert(
-      packFile: packFile,
-      startMs: startMs,
-      durationMs: durationMs,
-    ),
-  );
+  return db
+      .into(db.audioClips)
+      .insert(
+        AudioClipsCompanion.insert(
+          packFile: packFile,
+          startMs: startMs,
+          durationMs: durationMs,
+        ),
+      );
 }
 
 // ── helpers ───────────────────────────────────────────────────────────────────

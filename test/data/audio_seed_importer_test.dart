@@ -84,9 +84,9 @@ void main() {
     test('updates lemma audio_id for matching key', () async {
       await importAudioManifest(db, _validManifest);
 
-      final rahmaRows = await (db.select(db.lemmas)
-            ..where((l) => l.latin.equals('rahma')))
-          .get();
+      final rahmaRows = await (db.select(
+        db.lemmas,
+      )..where((l) => l.latin.equals('rahma'))).get();
       expect(rahmaRows, isNotEmpty);
       expect(rahmaRows.first.audioId, isNotNull);
     });
@@ -94,14 +94,14 @@ void main() {
     test('lemma audio_id points to correct clip', () async {
       await importAudioManifest(db, _validManifest);
 
-      final rahma = await (db.select(db.lemmas)
-            ..where((l) => l.latin.equals('rahma')))
-          .getSingleOrNull();
+      final rahma = await (db.select(
+        db.lemmas,
+      )..where((l) => l.latin.equals('rahma'))).getSingleOrNull();
       expect(rahma?.audioId, isNotNull);
 
-      final clip = await (db.select(db.audioClips)
-            ..where((a) => a.id.equals(rahma!.audioId!)))
-          .getSingleOrNull();
+      final clip = await (db.select(
+        db.audioClips,
+      )..where((a) => a.id.equals(rahma!.audioId!))).getSingleOrNull();
       expect(clip?.startMs, equals(0));
       expect(clip?.durationMs, equals(500));
     });
@@ -109,20 +109,22 @@ void main() {
     test('sabr lemma gets audio_id set', () async {
       await importAudioManifest(db, _validManifest);
 
-      final sabr = await (db.select(db.lemmas)
-            ..where((l) => l.latin.equals('sabr')))
-          .getSingleOrNull();
+      final sabr = await (db.select(
+        db.lemmas,
+      )..where((l) => l.latin.equals('sabr'))).getSingleOrNull();
       expect(sabr?.audioId, isNotNull);
     });
 
-    test('idempotent: re-importing same manifest does not duplicate clips',
-        () async {
-      await importAudioManifest(db, _validManifest);
-      await importAudioManifest(db, _validManifest);
+    test(
+      'idempotent: re-importing same manifest does not duplicate clips',
+      () async {
+        await importAudioManifest(db, _validManifest);
+        await importAudioManifest(db, _validManifest);
 
-      final clips = await db.select(db.audioClips).get();
-      expect(clips.length, equals(2));
-    });
+        final clips = await db.select(db.audioClips).get();
+        expect(clips.length, equals(2));
+      },
+    );
 
     test('unknown key is silently skipped without error', () async {
       await expectLater(
@@ -130,9 +132,9 @@ void main() {
         completes,
       );
       // No lemma should have audio_id set.
-      final withAudio = await (db.select(db.lemmas)
-            ..where((l) => l.audioId.isNotNull()))
-          .get();
+      final withAudio = await (db.select(
+        db.lemmas,
+      )..where((l) => l.audioId.isNotNull())).get();
       expect(withAudio, isEmpty);
       // But the clip row itself is still inserted (pack-level data).
       final clips = await db.select(db.audioClips).get();
@@ -150,9 +152,9 @@ void main() {
       await importAudioManifest(db, _validManifest);
 
       // 'allah' has no entry in _validManifest.
-      final allah = await (db.select(db.lemmas)
-            ..where((l) => l.latin.equals('allah')))
-          .getSingleOrNull();
+      final allah = await (db.select(
+        db.lemmas,
+      )..where((l) => l.latin.equals('allah'))).getSingleOrNull();
       expect(allah?.audioId, isNull);
     });
   });

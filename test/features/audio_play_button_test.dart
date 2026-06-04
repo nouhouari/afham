@@ -44,9 +44,7 @@ Widget _wrap(Widget child) {
   final fakeRepo = _FakeAudioRepository();
   return TranslationProvider(
     child: ProviderScope(
-      overrides: [
-        audioRepositoryProvider.overrideWithValue(fakeRepo),
-      ],
+      overrides: [audioRepositoryProvider.overrideWithValue(fakeRepo)],
       child: MaterialApp(
         theme: buildDaftar(),
         home: Scaffold(body: Center(child: child)),
@@ -82,14 +80,17 @@ void main() {
       expect(find.byIcon(Icons.volume_off_outlined), findsOneWidget);
     });
 
-    testWidgets('does NOT render an IconButton when clip is null',
-        (tester) async {
+    testWidgets('does NOT render an IconButton when clip is null', (
+      tester,
+    ) async {
       await tester.pumpWidget(_wrap(const AudioPlayButton(clip: null)));
       await tester.pump();
       expect(find.byType(IconButton), findsNothing);
     });
 
-    testWidgets('non-interactive: tapping the icon does nothing', (tester) async {
+    testWidgets('non-interactive: tapping the icon does nothing', (
+      tester,
+    ) async {
       await tester.pumpWidget(_wrap(const AudioPlayButton(clip: null)));
       await tester.pump();
       // Should not throw — there is no tap handler.
@@ -100,44 +101,42 @@ void main() {
 
   group('AudioPlayButton — clip != null', () {
     testWidgets('renders an IconButton', (tester) async {
-      await tester.pumpWidget(
-        _wrap(const AudioPlayButton(clip: _testClip)),
-      );
+      await tester.pumpWidget(_wrap(const AudioPlayButton(clip: _testClip)));
       await tester.pump();
       expect(find.byType(IconButton), findsOneWidget);
     });
 
     testWidgets(
-        'tap target constraints are >= 44x44 logical px (D2 accessibility fix)',
-        (tester) async {
-      await tester.pumpWidget(
-        _wrap(const AudioPlayButton(clip: _testClip)),
-      );
-      await tester.pump();
+      'tap target constraints are >= 44x44 logical px (D2 accessibility fix)',
+      (tester) async {
+        await tester.pumpWidget(_wrap(const AudioPlayButton(clip: _testClip)));
+        await tester.pump();
 
-      // We verify the BoxConstraints (minWidth / minHeight) rather than the
-      // rendered size, because VisualDensity.compact shrinks the painted area
-      // while the *touch* area is governed by the constraints passed to the
-      // framework gesture detector — that is the correct accessibility metric.
-      final iconBtn = tester.widget<IconButton>(find.byType(IconButton));
-      final constraints = iconBtn.constraints!;
-      expect(
-        constraints.minWidth,
-        greaterThanOrEqualTo(44),
-        reason: 'minWidth >= 44 ensures the touch target meets a11y guidelines',
-      );
-      expect(
-        constraints.minHeight,
-        greaterThanOrEqualTo(44),
-        reason: 'minHeight >= 44 ensures the touch target meets a11y guidelines',
-      );
-    });
+        // We verify the BoxConstraints (minWidth / minHeight) rather than the
+        // rendered size, because VisualDensity.compact shrinks the painted area
+        // while the *touch* area is governed by the constraints passed to the
+        // framework gesture detector — that is the correct accessibility metric.
+        final iconBtn = tester.widget<IconButton>(find.byType(IconButton));
+        final constraints = iconBtn.constraints!;
+        expect(
+          constraints.minWidth,
+          greaterThanOrEqualTo(44),
+          reason:
+              'minWidth >= 44 ensures the touch target meets a11y guidelines',
+        );
+        expect(
+          constraints.minHeight,
+          greaterThanOrEqualTo(44),
+          reason:
+              'minHeight >= 44 ensures the touch target meets a11y guidelines',
+        );
+      },
+    );
 
-    testWidgets('constraints enforce minWidth >= 44 on IconButton',
-        (tester) async {
-      await tester.pumpWidget(
-        _wrap(const AudioPlayButton(clip: _testClip)),
-      );
+    testWidgets('constraints enforce minWidth >= 44 on IconButton', (
+      tester,
+    ) async {
+      await tester.pumpWidget(_wrap(const AudioPlayButton(clip: _testClip)));
       await tester.pump();
 
       final iconBtn = tester.widget<IconButton>(find.byType(IconButton));
@@ -156,39 +155,35 @@ void main() {
     });
 
     testWidgets(
-        'larger iconSize (28) uses a 48 pt box constraint (hero header variant)',
-        (tester) async {
-      await tester.pumpWidget(
-        _wrap(const AudioPlayButton(clip: _testClip, iconSize: 28, filled: true)),
-      );
-      await tester.pump();
+      'larger iconSize (28) uses a 48 pt box constraint (hero header variant)',
+      (tester) async {
+        await tester.pumpWidget(
+          _wrap(
+            const AudioPlayButton(clip: _testClip, iconSize: 28, filled: true),
+          ),
+        );
+        await tester.pump();
 
-      // iconSize >= 26 → box = 48 per the widget implementation, which means
-      // the hero-header variant has an even larger touch area than the compact
-      // tile variant (44 pt).
-      final iconBtn = tester.widget<IconButton>(find.byType(IconButton));
-      final constraints = iconBtn.constraints!;
-      expect(constraints.minWidth, greaterThanOrEqualTo(48));
-      expect(constraints.minHeight, greaterThanOrEqualTo(48));
-    });
+        // iconSize >= 26 → box = 48 per the widget implementation, which means
+        // the hero-header variant has an even larger touch area than the compact
+        // tile variant (44 pt).
+        final iconBtn = tester.widget<IconButton>(find.byType(IconButton));
+        final constraints = iconBtn.constraints!;
+        expect(constraints.minWidth, greaterThanOrEqualTo(48));
+        expect(constraints.minHeight, greaterThanOrEqualTo(48));
+      },
+    );
 
     testWidgets('play icon is visible in idle state', (tester) async {
-      await tester.pumpWidget(
-        _wrap(const AudioPlayButton(clip: _testClip)),
-      );
+      await tester.pumpWidget(_wrap(const AudioPlayButton(clip: _testClip)));
       await tester.pump();
 
       // In idle state and not-filled mode, expect the outlined play circle.
-      expect(
-        find.byIcon(Icons.play_circle_outline_rounded),
-        findsOneWidget,
-      );
+      expect(find.byIcon(Icons.play_circle_outline_rounded), findsOneWidget);
     });
 
     testWidgets('tapping the button does not throw', (tester) async {
-      await tester.pumpWidget(
-        _wrap(const AudioPlayButton(clip: _testClip)),
-      );
+      await tester.pumpWidget(_wrap(const AudioPlayButton(clip: _testClip)));
       await tester.pump();
 
       // The fake repo.playClip is a no-op, so the tap should complete cleanly.

@@ -87,24 +87,26 @@ void main() {
   // ── lemmasByRoot (root-family blocker fix) ─────────────────────────────────
 
   group('lemmasByRoot', () {
-    test('every item exposes the shared rootAr (root-family blocker fix)',
-        () async {
-      // Regression guard: before the fix RootFamilyItem had no rootAr and the
-      // root-family screen showed a literal dash. Now lemmasByRoot LEFT JOINs
-      // roots and surfaces rootAr on every item.
-      final id = await _lemmaId(db, 'رَحْمَة');
-      final detail = await db.wordDetailDao.getLemmaDetail(id);
-      final rootId = detail!.rootId;
+    test(
+      'every item exposes the shared rootAr (root-family blocker fix)',
+      () async {
+        // Regression guard: before the fix RootFamilyItem had no rootAr and the
+        // root-family screen showed a literal dash. Now lemmasByRoot LEFT JOINs
+        // roots and surfaces rootAr on every item.
+        final id = await _lemmaId(db, 'رَحْمَة');
+        final detail = await db.wordDetailDao.getLemmaDetail(id);
+        final rootId = detail!.rootId;
 
-      final family = await db.wordDetailDao.lemmasByRoot(rootId);
+        final family = await db.wordDetailDao.lemmasByRoot(rootId);
 
-      expect(family, isNotEmpty);
-      expect(family.map((i) => i.lemmaId), contains(id));
-      for (final item in family) {
-        expect(item.rootAr, 'ر-ح-م');
-        expect(item.rootAr, isNotEmpty);
-      }
-    });
+        expect(family, isNotEmpty);
+        expect(family.map((i) => i.lemmaId), contains(id));
+        for (final item in family) {
+          expect(item.rootAr, 'ر-ح-م');
+          expect(item.rootAr, isNotEmpty);
+        }
+      },
+    );
 
     test('is sorted by frequency descending', () async {
       // Use a root that actually has lemmas; rahma's root works for the single

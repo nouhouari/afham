@@ -40,9 +40,8 @@ class RootFamilyScreen extends ConsumerWidget {
           }
           return _RootFamilyList(rootId: rootId, items: items, tokens: tokens);
         },
-        loading: () => Center(
-          child: CircularProgressIndicator(color: tokens.accent),
-        ),
+        loading: () =>
+            Center(child: CircularProgressIndicator(color: tokens.accent)),
         error: (e, _) => _ErrorState(message: e.toString()),
       ),
     );
@@ -237,4 +236,3 @@ class _FamilyTile extends StatelessWidget {
     );
   }
 }
-

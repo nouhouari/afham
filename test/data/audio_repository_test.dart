@@ -15,11 +15,11 @@ AudioClip _clip({
   int startMs = 0,
   int durationMs = 500,
 }) => AudioClip(
-      id: id,
-      packFile: packFile,
-      startMs: startMs,
-      durationMs: durationMs,
-    );
+  id: id,
+  packFile: packFile,
+  startMs: startMs,
+  durationMs: durationMs,
+);
 
 // ── AudioClip domain model tests ──────────────────────────────────────────────
 
@@ -112,10 +112,7 @@ void main() {
         Duration(milliseconds: clip.startMs).inMilliseconds,
         equals(128750),
       );
-      expect(
-        Duration(milliseconds: clip.endMs).inMilliseconds,
-        equals(129950),
-      );
+      expect(Duration(milliseconds: clip.endMs).inMilliseconds, equals(129950));
     });
 
     test('end is always start + duration regardless of values', () {

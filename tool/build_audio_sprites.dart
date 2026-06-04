@@ -1,6 +1,8 @@
 #!/usr/bin/env dart
+
 // ignore_for_file: avoid_print, dangling_library_doc_comments
 library;
+
 ///
 /// Concatenates individual clip files (WAV or M4A/AAC) into AAC-LC sprite
 /// packs and emits a manifest JSON ready to import into `audio_clips`.
@@ -72,15 +74,10 @@ void main(List<String> rawArgs) async {
   outputDir.createSync(recursive: true);
 
   // ── 3. Collect input clips (sorted for determinism) ─────────────────────────
-  final clips = inputDir
-      .listSync()
-      .whereType<File>()
-      .where((f) {
-        final ext = f.path.toLowerCase();
-        return ext.endsWith('.wav') || ext.endsWith('.m4a');
-      })
-      .toList()
-    ..sort((a, b) => a.path.compareTo(b.path));
+  final clips = inputDir.listSync().whereType<File>().where((f) {
+    final ext = f.path.toLowerCase();
+    return ext.endsWith('.wav') || ext.endsWith('.m4a');
+  }).toList()..sort((a, b) => a.path.compareTo(b.path));
 
   if (clips.isEmpty) {
     print('No *.wav / *.m4a files found in ${inputDir.path}. Nothing to do.');
@@ -135,9 +132,9 @@ void main(List<String> rawArgs) async {
 
   // ── 6. Write manifest ────────────────────────────────────────────────────────
   final manifestPath = '${outputDir.path}/manifest.json';
-  File(manifestPath).writeAsStringSync(
-    const JsonEncoder.withIndent('  ').convert(manifest),
-  );
+  File(
+    manifestPath,
+  ).writeAsStringSync(const JsonEncoder.withIndent('  ').convert(manifest));
   print('Manifest written: $manifestPath (${manifest.length} entries).');
 }
 
@@ -148,9 +145,12 @@ Future<int?> _probeDurationMs(String ffmpegPath, String filePath) async {
   // ffprobe lives alongside ffmpeg.
   final ffprobePath = ffmpegPath.replaceAll('ffmpeg', 'ffprobe');
   final result = await Process.run(ffprobePath, [
-    '-v', 'error',
-    '-show_entries', 'format=duration',
-    '-of', 'default=noprint_wrappers=1:nokey=1',
+    '-v',
+    'error',
+    '-show_entries',
+    'format=duration',
+    '-of',
+    'default=noprint_wrappers=1:nokey=1',
     filePath,
   ]);
   if (result.exitCode != 0) return null;
@@ -175,8 +175,7 @@ Future<void> _buildPack(
   // Output: -map [aout] -c:a aac -b:a 32k -ac 1
   final inputArgs = clips.expand((f) => ['-i', f.path]).toList();
   final filterInputs = List.generate(clips.length, (i) => '[$i:a]').join();
-  final filterComplex =
-      '${filterInputs}concat=n=${clips.length}:v=0:a=1[aout]';
+  final filterComplex = '${filterInputs}concat=n=${clips.length}:v=0:a=1[aout]';
 
   final args = [
     '-y', // overwrite

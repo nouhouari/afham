@@ -73,7 +73,10 @@ void main() {
     });
 
     test('FR content (with accents) is imported', () async {
-      final results = await db.searchDao.searchLemmas('رَحْمَة', langCode: 'fr');
+      final results = await db.searchDao.searchLemmas(
+        'رَحْمَة',
+        langCode: 'fr',
+      );
       final r = results.firstWhere((r) => r.lemmaAr == 'رَحْمَة');
       expect(r.translation.toLowerCase(), contains('miséricorde'));
       expect(r.tafsir, isNotEmpty);

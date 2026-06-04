@@ -85,21 +85,20 @@ class _SheetHost extends StatelessWidget {
 }
 
 GoRouter _buildRouter(AppDatabase db, int lemmaId) => GoRouter(
-      initialLocation: '/',
-      routes: [
-        GoRoute(
-          path: '/',
-          name: 'host',
-          builder: (_, _) => _SheetHost(lemmaId: lemmaId),
-        ),
-        GoRoute(
-          path: '/root/:rootId',
-          name: 'rootFamily',
-          builder: (_, _) =>
-              const Scaffold(body: Text('Root family')),
-        ),
-      ],
-    );
+  initialLocation: '/',
+  routes: [
+    GoRoute(
+      path: '/',
+      name: 'host',
+      builder: (_, _) => _SheetHost(lemmaId: lemmaId),
+    ),
+    GoRoute(
+      path: '/root/:rootId',
+      name: 'rootFamily',
+      builder: (_, _) => const Scaffold(body: Text('Root family')),
+    ),
+  ],
+);
 
 Widget _buildApp(AppDatabase db, int lemmaId) {
   return TranslationProvider(
@@ -143,8 +142,11 @@ void main() {
   // ── Helpers ───────────────────────────────────────────────────────────────
 
   /// Opens the sheet and waits for all async loads to settle.
-  Future<void> openSheet(WidgetTester tester, AppDatabase database,
-      int lemmaId) async {
+  Future<void> openSheet(
+    WidgetTester tester,
+    AppDatabase database,
+    int lemmaId,
+  ) async {
     await tester.pumpWidget(_buildApp(database, lemmaId));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Open sheet'));
@@ -211,26 +213,22 @@ void main() {
       await openSheet(tester, db, rahmaId);
 
       // word.root = "Racine" → uppercased = "RACINE"
-      expect(
-        find.textContaining('RACINE', findRichText: true),
-        findsOneWidget,
-      );
+      expect(find.textContaining('RACINE', findRichText: true), findsOneWidget);
     });
 
     testWidgets('shows root latin transliteration r-h-m', (tester) async {
       await openSheet(tester, db, rahmaId);
 
-      expect(
-        find.textContaining('r-h-m', findRichText: true),
-        findsWidgets,
-      );
+      expect(find.textContaining('r-h-m', findRichText: true), findsWidgets);
     });
   });
 
   // ── Unknown lemma id ──────────────────────────────────────────────────────
 
   group('WordDetailSheet — unknown lemma id', () {
-    testWidgets('shows the localised error state for id 999999', (tester) async {
+    testWidgets('shows the localised error state for id 999999', (
+      tester,
+    ) async {
       await openSheet(tester, db, 999999);
 
       // When getLemmaDetail returns null, _WordDetailSheet renders _SheetError
@@ -251,24 +249,20 @@ void main() {
   // ── Cross-lemma spot checks ────────────────────────────────────────────────
 
   group('WordDetailSheet — other seeded lemmas', () {
-    testWidgets('صَبْر (sabr) sheet opens and shows Arabic word', (tester) async {
+    testWidgets('صَبْر (sabr) sheet opens and shows Arabic word', (
+      tester,
+    ) async {
       final sabrId = await _lemmaId(db, 'صَبْر');
       await openSheet(tester, db, sabrId);
 
-      expect(
-        find.textContaining('صَبْر', findRichText: true),
-        findsWidgets,
-      );
+      expect(find.textContaining('صَبْر', findRichText: true), findsWidgets);
     });
 
     testWidgets('نُور (nur) sheet opens and shows Arabic word', (tester) async {
       final nurId = await _lemmaId(db, 'نُور');
       await openSheet(tester, db, nurId);
 
-      expect(
-        find.textContaining('نُور', findRichText: true),
-        findsWidgets,
-      );
+      expect(find.textContaining('نُور', findRichText: true), findsWidgets);
     });
   });
 }

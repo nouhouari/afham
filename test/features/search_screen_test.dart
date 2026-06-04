@@ -59,27 +59,21 @@ Future<AppDatabase> _openSeededDb() async {
 // Providing a GoRouter with stubs prevents "no GoRouter found" exceptions.
 
 GoRouter _buildRouter() => GoRouter(
-      initialLocation: '/',
-      routes: [
-        GoRoute(
-          path: '/',
-          name: 'search',
-          builder: (_, _) => const SearchScreen(),
-        ),
-        GoRoute(
-          path: '/settings',
-          name: 'settings',
-          builder: (_, _) =>
-              const Scaffold(body: Text('Settings')),
-        ),
-        GoRoute(
-          path: '/root/:rootId',
-          name: 'rootFamily',
-          builder: (_, _) =>
-              const Scaffold(body: Text('Root family')),
-        ),
-      ],
-    );
+  initialLocation: '/',
+  routes: [
+    GoRoute(path: '/', name: 'search', builder: (_, _) => const SearchScreen()),
+    GoRoute(
+      path: '/settings',
+      name: 'settings',
+      builder: (_, _) => const Scaffold(body: Text('Settings')),
+    ),
+    GoRoute(
+      path: '/root/:rootId',
+      name: 'rootFamily',
+      builder: (_, _) => const Scaffold(body: Text('Root family')),
+    ),
+  ],
+);
 
 // ── Widget builder ─────────────────────────────────────────────────────────────
 
@@ -176,8 +170,9 @@ void main() {
       expect(find.textContaining('رَحْمَة', findRichText: true), findsWidgets);
     });
 
-    testWidgets('entering Arabic «رحمة» shows رَحْمَة result card',
-        (tester) async {
+    testWidgets('entering Arabic «رحمة» shows رَحْمَة result card', (
+      tester,
+    ) async {
       await tester.pumpWidget(_buildApp(db));
       await tester.pumpAndSettle();
 
@@ -187,8 +182,9 @@ void main() {
       expect(find.textContaining('رَحْمَة', findRichText: true), findsWidgets);
     });
 
-    testWidgets('result card shows French translation (Miséricorde)',
-        (tester) async {
+    testWidgets('result card shows French translation (Miséricorde)', (
+      tester,
+    ) async {
       await tester.pumpWidget(_buildApp(db));
       await tester.pumpAndSettle();
 
@@ -218,27 +214,33 @@ void main() {
 
   group('SearchScreen — tap result card → word-detail sheet', () {
     testWidgets(
-        'tapping rahma result opens a bottom sheet with the Arabic hero word',
-        (tester) async {
-      await tester.pumpWidget(_buildApp(db));
-      await tester.pumpAndSettle();
+      'tapping rahma result opens a bottom sheet with the Arabic hero word',
+      (tester) async {
+        await tester.pumpWidget(_buildApp(db));
+        await tester.pumpAndSettle();
 
-      await tester.enterText(find.byType(TextField), 'rahma');
-      await tester.pumpAndSettle();
+        await tester.enterText(find.byType(TextField), 'rahma');
+        await tester.pumpAndSettle();
 
-      // Find and tap the first result card InkWell containing رَحْمَة.
-      // The card's InkWell wraps the whole card content; tap a unique text in it.
-      final cardText = find.textContaining('رَحْمَة', findRichText: true).first;
-      await tester.tap(cardText);
-      await tester.pumpAndSettle();
+        // Find and tap the first result card InkWell containing رَحْمَة.
+        // The card's InkWell wraps the whole card content; tap a unique text in it.
+        final cardText = find
+            .textContaining('رَحْمَة', findRichText: true)
+            .first;
+        await tester.tap(cardText);
+        await tester.pumpAndSettle();
 
-      // The sheet should now show the Arabic hero word prominently.
-      expect(find.textContaining('رَحْمَة', findRichText: true), findsWidgets);
-    });
+        // The sheet should now show the Arabic hero word prominently.
+        expect(
+          find.textContaining('رَحْمَة', findRichText: true),
+          findsWidgets,
+        );
+      },
+    );
 
-    testWidgets(
-        'word-detail sheet contains the French translation after tap',
-        (tester) async {
+    testWidgets('word-detail sheet contains the French translation after tap', (
+      tester,
+    ) async {
       await tester.pumpWidget(_buildApp(db));
       await tester.pumpAndSettle();
 
@@ -274,8 +276,9 @@ void main() {
   // ── Mot du jour card tap → opens word-detail sheet ───────────────────────
 
   group('SearchScreen — Mot du jour card tap', () {
-    testWidgets('tapping the Mot du jour card opens the word-detail sheet',
-        (tester) async {
+    testWidgets('tapping the Mot du jour card opens the word-detail sheet', (
+      tester,
+    ) async {
       await tester.pumpWidget(_buildApp(db));
       await tester.pumpAndSettle();
 

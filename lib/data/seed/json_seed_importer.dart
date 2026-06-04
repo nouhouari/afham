@@ -130,7 +130,10 @@ Future<void> _importOneLemma(AppDatabase db, Map<String, dynamic> lemma) async {
       final verse = _asMap(rawVerse, 'verses[]');
       final surah = _asInt(verse['surah'], 'verse.surah');
       final ayah = _asInt(verse['ayah'], 'verse.ayah');
-      final textUthmani = _asString(verse['text_uthmani'], 'verse.text_uthmani');
+      final textUthmani = _asString(
+        verse['text_uthmani'],
+        'verse.text_uthmani',
+      );
       final textSimple =
           (verse['text_simple'] as String?) ?? normalizeArabic(textUthmani);
       final position = (verse['position'] as num?)?.toInt() ?? 0;
@@ -159,10 +162,11 @@ Future<int> _upsertRoot(
   required String rootAr,
   required String latin,
 }) async {
-  final existing = await (db.select(db.roots)
-        ..where((r) => r.rootAr.equals(rootAr))
-        ..limit(1))
-      .getSingleOrNull();
+  final existing =
+      await (db.select(db.roots)
+            ..where((r) => r.rootAr.equals(rootAr))
+            ..limit(1))
+          .getSingleOrNull();
   if (existing != null) return existing.id;
   return db
       .into(db.roots)
@@ -183,10 +187,11 @@ Future<int> _upsertLemma(
   required String pos,
   required int frequency,
 }) async {
-  final existing = await (db.select(db.lemmas)
-        ..where((l) => l.lemmaAr.equals(lemmaAr) & l.rootId.equals(rootId))
-        ..limit(1))
-      .getSingleOrNull();
+  final existing =
+      await (db.select(db.lemmas)
+            ..where((l) => l.lemmaAr.equals(lemmaAr) & l.rootId.equals(rootId))
+            ..limit(1))
+          .getSingleOrNull();
   if (existing != null) return existing.id;
   return db
       .into(db.lemmas)
@@ -208,10 +213,11 @@ Future<int> _upsertSurfaceForm(
   required String textAr,
   required String latin,
 }) async {
-  final existing = await (db.select(db.surfaceForms)
-        ..where((s) => s.lemmaId.equals(lemmaId) & s.textAr.equals(textAr))
-        ..limit(1))
-      .getSingleOrNull();
+  final existing =
+      await (db.select(db.surfaceForms)
+            ..where((s) => s.lemmaId.equals(lemmaId) & s.textAr.equals(textAr))
+            ..limit(1))
+          .getSingleOrNull();
   if (existing != null) return existing.id;
   return db
       .into(db.surfaceForms)
@@ -232,10 +238,11 @@ Future<int> _upsertVerse(
   required String textUthmani,
   required String textSimple,
 }) async {
-  final existing = await (db.select(db.verses)
-        ..where((v) => v.surah.equals(surah) & v.ayah.equals(ayah))
-        ..limit(1))
-      .getSingleOrNull();
+  final existing =
+      await (db.select(db.verses)
+            ..where((v) => v.surah.equals(surah) & v.ayah.equals(ayah))
+            ..limit(1))
+          .getSingleOrNull();
   if (existing != null) return existing.id;
   return db
       .into(db.verses)
@@ -255,13 +262,15 @@ Future<void> _upsertOccurrence(
   required int verseId,
   required int position,
 }) async {
-  final existing = await (db.select(db.occurrences)
-        ..where(
-          (o) =>
-              o.surfaceFormId.equals(surfaceFormId) & o.verseId.equals(verseId),
-        )
-        ..limit(1))
-      .getSingleOrNull();
+  final existing =
+      await (db.select(db.occurrences)
+            ..where(
+              (o) =>
+                  o.surfaceFormId.equals(surfaceFormId) &
+                  o.verseId.equals(verseId),
+            )
+            ..limit(1))
+          .getSingleOrNull();
   if (existing != null) return;
   await db
       .into(db.occurrences)
