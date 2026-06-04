@@ -346,7 +346,7 @@ class _RootBlock extends StatelessWidget {
         InkWell(
           onTap: () {
             Navigator.of(context).pop(); // close sheet first
-            context.goNamed(
+            context.pushNamed(
               'rootFamily',
               pathParameters: {'rootId': detail.rootId.toString()},
             );

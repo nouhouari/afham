@@ -51,7 +51,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           IconButton(
             icon: const Icon(Icons.settings_outlined),
             tooltip: strings.settings.title,
-            onPressed: () => context.goNamed('settings'),
+            onPressed: () => context.pushNamed('settings'),
           ),
           const SizedBox(width: Spacing.xs),
         ],
